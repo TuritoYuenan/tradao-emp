@@ -1,0 +1,21 @@
+id,name,description,start_time,end_time,location,created_at,updated_at
+1,AI Workshop: Introduction to Machine Learning,"Hands-on workshop covering ML basics and simple models",2025-09-10 10:00:00,2025-09-10 13:00:00,Room 201,2025-06-01 09:00:00,2025-06-01 09:00:00
+2,Annual Computer Science Conference 2025,"Keynotes and research presentations from CS faculty and students",2025-10-05 09:00:00,2025-10-05 17:00:00,Main Auditorium,2025-06-01 09:00:00,2025-06-01 09:00:00
+3,Cybersecurity Awareness Seminar,"Public talk on best practices for digital security",2025-09-15 15:00:00,2025-09-15 17:00:00,Room 305,2025-06-01 09:00:00,2025-06-01 09:00:00
+4,Weekly Coding Meetup,"Collaborative coding session for club members",2025-09-12 18:00:00,2025-09-12 20:00:00,Lab 1,2025-06-01 09:00:00,2025-06-01 09:00:00
+5,Data Science Panel Discussion,"Experts discuss trends and careers in data science",2025-09-20 14:00:00,2025-09-20 16:00:00,Room 210,2025-06-01 09:00:00,2025-06-01 09:00:00
+6,Open Source Contribution Night,"Workshop on contributing to open source projects",2025-09-22 17:00:00,2025-09-22 20:00:00,Lab 2,2025-06-01 09:00:00,2025-06-01 09:00:00
+7,Women in Tech Networking Event,"Meet and network with women in computer science",2025-09-25 16:00:00,2025-09-25 18:00:00,Student Lounge,2025-06-01 09:00:00,2025-06-01 09:00:00
+8,Cloud Computing Bootcamp,"Intensive workshop on cloud platforms and deployment",2025-09-28 09:00:00,2025-09-28 15:00:00,Room 110,2025-06-01 09:00:00,2025-06-01 09:00:00
+9,Intro to Algorithms Seminar,"Public talk on algorithmic thinking and problem solving",2025-09-18 13:00:00,2025-09-18 15:00:00,Room 202,2025-06-01 09:00:00,2025-06-01 09:00:00
+10,Game Development Workshop,"Learn basics of game design and Unity",2025-10-02 11:00:00,2025-10-02 14:00:00,Lab 3,2025-06-01 09:00:00,2025-06-01 09:00:00
+11,Monthly Research Group Meeting,"Lab members present ongoing research",2025-09-19 17:00:00,2025-09-19 18:30:00,Lab Meeting Room,2025-06-01 09:00:00,2025-06-01 09:00:00
+12,Python for Beginners Workshop,"Introductory programming workshop for new members",2025-09-13 10:00:00,2025-09-13 12:00:00,Room 101,2025-06-01 09:00:00,2025-06-01 09:00:00
+13,Tech Entrepreneurship Talk,"Guest speaker on launching tech startups",2025-09-27 15:00:00,2025-09-27 16:30:00,Room 220,2025-06-01 09:00:00,2025-06-01 09:00:00
+14,Robotics Club Demo Day,"Showcase of student robotics projects",2025-10-03 14:00:00,2025-10-03 16:00:00,Engineering Atrium,2025-06-01 09:00:00,2025-06-01 09:00:00
+15,Ethics in AI Discussion,"Panel on ethical issues in artificial intelligence",2025-09-21 16:00:00,2025-09-21 18:00:00,Room 215,2025-06-01 09:00:00,2025-06-01 09:00:00
+16,Mobile App Development Workshop,"Build your first Android app",2025-09-29 10:00:00,2025-09-29 13:00:00,Lab 4,2025-06-01 09:00:00,2025-06-01 09:00:00
+17,Quantum Computing Intro Talk,"Overview of quantum computing concepts",2025-09-23 13:00:00,2025-09-23 14:30:00,Room 312,2025-06-01 09:00:00,2025-06-01 09:00:00
+18,Resume & Interview Prep for CS,"Workshop on job applications for CS students",2025-09-26 11:00:00,2025-09-26 13:00:00,Room 108,2025-06-01 09:00:00,2025-06-01 09:00:00
+19,Web Development Crash Course,"Learn HTML, CSS, and JavaScript basics",2025-09-16 09:00:00,2025-09-16 12:00:00,Lab 5,2025-06-01 09:00:00,2025-06-01 09:00:00
+20,End-of-Semester Hackathon,"24-hour coding competition for all members",2025-10-10 09:00:00,2025-10-11 09:00:00,Main Hall,2025-06-01 09:00:00,2025-06-01 09:00:00
