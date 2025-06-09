@@ -1,0 +1,35 @@
+:root {
+	--background: #E6FFF2;
+	--foreground: #153448;
+	--dark-green: #103228;
+	--green: #A8CD89;
+
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	font-size: 16px;
+
+	background-color: var(--background);
+	color: var(--foreground);
+}
+
+body {
+	margin: 0;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+	margin: 0;
+}
+
+:is(p, li) {
+	margin: 0.5em 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+a:hover {
+	font-size: 110%;
+	text-decoration: underline;
+}
