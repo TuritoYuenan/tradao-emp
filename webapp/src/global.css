@@ -11,6 +11,10 @@
 	color: var(--foreground);
 }
 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	margin: 0;
 }
@@ -29,7 +33,32 @@ a {
 	transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-a:hover {
-	font-size: 110%;
-	text-decoration: underline;
+:is(button, a.cta) {
+	padding: 0.5em 1em;
+	display: inline-block;
+
+	background-color: var(--green);
+	color: var(--foreground);
+
+	border: none;
+	border-radius: 0.25em;
+
+	font-size: 1em;
+	cursor: pointer;
+	transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+:is(button, a.cta):hover {
+	background-color: var(--dark-green);
+	color: var(--background);
+}
+
+::selection {
+	background-color: var(--green);
+	color: var(--foreground);
+}
+
+.material-symbols-rounded {
+	position: relative;
+	top: 0.2em;
 }

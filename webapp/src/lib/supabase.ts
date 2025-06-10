@@ -1,6 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
+import { type Database } from "./models";
 
-const backendURL = 'https://woenwfdxwwllmxwucivw.supabase.co'
-const backendKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndvZW53ZmR4d3dsbG14d3VjaXZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzNzUyOTEsImV4cCI6MjA2NDk1MTI5MX0.M0oR6EBvZdUOS7rtCf5QlzpO9k8CGZfvB5Zuj8vfGWQ'
+const backendURL = import.meta.env.VITE_SUPABASE_URL
+const backendKey = import.meta.env.VITE_SUPABASE_KEY
 
-export const supabase = createClient(backendURL, backendKey)
+const supabase = createClient<Database>(backendURL, backendKey);
+
+export default supabase;
