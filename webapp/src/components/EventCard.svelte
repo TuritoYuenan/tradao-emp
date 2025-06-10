@@ -33,7 +33,7 @@
 		</p>
 	</div>
 	<div class="register">
-		<a class="cta" href="/event/{event.id}">Register</a>
+		<a class="cta" href="/events/{event.id}">Register</a>
 	</div>
 </div>
 
