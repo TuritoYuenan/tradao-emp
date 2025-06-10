@@ -17,7 +17,7 @@
 </script>
 
 <div class="event">
-	<img class="image" src="https://placehold.co/200x144" alt="Event" />
+	<div class="image" style="--src: url(https://placehold.co/160x90)"></div>
 	<div class="details">
 		<h2>{event.name}</h2>
 		<p>
@@ -42,12 +42,19 @@
 		display: grid;
 		align-items: center;
 		grid-template-columns: 1fr 3fr auto;
-		border: 1px solid var(--dark-green);
+		border: 2px solid var(--foreground);
+		border-radius: 1rem;
 	}
 
 	.event .image {
 		width: 100%;
 		height: 100%;
+		aspect-ratio: 16 / 9;
+		border-radius: 1rem 0 0 1rem;
+		background-image: var(--src);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 
 	.event :where(.details, .register) {
@@ -79,8 +86,7 @@
 		}
 
 		.event .image {
-			width: 100%;
-			height: auto;
+			border-radius: 1rem 1rem 0 0;
 		}
 
 		.event .register {

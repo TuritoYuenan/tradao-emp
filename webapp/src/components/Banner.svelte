@@ -10,11 +10,13 @@
 
 <style>
 	header {
+		margin: 1rem;
 		margin-bottom: 2rem;
 		padding: 2rem;
 		background-color: var(--dark-green);
 		color: var(--green);
 		text-align: center;
+		border-radius: 5rem 5rem 1rem 5rem;
 	}
 
 	header h1 {

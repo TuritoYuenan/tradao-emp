@@ -3,8 +3,14 @@
 		<img src="/logo.svg" alt="ITea Lab Logo" />
 	</a>
 	<nav>
-		<a href="/events">Events</a>
-		<a href="/about">About</a>
+		<a href="/events">
+			<span class="material-symbols-rounded">event</span>
+			Events
+		</a>
+		<a href="/about">
+			<span class="material-symbols-rounded">info</span>
+			About
+		</a>
 	</nav>
 </header>
 
