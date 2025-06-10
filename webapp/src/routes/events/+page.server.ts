@@ -1,10 +1,11 @@
 import supabase from "$lib/supabase";
+import { error } from "@sveltejs/kit";
 
 export async function load() {
-	let { data: community_events, error } = await supabase
+	let { data: community_events, error: err, status } = await supabase
 		.from('community_events')
 		.select('*')
 
-	if (error) return { error: error.message };
-	return { events: community_events ?? [], url: import.meta.env.VITE_SUPABASE_URL };
+	if (err) error(status, err.message);
+	return { events: community_events ?? [] };
 }

@@ -54,8 +54,8 @@ a {
 }
 
 ::selection {
-	background-color: var(--green);
-	color: var(--foreground);
+	color: var(--green);
+	background-color: var(--dark-green);
 }
 
 .material-symbols-rounded {

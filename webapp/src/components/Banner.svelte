@@ -12,11 +12,11 @@
 	header {
 		margin: 1rem;
 		margin-bottom: 2rem;
-		padding: 2rem;
-		background-color: var(--dark-green);
-		color: var(--green);
+		padding: 3rem;
+		color: var(--dark-green);
+		background-color: var(--green);
 		text-align: center;
-		border-radius: 5rem 5rem 1rem 5rem;
+		border-radius: 8rem 1rem;
 	}
 
 	header h1 {
