@@ -4,19 +4,7 @@
 // 4. Return a JSON response with the pass URL. Error if failed
 // https://medium.com/@AlexanderObregon/json-schema-a-guide-to-validating-your-json-data-9f225b2a17ef
 
-// `tickets` table schema:
-// CREATE TABLE IF NOT EXISTS event_tickets (
-//	`id` SERIAL PRIMARY KEY,
-//	`event_id` INTEGER NOT NULL REFERENCES community_events(id) ON DELETE CASCADE,
-//	`name` VARCHAR(255) NOT NULL,
-//	`email` VARCHAR(255) NOT NULL,
-//	`academic_year` academic_year NOT NULL,
-//	`field_of_study` field_of_study NOT NULL,
-//	`major` major NOT NULL,
-//	`agreed_to_participate` BOOLEAN NOT NULL DEFAULT FALSE,
-//	`code` VARCHAR(50) UNIQUE NOT NULL,
-//	`issued_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-// );
+// `tickets` table schema: View schema.sql
 
 // Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
@@ -36,10 +24,15 @@ Deno.serve(async (req) => {
 		console.log("Received body:", body);
 
 		const { data, error } = await supabase
-			.from('event_tickets')
-			.insert(body)
-			.select('id')
-			.single()
+			.rpc("create_event_ticket", {
+				p_event_id: body.event_id,
+				p_name: body.name,
+				p_email: body.email,
+				p_academic_year: body.academic_year,
+				p_field_of_study: body.field_of_study,
+				p_major: body.major,
+				p_participate: body.agreed_to_participate,
+			});
 
 		if (error) {
 			console.error("Error inserting data:", error);
@@ -51,7 +44,7 @@ Deno.serve(async (req) => {
 
 		const response = {
 			passUrl: "https://example.com/pass/12345",
-			ticketId: data.id,
+			ticketId: data,
 		};
 
 		return new Response(JSON.stringify(response), {
