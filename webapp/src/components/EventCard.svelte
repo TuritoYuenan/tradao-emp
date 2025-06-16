@@ -1,23 +1,12 @@
 <script lang="ts">
 	import type { Tables } from "$lib/models";
+	import { formatDate } from "$lib/utilities";
 
 	let { event }: { event: Tables<"community_events"> } = $props();
-
-	function formatDate(date: string): string {
-		const options: Intl.DateTimeFormatOptions = {
-			year: "numeric",
-			month: "short",
-			day: "2-digit",
-			hour: "2-digit",
-			minute: "2-digit",
-			hour12: false,
-		};
-		return new Date(date).toLocaleString("en-AU", options);
-	}
 </script>
 
 <div class="event">
-	<div class="image" style="--src: url(https://placehold.co/160x90)"></div>
+	<div class="image" style="--src: url({event.image})"></div>
 	<div class="details">
 		<h2>{event.name}</h2>
 		<p>
