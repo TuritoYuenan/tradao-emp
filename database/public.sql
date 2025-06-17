@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS community_events (
 	image TEXT NOT NULL DEFAULT 'https://placehold.co/160x90'::text,
 
 	-- Date metadata
-	created_at TIMESTAMP WITHOUT TIME ZONE NULL DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP WITHOUT TIME ZONE NULL DEFAULT CURRENT_TIMESTAMP,
+	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	CONSTRAINT community_events_pkey PRIMARY KEY (id),
 );
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS event_tickets (
 	id UUID NOT NULL DEFAULT gen_random_uuid(),
 
 	-- Event of the ticket
-	event_id INTEGER NOT NULL REFERENCES community_events(id) ON DELETE CASCADE,
+	event_id UUID NOT NULL REFERENCES community_events(id) ON DELETE CASCADE,
 
 	-- Participant name
 	name CHARACTER VARYING(255) NOT NULL,
@@ -77,6 +77,10 @@ CREATE TABLE IF NOT EXISTS event_tickets (
 
 	CONSTRAINT event_tickets_pkey PRIMARY KEY (id),
 );
+
+-- Enable row-level security
+ALTER TABLE community_events ENABLE ROW LEVEL SECURITY;
+ALTER TABLE event_tickets ENABLE ROW LEVEL SECURITY;
 
 CREATE OR REPLACE FUNCTION create_event_ticket(
 	p_event_id INTEGER,

@@ -7,43 +7,71 @@ export type Json =
 	| Json[]
 
 export type Database = {
+	graphql_public: {
+		Tables: {
+			[_ in never]: never
+		}
+		Views: {
+			[_ in never]: never
+		}
+		Functions: {
+			graphql: {
+				Args: {
+					operationName?: string
+					query?: string
+					variables?: Json
+					extensions?: Json
+				}
+				Returns: Json
+			}
+		}
+		Enums: {
+			[_ in never]: never
+		}
+		CompositeTypes: {
+			[_ in never]: never
+		}
+	}
 	public: {
 		Tables: {
 			community_events: {
 				Row: {
+					category: string
 					created_at: string
 					description: string | null
 					end_time: string
 					host: string
-					id: number
+					id: string
 					image: string
 					location: string | null
-					name: string
 					start_time: string
+					title: string
 					updated_at: string
 				}
 				Insert: {
+					category?: string
 					created_at?: string
 					description?: string | null
 					end_time: string
 					host?: string
-					id?: number
+					id?: string
 					image?: string
 					location?: string | null
-					name: string
 					start_time: string
+					title: string
 					updated_at?: string
 				}
 				Update: {
+					category?: string
 					created_at?: string
 					description?: string | null
 					end_time?: string
 					host?: string
-					id?: number
+					id?: string
 					image?: string
 					location?: string | null
-					name?: string
 					start_time?: string
+					title?: string
 					updated_at?: string
 				}
 				Relationships: []
@@ -53,7 +81,7 @@ export type Database = {
 					academic_year: Database["public"]["Enums"]["academic_year"]
 					created_at: string
 					email: string
-					event_id: number
+					event_id: string
 					field_of_study: Database["public"]["Enums"]["field_of_study"]
 					id: string
 					major: string
@@ -65,7 +93,7 @@ export type Database = {
 					academic_year: Database["public"]["Enums"]["academic_year"]
 					created_at?: string
 					email: string
-					event_id: number
+					event_id: string
 					field_of_study: Database["public"]["Enums"]["field_of_study"]
 					id?: string
 					major: string
@@ -77,7 +105,7 @@ export type Database = {
 					academic_year?: Database["public"]["Enums"]["academic_year"]
 					created_at?: string
 					email?: string
-					event_id?: number
+					event_id?: string
 					field_of_study?: Database["public"]["Enums"]["field_of_study"]
 					id?: string
 					major?: string
@@ -106,39 +134,42 @@ export type Database = {
 		Views: {
 			upcoming_events: {
 				Row: {
+					category: string | null
 					created_at: string | null
 					description: string | null
 					end_time: string | null
 					host: string | null
-					id: number | null
+					id: string | null
 					image: string | null
 					location: string | null
-					name: string | null
 					start_time: string | null
+					title: string | null
 					updated_at: string | null
 				}
 				Insert: {
+					category?: string | null
 					created_at?: string | null
 					description?: string | null
 					end_time?: string | null
 					host?: string | null
-					id?: number | null
+					id?: string | null
 					image?: string | null
 					location?: string | null
-					name?: string | null
 					start_time?: string | null
+					title?: string | null
 					updated_at?: string | null
 				}
 				Update: {
+					category?: string | null
 					created_at?: string | null
 					description?: string | null
 					end_time?: string | null
 					host?: string | null
-					id?: number | null
+					id?: string | null
 					image?: string | null
 					location?: string | null
-					name?: string | null
 					start_time?: string | null
+					title?: string | null
 					updated_at?: string | null
 				}
 				Relationships: []
@@ -146,16 +177,7 @@ export type Database = {
 		}
 		Functions: {
 			create_event_ticket: {
-				Args:
-				| {
-					p_event_id: number
-					p_name: string
-					p_email: string
-					p_academic_year: Database["public"]["Enums"]["academic_year"]
-					p_field_of_study: Database["public"]["Enums"]["field_of_study"]
-					p_major: string
-				}
-				| {
+				Args: {
 					p_event_id: number
 					p_name: string
 					p_email: string
@@ -284,6 +306,9 @@ export type CompositeTypes<
 	: never
 
 export const Constants = {
+	graphql_public: {
+		Enums: {},
+	},
 	public: {
 		Enums: {
 			academic_year: ["Freshman", "Sophomore", "Junior", "Senior"],

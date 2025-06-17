@@ -7,13 +7,13 @@
 	let { data }: { data: { event: Tables<"community_events"> } } = $props();
 </script>
 
-<Title title={data.event.name} />
+<Title title={data.event.title} />
 
 <article id="details">
 	<div id="image" style="--src: url({data.event.image})"></div>
 
 	<div id="head">
-		<h1>{data.event.name}</h1>
+		<h1>{data.event.title}</h1>
 	</div>
 
 	<div id="text">

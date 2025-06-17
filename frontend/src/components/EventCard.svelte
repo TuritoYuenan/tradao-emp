@@ -8,7 +8,7 @@
 <div class="event">
 	<div class="image" style="--src: url({event.image})"></div>
 	<div class="details">
-		<h2>{event.name}</h2>
+		<h2>{event.title}</h2>
 		<p>
 			<span class="material-symbols-rounded">event</span>
 			<strong>Date:</strong>
