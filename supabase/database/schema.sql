@@ -83,7 +83,7 @@ ALTER TABLE community_events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE event_tickets ENABLE ROW LEVEL SECURITY;
 
 CREATE OR REPLACE FUNCTION create_event_ticket(
-	p_event_id INTEGER,
+	p_event_id UUID,
 	p_name CHARACTER VARYING(255),
 	p_email CHARACTER VARYING(255),
 	p_academic_year academic_year,

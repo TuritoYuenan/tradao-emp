@@ -13,6 +13,7 @@
 	<div id="image" style="--src: url({data.event.image})"></div>
 
 	<div id="head">
+		<p>{data.event.category}</p>
 		<h1>{data.event.title}</h1>
 	</div>
 
@@ -53,7 +54,7 @@
 
 	<div id="form">
 		<h2>Participate in this event</h2>
-		<RegForm />
+		<RegForm eventID={data.event.id} />
 	</div>
 </article>
 

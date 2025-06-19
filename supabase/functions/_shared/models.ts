@@ -178,7 +178,7 @@ export type Database = {
 		Functions: {
 			create_event_ticket: {
 				Args: {
-					p_event_id: number
+					p_event_id: string
 					p_name: string
 					p_email: string
 					p_academic_year: Database["public"]["Enums"]["academic_year"]
