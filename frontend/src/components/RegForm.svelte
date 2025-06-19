@@ -41,7 +41,7 @@
 	}
 </script>
 
-<form>
+<form onsubmit={handleSubmit}>
 	<label for="ff-name">Full name</label>
 	<input id="ff-name" type="text" required bind:value={form.name} />
 
