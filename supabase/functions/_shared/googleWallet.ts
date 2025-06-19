@@ -1,5 +1,6 @@
 // Import the Google Auth library for authentication
 import { GoogleAuth } from "npm:google-auth-library";
+import { log } from "node:console";
 
 const issuerId = Deno.env.get("GOOGLE_ISSUER_ID") || "1234567890"; // Replace with your issuer ID
 const classId = `${issuerId}.tradao_event`;
@@ -13,7 +14,7 @@ const client = new GoogleAuth({
 	},
 });
 
-function createPassClass() {
+async function createPassClass() {
 	const passClass = {
 		id: classId,
 		issuer: "1234567890", // Replace with your issuer ID
@@ -83,12 +84,26 @@ function createPassClass() {
 
 	let response;
 	try {
-		response = client.request({
-			url: baseUrl + "/eventTicket/" + classId,
+		response = await client.request({
+			url: `${baseUrl}/genericClass/${classId}`,
+			method: "GET",
+			data: passClass,
 		})
+
+		log("Pass class already exists:", response);
 	}
 	catch (error) {
-		console.error("Error creating pass class:", error);
-		throw new Error("Failed to create pass class");
+		if (error.response & error.response.status === 404) {
+		response = await client.request({
+			url: `${baseUrl}/genericClass/${classId}`,
+			method: "POST",
+			data: passClass,
+		});} else {
+			log("Error creating pass class:", error);
+		}
 	}
+}
+
+export function createPassObject() {
+	createPassClass();
 }
