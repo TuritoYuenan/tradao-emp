@@ -12,6 +12,12 @@
 		{ name: "Facebook", href: "https://facebook.com/ITeaLabTeam/" },
 		{ name: "LinkedIn", href: "https://linkedin.com/company/itea-lab" },
 	];
+
+	const contact = {
+		email: "contact.itealab@gmail.com",
+		address:
+			"A35 Bach Dang street, Tan Binh district, Ho Chi Minh city, Vietnam",
+	};
 </script>
 
 <footer>
@@ -44,14 +50,9 @@
 		<div>
 			<h2>Contact</h2>
 			<p>
-				<a href="mailto:contact.itealab@gmail.com">
-					contact.itealab@gmail.com
-				</a>
+				<a href="mailto:{contact.email}">{contact.email}</a>
 			</p>
-			<p id="address">
-				A35 Bach Dang street, Tan Binh district, Ho Chi Minh city,
-				Vietnam
-			</p>
+			<p id="address">{contact.address}</p>
 		</div>
 		<div id="leaf">
 			<Leaf />
