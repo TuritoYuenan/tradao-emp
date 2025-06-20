@@ -11,7 +11,7 @@ Deno.serve(async (req) => {
 
 	const supabase = connectSupabase("anon", req.headers.get("Authorization"),);
 
-	const { data, error } = await supabase
+	const { data: ticket, error } = await supabase
 		.from("event_tickets")
 		.select("*")
 		.eq("id", ticketId)
@@ -19,14 +19,20 @@ Deno.serve(async (req) => {
 		.single();
 
 	if (error) {
-		return new Response(error.message, { status: 500 });
+		return new Response(JSON.stringify({ error: error.message }), {
+			status: 500,
+			headers: { "Content-Type": "application/json" },
+		});
 	}
 
-	if (!data) {
-		return new Response("Ticket not found", { status: 404 });
+	if (!ticket) {
+		return new Response(JSON.stringify({ error: "Ticket not found" }), {
+			status: 404,
+			headers: { "Content-Type": "application/json" },
+		});
 	}
 
-	return new Response(JSON.stringify({ ticket: data, saveURL: "" }), {
+	return new Response(JSON.stringify({ ticket, saveURL: "" }), {
 		headers: { "Content-Type": "application/json" },
 	});
 })
