@@ -188,6 +188,10 @@ export type Database = {
 				}
 				Returns: string
 			}
+			lookup_ticket: {
+				Args: { p_ticket_id: string }
+				Returns: Json
+			}
 		}
 		Enums: {
 			academic_year: "Freshman" | "Sophomore" | "Junior" | "Senior"

@@ -119,6 +119,42 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION lookup_ticket(
+	p_ticket_id UUID
+) RETURNS JSON LANGUAGE plpgsql SECURITY INVOKER
+SET search_path TO public, pg_catalog AS $$
+DECLARE
+	result JSON;
+BEGIN
+	SELECT json_build_object(
+		'ticket_id', t.id,
+		'event_id', t.event_id,
+		'name', t.name,
+		'email', t.email,
+		'academic_year', t.academic_year,
+		'field_of_study', t.field_of_study,
+		'major', t.major,
+		'participate', t.participate,
+		'created_at', t.created_at,
+		'event', json_build_object(
+			'title', e.title,
+			'description', e.description,
+			'category', e.category,
+			'start_time', e.start_time,
+			'end_time', e.end_time,
+			'location', e.location,
+			'host', e.host,
+			'image', e.image
+		)
+	) INTO result
+	FROM event_tickets t
+	JOIN community_events e ON t.event_id = e.id
+	WHERE t.id = p_ticket_id;
+
+	RETURN result;
+END;
+$$; --
+
 CREATE VIEW upcoming_events WITH (security_invoker = on) AS
 SELECT *
 FROM community_events
