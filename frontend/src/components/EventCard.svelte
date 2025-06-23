@@ -33,6 +33,7 @@
 		grid-template-columns: 1fr 3fr auto;
 		border: 2px solid var(--foreground);
 		border-radius: 1rem;
+		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 	}
 
 	.event .image {

@@ -17,7 +17,7 @@
 		background-color: var(--green);
 		text-align: center;
 		border-radius: 1rem 8rem;
-
+		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 		position: relative;
 	}
 

@@ -75,6 +75,7 @@
 	#details > * {
 		border: 2px solid var(--foreground);
 		border-radius: 1rem;
+		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 	}
 
 	#details :where(#head, #text, #time, #host, #loct, #form) {
