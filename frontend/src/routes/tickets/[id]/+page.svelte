@@ -15,7 +15,9 @@
 
 <div>
 	<article>
+		<img id="bg-img" src="/icon-lab.svg" alt="Event logo" />
 		<h2>{data.ticket.event_id}</h2>
+		<hr />
 		<dl>
 			<dt>Name</dt>
 			<dd>{data.ticket.name}</dd>
@@ -34,6 +36,12 @@
 			<dt>Created At</dt>
 			<dd>{data.ticket.created_at}</dd>
 		</dl>
+		<hr />
+		<section id="footer">
+			<a href={data.saveURL} id="save-button">
+				<img src="/enAU_add_to_google_wallet_add-wallet-badge.svg" alt="Add to Google Wallet" />
+			</a>
+		</section>
 	</article>
 </div>
 
@@ -48,9 +56,31 @@
 		padding: 1rem;
 		border: 2px solid var(--foreground);
 		border-radius: 1rem;
+		position: relative;
+	}
+
+	article img#bg-img {
+		width: 20rem;
+		position: absolute;
+		z-index: -1;
+		left: 50%;
+		top: 50%;
+		opacity: 0.5;
+		aspect-ratio: 1 / 1;
+		transform: translate(-50%, -50%);
 	}
 
 	article h2 {
+		text-align: center;
+	}
+
+	article hr {
+		margin-block: 1rem;
+		border: 1px solid var(--foreground);
+		border-radius: 1rem;
+	}
+
+	article section#footer {
 		text-align: center;
 	}
 
