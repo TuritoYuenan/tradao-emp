@@ -132,6 +132,43 @@ export type Database = {
 			}
 		}
 		Views: {
+			tickets_with_event_details: {
+				Row: {
+					academic_year: Database["public"]["Enums"]["academic_year"] | null
+					created_at: string | null
+					email: string | null
+					event_category: string | null
+					event_description: string | null
+					event_end_time: string | null
+					event_host: string | null
+					event_id: string | null
+					event_image: string | null
+					event_location: string | null
+					event_start_time: string | null
+					event_title: string | null
+					field_of_study: Database["public"]["Enums"]["field_of_study"] | null
+					major: string | null
+					name: string | null
+					participate: boolean | null
+					ticket_id: string | null
+				}
+				Relationships: [
+					{
+						foreignKeyName: "event_tickets_event_id_fkey"
+						columns: ["event_id"]
+						isOneToOne: false
+						referencedRelation: "community_events"
+						referencedColumns: ["id"]
+					},
+					{
+						foreignKeyName: "event_tickets_event_id_fkey"
+						columns: ["event_id"]
+						isOneToOne: false
+						referencedRelation: "upcoming_events"
+						referencedColumns: ["id"]
+					},
+				]
+			}
 			upcoming_events: {
 				Row: {
 					category: string | null
@@ -187,10 +224,6 @@ export type Database = {
 					p_participate?: boolean
 				}
 				Returns: string
-			}
-			lookup_ticket: {
-				Args: { p_ticket_id: string }
-				Returns: Json
 			}
 		}
 		Enums: {
