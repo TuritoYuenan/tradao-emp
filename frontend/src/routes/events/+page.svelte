@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Database, Tables } from "$lib/models";
+	import type { Tables } from "$lib/models";
 	import Banner from "$components/Banner.svelte";
 	import EventCard from "$components/EventCard.svelte";
 	import Title from "$components/Title.svelte";

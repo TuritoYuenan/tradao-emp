@@ -65,11 +65,11 @@
 		gap: 1rem;
 		grid-template-areas:
 			"image image loct"
-			"image image loct"
 			"head head form"
 			"time host form"
 			"text text form";
 		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: auto auto auto 1fr;
 	}
 
 	#details > * {
