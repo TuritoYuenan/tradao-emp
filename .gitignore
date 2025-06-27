@@ -1,2 +1,6 @@
-.temp/
 *.env
+
+.vscode/mcp.json
+
+supabase/.branches
+supabase/.temp/
