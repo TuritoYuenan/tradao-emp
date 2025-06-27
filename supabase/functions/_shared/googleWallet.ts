@@ -14,6 +14,107 @@ const client = new GoogleAuth({
 	},
 });
 
+// Pass Class Object (only needs to be created once)
+export const eventTicketClass = {
+	id: classId,
+	issuerName: "ITea Lab",
+	eventName: {
+		defaultValue: {
+			language: "en-US",
+			value: "Community Event"
+		}
+	},
+	reviewStatus: "UNDER_REVIEW", // or "APPROVED" after Google review
+	logo: {
+		sourceUri: {
+			uri: "https://tradao-emp.pages.dev/logo.png"
+		}
+	},
+	homepageUri: {
+		uri: "https://tradao-emp.pages.dev",
+		description: "Tradao Event Management Platform"
+	},
+	multipleDevicesAndHoldersAllowedStatus: "ONE_USER_ALL_DEVICES"
+};
+
+// Function to create a Pass Object for a specific ticket
+export function createEventTicketObject(params: {
+	ticketId: string; // UUID from event_tickets.id
+	event: {
+		title: string;
+		description?: string;
+		start_time: string; // ISO string
+		end_time: string;   // ISO string
+		location?: string;
+		host?: string;
+		image?: string;
+	};
+	attendee: {
+		name: string;
+		email: string;
+		academic_year: string;
+		field_of_study: string;
+		major: string;
+	};
+}) {
+	const objectId = `${issuerId}.${params.ticketId.replace(/-/g, '')}`; // Google requires [issuerId].[alphanumeric]
+	return {
+		id: objectId,
+		classId: classId,
+		state: "ACTIVE",
+		heroImage: params.event.image
+			? { sourceUri: { uri: params.event.image } }
+			: undefined,
+		barcode: {
+			type: "QR_CODE",
+			value: params.ticketId
+		},
+		ticketHolderName: params.attendee.name,
+		ticketNumber: params.ticketId,
+		eventName: {
+			defaultValue: {
+				language: "en-US",
+				value: params.event.title
+			}
+		},
+		eventDateTime: {
+			start: params.event.start_time,
+			end: params.event.end_time
+		},
+		locations: params.event.location
+			? [{
+					location: {
+						description: params.event.location
+					}
+				}]
+			: undefined,
+		textModulesData: [
+			{
+				header: "Description",
+				body: params.event.description || ""
+			},
+			{
+				header: "Host",
+				body: params.event.host || ""
+			},
+			{
+				header: "Academic Year",
+				body: params.attendee.academic_year
+			},
+			{
+				header: "Field of Study",
+				body: params.attendee.field_of_study
+			},
+			{
+				header: "Major",
+				body: params.attendee.major
+			}
+		],
+		// Optionally add more fields as needed
+		// See: https://developers.google.com/wallet/tickets/events/reference/rest/v1/eventticketobject
+	};
+}
+
 async function createPassClass() {
 	const passClass = {
 		id: classId,
