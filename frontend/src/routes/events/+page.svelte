@@ -6,7 +6,7 @@
 
 	const EVENTS_PER_PAGE = 5;
 
-	let { data }: { data: { events: Tables<"community_events">[] } } = $props();
+	let { data }: { data: { events: Tables<"upcoming_events">[] } } = $props();
 	let currentPage = $state(1);
 
 	function totalPages() {

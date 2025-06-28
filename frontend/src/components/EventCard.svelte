@@ -2,7 +2,7 @@
 	import type { Tables } from "$lib/models";
 	import { formatDate } from "$lib/utilities";
 
-	let { event }: { event: Tables<"community_events"> } = $props();
+	let { event }: { event: Tables<"upcoming_events"> } = $props();
 </script>
 
 <div class="event">
@@ -12,8 +12,8 @@
 		<p>
 			<span class="material-symbols-rounded">event</span>
 			<strong>Date:</strong>
-			{formatDate(event.start_time)} &ndash;
-			{formatDate(event.end_time)}
+			{event.start_time ? formatDate(event.start_time) : "N/A"} &ndash;
+			{event.end_time ? formatDate(event.end_time) : "N/A"}
 		</p>
 		<p>
 			<span class="material-symbols-rounded">location_on</span>
