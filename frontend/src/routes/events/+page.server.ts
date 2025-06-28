@@ -3,7 +3,7 @@ import { error } from "@sveltejs/kit";
 
 export async function load() {
 	let { data: community_events, error: err, status } = await supabase
-		.from('community_events')
+		.from('upcoming_events')
 		.select('*')
 
 	if (err) error(status, err.message);

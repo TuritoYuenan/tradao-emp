@@ -9,15 +9,19 @@
 	let { data }: { data: { events: Tables<"upcoming_events">[] } } = $props();
 	let currentPage = $state(1);
 
+	// State for search, filter, and pagination
+	let search = $state("");
+	let selectedCategory = $state("");
+
 	function totalPages() {
-		return Math.ceil(data.events.length / EVENTS_PER_PAGE);
+		return Math.ceil(filteredEvents().length / EVENTS_PER_PAGE);
 	}
 
-	function pagedEvents() {
+	const pagedEvents = $derived(() => {
 		const start = (currentPage - 1) * EVENTS_PER_PAGE;
 		const end = currentPage * EVENTS_PER_PAGE;
-		return data.events.slice(start, end);
-	}
+		return filteredEvents().slice(start, end);
+	});
 
 	function prevPage() {
 		if (currentPage > 1) currentPage--;
@@ -26,6 +30,23 @@
 	function nextPage() {
 		if (currentPage < totalPages()) currentPage++;
 	}
+
+	// Extract unique categories from events
+	const categories = Array.from(
+		new Set(data.events.map((e) => e.category).filter(Boolean)),
+	);
+
+	// Filter and search logic
+	const filteredEvents = $derived(() => {
+		return data.events.filter((event) => {
+			const matchesSearch =
+				event.title?.toLowerCase().includes(search.toLowerCase()) ||
+				event.description?.toLowerCase().includes(search.toLowerCase());
+			const matchesCategory =
+				!selectedCategory || event.category === selectedCategory;
+			return matchesSearch && matchesCategory;
+		});
+	});
 </script>
 
 {#snippet paginationButtons()}
@@ -47,15 +68,33 @@
 	description="Check out the latest workshops, conferences, public talks and discussions in ITea Lab!"
 />
 
-{@render paginationButtons()}
-
 <article>
+	<!-- Search and filter -->
+	<search class="filters">
+		<input
+			type="text"
+			placeholder="Search by title or description"
+			bind:value={search}
+		/>
+		<select bind:value={selectedCategory}>
+			<option value="">All Categories</option>
+			{#each categories as category}
+				<option value={category}>{category}</option>
+			{/each}
+		</select>
+	</search>
+
+	{@render paginationButtons()}
+
 	{#each pagedEvents() as event}
 		<EventCard {event} />
 	{/each}
-</article>
+	{#if filteredEvents().length === 0}
+		<p>No events found.</p>
+	{/if}
 
-{@render paginationButtons()}
+	{@render paginationButtons()}
+</article>
 
 <style>
 	article {
@@ -73,10 +112,26 @@
 	}
 
 	.pagination {
+		margin-block: 0.5rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		gap: 1rem;
-		margin: 2rem 0;
+	}
+
+	.filters {
+		display: grid;
+		gap: 0.5rem;
+		grid-template-columns: 3fr 1fr;
+	}
+
+	.filters > * {
+		padding: 0.75rem 1rem;
+		font-size: 1rem;
+		color: inherit;
+		background-color: transparent;
+		border: 2px solid var(--foreground);
+		border-radius: 1rem;
+		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 	}
 </style>
