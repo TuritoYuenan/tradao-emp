@@ -10,12 +10,12 @@ function errorResponse(message: string, status: number = 500) {
 	);
 }
 
-// Input via header: { "ticket-id": string }
+// Input via query parameter: { "ticket-id": string }
 // Output: { ticket: Ticket, saveURL: string }
 Deno.serve(async (req) => {
 	const url = new URL(req.url);
-	const ticketId = url.searchParams.get("ticket-id");
-	if (!ticketId) return errorResponse("Missing ticket-id query parameter", 400);
+	const ticketId = url.searchParams.get("ticketID");
+	if (!ticketId) return errorResponse("Missing ticketID query parameter", 400);
 
 	const supabase = connectSupabase("anon", req.headers.get("Authorization"),);
 	const { data, error } = await supabase
