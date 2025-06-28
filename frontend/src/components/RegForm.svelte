@@ -43,10 +43,22 @@
 
 <form onsubmit={handleSubmit}>
 	<label for="ff-name">Full name</label>
-	<input id="ff-name" type="text" required bind:value={form.name} />
+	<input
+		id="ff-name"
+		type="text"
+		required
+		bind:value={form.name}
+		placeholder=""
+	/>
 
 	<label for="ff-mail">Email address</label>
-	<input id="ff-mail" type="email" required bind:value={form.email} />
+	<input
+		id="ff-mail"
+		type="email"
+		required
+		bind:value={form.email}
+		placeholder=""
+	/>
 
 	<label for="ff-year">Academic Year</label>
 	<select id="ff-year" required bind:value={form.year}>
@@ -66,14 +78,14 @@
 	</select>
 
 	<label for="ff-major">Major</label>
-	<select id="ff-major" required bind:value={form.major}>
-		<option value="" disabled selected>Select Major</option>
-		<option value="DS">Data Science</option>
-		<option value="SD">Software Development</option>
-		<option value="AI">AI</option>
-		<option value="IoT">IoT</option>
-		<option value="CyS">Cyber Security</option>
-	</select>
+	<input
+		id="ff-major"
+		type="text"
+		required
+		bind:value={form.major}
+		list="mjs"
+		placeholder="e.g. Data Science"
+	/>
 
 	<p>
 		<input
@@ -90,9 +102,21 @@
 	<button type="submit">Submit</button>
 </form>
 
+<datalist id="mjs">
+	<option value="Data Science">Data Science</option>
+	<option value="Software Development">Software Development</option>
+	<option value="Artificial Intelligence">Artificial Intelligence</option>
+	<option value="Internet of Things">Internet of Things</option>
+	<option value="Cyber Security">Cyber Security</option>
+</datalist>
+
 <style>
 	form {
 		margin-top: 0.5rem;
+	}
+
+	input {
+		color: inherit;
 	}
 
 	input[type="text"],
