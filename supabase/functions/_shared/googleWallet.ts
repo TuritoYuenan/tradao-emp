@@ -6,7 +6,7 @@ const issuerId = Deno.env.get("GOOGLE_ISSUER_ID") || "1234567890"; // Replace wi
 const classId = `${issuerId}.tradao_event`;
 const baseUrl = "https://example.com/tickets"; // Replace with your base URL for tickets
 
-const client = new GoogleAuth({
+export const client = new GoogleAuth({
 	scopes: 'https://www.googleapis.com/auth/wallet_object.issuer',
 	credentials: {
 		client_email: Deno.env.get("GOOGLE_CLIENT_EMAIL") || "",
@@ -193,15 +193,12 @@ async function createPassClass() {
 
 		log("Pass class already exists:", response);
 	}
-	catch (error) {
-		if (error.response & error.response.status === 404) {
+	catch (_error) {
 		response = await client.request({
 			url: `${baseUrl}/genericClass/${classId}`,
 			method: "POST",
 			data: passClass,
-		});} else {
-			log("Error creating pass class:", error);
-		}
+		});
 	}
 }
 
