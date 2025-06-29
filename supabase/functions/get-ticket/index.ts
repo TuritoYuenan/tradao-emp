@@ -1,14 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { connectSupabase } from "../_shared/supabase.ts";
-import { error } from "node:console";
-
-function errorResponse(message: string, status: number = 500) {
-	error("%d: %s", status, message);
-	return new Response(
-		JSON.stringify({ error: message }),
-		{ status, headers: { "Content-Type": "application/json" } }
-	);
-}
+import { errorResponse } from "../_shared/utils.ts";
 
 // Input via query parameter: { "ticketID": string }
 // Output: { ticket: Ticket, saveURL: string }
