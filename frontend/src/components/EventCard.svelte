@@ -52,7 +52,7 @@
 	}
 
 	/* Medium screen layout */
-	@media (width <= 900px) and (width > 600px) {
+	@media (width <= 900px) and (width > 640px) {
 		.event {
 			grid-template-columns: 1fr 2fr;
 			grid-template-rows: auto auto;
@@ -70,7 +70,7 @@
 		}
 	}
 
-	@media (width <= 600px) {
+	@media (width <= 640px) {
 		.event {
 			grid-template-columns: 1fr;
 		}
