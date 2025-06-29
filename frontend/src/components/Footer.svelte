@@ -1,18 +1,27 @@
 <script lang="ts">
 	import Leaf from "./Leaf.svelte";
 
+	/**
+	 * Explore - Links to internal ITea Lab sections
+	 */
 	const explore = [
 		{ name: "About", href: "/" },
 		{ name: "Community", href: "/" },
 		{ name: "Join Us", href: "/" },
 	];
 
+	/**
+	 * Community - Links to external ITea Lab social media
+	 */
 	const community = [
 		{ name: "GitHub", href: "https://github.com/itea-lab" },
 		{ name: "Facebook", href: "https://facebook.com/ITeaLabTeam/" },
 		{ name: "LinkedIn", href: "https://linkedin.com/company/itea-lab" },
 	];
 
+	/**
+	 * Contact - Contact information for ITea Lab
+	 */
 	const contact = {
 		email: "contact.itealab@gmail.com",
 		address:

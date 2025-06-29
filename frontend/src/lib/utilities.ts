@@ -1,3 +1,8 @@
+/**
+ * Format a date string into a more readable format.
+ * @param date Date string or object to format
+ * @returns Formatted date string in "dd MMM yyyy, HH:mm" format
+ */
 export function formatDate(date: string): string {
 	const options: Intl.DateTimeFormatOptions = {
 		year: "numeric",

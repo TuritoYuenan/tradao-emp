@@ -5,6 +5,9 @@
 
 	let { eventID = "" } = $props();
 
+	/**
+	 * Registration form fields to collect
+	 */
 	let form = {
 		name: "",
 		email: "",
@@ -14,6 +17,10 @@
 		confirm: false,
 	};
 
+	/**
+	 * Handles registering an event
+	 * @param event The form submission event
+	 */
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
 
