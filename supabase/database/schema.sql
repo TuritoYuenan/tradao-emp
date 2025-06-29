@@ -1,7 +1,7 @@
 -- Add extentions
-CREATE EXTENSION pgmq;
-CREATE EXTENSION pgtap;
-CREATE EXTENSION index_advisor;
+CREATE EXTENSION IF NOT EXISTS pgmq;
+CREATE EXTENSION IF NOT EXISTS pgtap;
+CREATE EXTENSION IF NOT EXISTS index_advisor;
 
 DO $$
 BEGIN
@@ -50,6 +50,21 @@ CREATE TABLE IF NOT EXISTS community_events (
 	CONSTRAINT community_events_pkey PRIMARY KEY (id),
 );
 
+-- Add table and column descriptions for community_events
+COMMENT ON TABLE community_events IS 'Stores information about community events such as workshops, seminars, or meetups.';
+
+COMMENT ON COLUMN community_events.id IS 'Unique identifier for the event.';
+COMMENT ON COLUMN community_events.title IS 'Title of the event.';
+COMMENT ON COLUMN community_events.description IS 'Detailed description of the event.';
+COMMENT ON COLUMN community_events.category IS 'Category or type of the event (e.g., Workshop, Seminar, Meetup).';
+COMMENT ON COLUMN community_events.start_time IS 'Start time of the event.';
+COMMENT ON COLUMN community_events.end_time IS 'End time of the event.';
+COMMENT ON COLUMN community_events.location IS 'Location where the event takes place (e.g., Online, Room 101).';
+COMMENT ON COLUMN community_events.host IS 'Host of the event (person or organization).';
+COMMENT ON COLUMN community_events.image IS 'URL to the event thumbnail or image.';
+COMMENT ON COLUMN community_events.created_at IS 'Timestamp when the event record was created.';
+COMMENT ON COLUMN community_events.updated_at IS 'Timestamp when the event record was last updated.';
+
 -- Table to store event tickets
 CREATE TABLE IF NOT EXISTS event_tickets (
 	-- Ticket ID and QR code / Google Wallet Pass Object ID
@@ -82,6 +97,20 @@ CREATE TABLE IF NOT EXISTS event_tickets (
 
 	CONSTRAINT event_tickets_pkey PRIMARY KEY (id),
 );
+
+-- Add table and column descriptions for event_tickets
+COMMENT ON TABLE event_tickets IS 'Stores tickets for community events, including participant details and event information.';
+
+COMMENT ON COLUMN event_tickets.id IS 'Unique identifier for the ticket.';
+COMMENT ON COLUMN event_tickets.event_id IS 'ID of the event for which the ticket is issued.';
+COMMENT ON COLUMN event_tickets.name IS 'Name of the participant holding the ticket.';
+COMMENT ON COLUMN event_tickets.email IS 'Contact email of the participant holding the ticket.';
+COMMENT ON COLUMN event_tickets.academic_year IS 'Academic year of the participant (Freshman, Sophomore, Junior, Senior).';
+COMMENT ON COLUMN event_tickets.field_of_study IS 'Field of study of the participant (e.g., Business, Computer Science, Media & Communication).';
+COMMENT ON COLUMN event_tickets.major IS 'Major of the participant.';
+COMMENT ON COLUMN event_tickets.participate IS 'Indicates whether the participant confirms their participation in the event.';
+COMMENT ON COLUMN event_tickets.created_at IS 'Timestamp when the ticket record was created.';
+COMMENT ON COLUMN event_tickets.updated_at IS 'Timestamp when the ticket record was last updated.';
 
 -- Enable row-level security
 ALTER TABLE community_events ENABLE ROW LEVEL SECURITY;
@@ -146,7 +175,11 @@ SELECT
 FROM event_tickets t
 JOIN community_events e ON t.event_id = e.id;
 
+COMMENT ON VIEW tickets_with_event_details IS 'View that combines event ticket details with corresponding event information.';
+
 CREATE VIEW upcoming_events WITH (security_invoker = ON) AS
 SELECT *
 FROM community_events
 WHERE start_time > (CURRENT_DATE + INTERVAL '2 days');
+
+COMMENT ON VIEW upcoming_events IS 'View that lists community events starting in the next 2 days.';
