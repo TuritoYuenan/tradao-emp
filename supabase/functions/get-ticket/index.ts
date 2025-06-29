@@ -10,7 +10,7 @@ function errorResponse(message: string, status: number = 500) {
 	);
 }
 
-// Input via query parameter: { "ticket-id": string }
+// Input via query parameter: { "ticketID": string }
 // Output: { ticket: Ticket, saveURL: string }
 Deno.serve(async (req) => {
 	const url = new URL(req.url);
@@ -28,21 +28,8 @@ Deno.serve(async (req) => {
 	if (error) return errorResponse(error.message, 500);
 	if (!data) return errorResponse("Ticket not found", 404);
 
-	return new Response(JSON.stringify({
-		ticket: {
-			id: data.ticket_id,
-			eventId: data.event_id,
-			name: data.name,
-			email: data.email,
-			createdAt: data.created_at,
-		}, event: {
-			id: data.event_id,
-			name: data.event_title,
-			startDate: data.event_start_time,
-			endDate: data.event_end_time,
-			location: data.event_location,
-			image: data.event_image,
-			description: data.event_description,
-		}, saveURL: ""
-	}), { headers: { "Content-Type": "application/json" } });
+	return new Response(
+		JSON.stringify({ lookup: data, saveURL: "" }),
+		{ headers: { "Content-Type": "application/json" } }
+	);
 })

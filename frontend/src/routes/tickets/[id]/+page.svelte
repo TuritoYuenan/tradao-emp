@@ -5,42 +5,47 @@
 
 	let {
 		data,
-	}: { data: { ticket: Tables<"event_tickets">; saveURL: string } } =
-		$props();
+	}: {
+		data: {
+			lookup: Tables<"tickets_with_event_details">;
+			saveURL: string;
+		};
+	} = $props();
 </script>
 
-<Title title={"Your ticket for " + data.ticket.event_id} />
+<Title title={"Your ticket for " + data.lookup.event_title} />
 
 <Banner title="Here is your event ticket!" />
 
 <div>
 	<article>
-		<img id="bg-img" src="/icon-lab.svg" alt="Event logo" />
-		<h2>{data.ticket.event_id}</h2>
+		<h2>{data.lookup.event_title}</h2>
 		<hr />
 		<dl>
 			<dt>Name</dt>
-			<dd>{data.ticket.name}</dd>
+			<dd>{data.lookup.name}</dd>
 			<dt>Email</dt>
-			<dd>{data.ticket.email}</dd>
+			<dd>{data.lookup.email}</dd>
 			<dt>Academic Year</dt>
-			<dd>{data.ticket.academic_year}</dd>
+			<dd>{data.lookup.academic_year}</dd>
 			<dt>Field of Study</dt>
-			<dd>{data.ticket.field_of_study}</dd>
+			<dd>{data.lookup.field_of_study}</dd>
 			<dt>Major</dt>
-			<dd>{data.ticket.major}</dd>
+			<dd>{data.lookup.major}</dd>
 			<dt>Participating</dt>
-			<dd>{data.ticket.participate ? "Yes" : "No"}</dd>
-			<dt>Ticket ID</dt>
-			<dd>{data.ticket.id}</dd>
+			<dd>{data.lookup.participate ? "Yes" : "No"}</dd>
 			<dt>Created At</dt>
-			<dd>{data.ticket.created_at}</dd>
+			<dd>{data.lookup.created_at}</dd>
 		</dl>
 		<hr />
 		<section id="footer">
 			<a href={data.saveURL} id="save-button">
-				<img src="/enAU_add_to_google_wallet_add-wallet-badge.svg" alt="Add to Google Wallet" />
+				<img
+					src="/enAU_add_to_google_wallet_add-wallet-badge.svg"
+					alt="Add to Google Wallet"
+				/>
 			</a>
+			<p>{data.lookup.ticket_id}</p>
 		</section>
 	</article>
 </div>
@@ -57,17 +62,6 @@
 		border: 2px solid var(--foreground);
 		border-radius: 1rem;
 		position: relative;
-	}
-
-	article img#bg-img {
-		width: 20rem;
-		position: absolute;
-		z-index: -1;
-		left: 50%;
-		top: 50%;
-		opacity: 0.5;
-		aspect-ratio: 1 / 1;
-		transform: translate(-50%, -50%);
 	}
 
 	article h2 {
