@@ -1,13 +1,11 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
-import { walletClient } from "../_shared/googleWallet.ts";
+import { classId, walletClient } from "../_shared/googleWallet.ts";
 
 Deno.serve(async (req) => {
 	try {
-		const res2 = await walletClient.genericobject.list({
-			classId: "3388000000022919404.gmgf_entry_ticket",
-		})
+		const response = await walletClient.genericobject.list({ classId })
 
-		return new Response(JSON.stringify(res2), {
+		return new Response(JSON.stringify(response), {
 			headers: { "Content-Type": "application/json", }
 		})
 	} catch (error) {

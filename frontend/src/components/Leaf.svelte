@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let fill: string = "var(--foreground)";
+	let { fill = "var(--foreground)" } = $props();
 </script>
 
 <svg

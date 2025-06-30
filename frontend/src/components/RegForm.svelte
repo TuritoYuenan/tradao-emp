@@ -8,20 +8,20 @@
 	/**
 	 * Registration form fields to collect
 	 */
-	let form = {
+	let form = $state({
 		name: "",
 		email: "",
 		year: "" as Database["public"]["Enums"]["academic_year"] | "",
 		field: "" as Database["public"]["Enums"]["field_of_study"] | "",
 		major: "",
 		confirm: false,
-	};
+	});
 
 	/**
 	 * Handles registering an event
 	 * @param event The form submission event
 	 */
-	async function handleSubmit(event: Event) {
+	async function handleRegistration(event: Event) {
 		event.preventDefault();
 
 		if (form.year === "" || form.field === "" || form.major === "") {
@@ -48,7 +48,7 @@
 	}
 </script>
 
-<form onsubmit={handleSubmit}>
+<form onsubmit={handleRegistration}>
 	<label for="ff-name">Full name</label>
 	<input
 		id="ff-name"

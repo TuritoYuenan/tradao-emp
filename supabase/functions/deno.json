@@ -10,7 +10,7 @@
 	},
 	"imports": {
 		"@googleapis/walletobjects": "npm:@googleapis/walletobjects@^7.0.1",
-		"@supabase/functions-js": "npm:@supabase/functions-js@^1.0.0",
+		"@supabase/functions-js": "jsr:@supabase/functions-js@^1.0.0",
 		"@supabase/supabase-js": "npm:@supabase/supabase-js@^2.0.0"
 	}
 }

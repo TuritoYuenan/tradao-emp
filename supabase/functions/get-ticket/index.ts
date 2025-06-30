@@ -7,7 +7,7 @@ import { errorResponse } from "../_shared/utils.ts";
 Deno.serve(async (req) => {
 	const url = new URL(req.url);
 	const ticketId = url.searchParams.get("ticketID");
-	if (!ticketId) return errorResponse("Missing ticketID query parameter", 400);
+	if (!ticketId) return errorResponse(400, "Missing ticketID query parameter");
 
 	const supabase = connectSupabase("anon", req.headers.get("Authorization"),);
 	const { data, error } = await supabase
@@ -17,8 +17,8 @@ Deno.serve(async (req) => {
 		.limit(1)
 		.single();
 
-	if (error) return errorResponse(error.message, 500);
-	if (!data) return errorResponse("Ticket not found", 404);
+	if (error) return errorResponse(500, error.message);
+	if (!data) return errorResponse(404, "Ticket not found");
 
 	return new Response(
 		JSON.stringify({ lookup: data, saveURL: "" }),

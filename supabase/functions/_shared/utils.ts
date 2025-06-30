@@ -4,7 +4,7 @@
  * @param status Status code, defaults to 500
  * @returns HTTP Response with error message
  */
-export function errorResponse(message: string, status: number = 500) {
+export function errorResponse(status: number = 500, message: string) {
 	console.error("%d: %s", status, message);
 	return new Response(
 		JSON.stringify({ error: message }),

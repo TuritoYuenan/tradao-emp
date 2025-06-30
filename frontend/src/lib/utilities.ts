@@ -3,7 +3,7 @@
  * @param date Date string or object to format
  * @returns Formatted date string in "dd MMM yyyy, HH:mm" format
  */
-export function formatDate(date: string): string {
+export function formatDate(date: string | Date): string {
 	const options: Intl.DateTimeFormatOptions = {
 		year: "numeric",
 		month: "short",
