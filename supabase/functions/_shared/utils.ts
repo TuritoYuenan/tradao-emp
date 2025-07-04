@@ -11,3 +11,12 @@ export function errorResponse(status: number = 500, message: string) {
 		{ status, headers: { "Content-Type": "application/json" } }
 	);
 }
+
+/**
+ * Utility function to serialise a date into an ISO string.
+ * @param date Date object or string to be serialised
+ * @returns ISO string representation of the date
+ */
+export function serialiseDate(date: Date | string): string {
+	return new Date(date).toISOString();
+}
