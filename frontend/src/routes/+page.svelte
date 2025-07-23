@@ -1,11 +1,138 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import type { Tables } from "$lib/models";
+	import Banner from "$components/Banner.svelte";
+	import EventCard from "$components/EventCard.svelte";
+	import Title from "$components/Title.svelte";
 
-	// This will run when the component is mounted
-	onMount(() => {
-		window.location.href = "/events"
+	let { data }: { data: { events: Tables<"upcoming_events">[] } } = $props();
+
+	// Extract unique categories from events
+	// https://mikebifulco.com/posts/javascript-filter-boolean
+	const categories = Array.from(
+		new Set(data.events.map((e) => e.category).filter(Boolean)),
+	);
+
+	// Filter and search logic
+	const filteredEvents = $derived(() => {
+		return data.events.filter((event) => {
+			const matchesSearch =
+				event.title?.toLowerCase().includes(search.toLowerCase()) ||
+				event.description?.toLowerCase().includes(search.toLowerCase());
+			const matchesCategory =
+				!selectedCategory || event.category === selectedCategory;
+			return matchesSearch && matchesCategory;
+		});
 	});
+
+	const pagedEvents = $derived(() => {
+		const start = (currentPage - 1) * itemsPerPage;
+		const end = currentPage * itemsPerPage;
+		return filteredEvents().slice(start, end);
+	});
+
+	let currentPage = $state(1);
+	const itemsPerPage = 5;
+
+	// State for search, filter, and pagination
+	let search = $state("");
+	let selectedCategory = $state("");
+
+	const totalPages = $derived(() => {
+		return Math.ceil(filteredEvents().length / itemsPerPage);
+	});
+
+	function prevPage() {
+		if (currentPage > 1) currentPage--;
+	}
+
+	function nextPage() {
+		if (currentPage < totalPages()) currentPage++;
+	}
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+{#snippet paginationButtons()}
+	<nav class="pagination">
+		<button onclick={prevPage} disabled={currentPage === 1}>
+			Previous
+		</button>
+		<span>Page {currentPage} of {totalPages()}</span>
+		<button onclick={nextPage} disabled={currentPage === totalPages()}>
+			Next
+		</button>
+	</nav>
+{/snippet}
+
+<Title title="Events" />
+
+<Banner
+	title="Upcoming Events"
+	description="Check out the latest workshops, conferences, public talks and discussions in ITea Lab!"
+/>
+
+<article>
+	<!-- Search and filter -->
+	<search class="filters">
+		<input
+			type="text"
+			placeholder="Search by title or description"
+			bind:value={search}
+		/>
+		<select bind:value={selectedCategory}>
+			<option value="">All Categories</option>
+			{#each categories as category}
+				<option value={category}>{category}</option>
+			{/each}
+		</select>
+	</search>
+
+	{@render paginationButtons()}
+
+	{#each pagedEvents() as event}
+		<EventCard {event} />
+	{/each}
+	{#if filteredEvents().length === 0}
+		<p>No events found.</p>
+	{/if}
+
+	{@render paginationButtons()}
+</article>
+
+<style>
+	article {
+		max-width: 960px;
+		margin-inline: auto;
+		gap: 1rem;
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	@media (width <= 1080px) {
+		article {
+			margin-inline: 1rem;
+		}
+	}
+
+	.pagination {
+		margin-block: 0.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.filters {
+		display: grid;
+		gap: 0.5rem;
+		grid-template-columns: 3fr 1fr;
+	}
+
+	.filters > * {
+		padding: 0.75rem 1rem;
+		font-size: 1rem;
+		color: inherit;
+		background-color: transparent;
+		border: 2px solid var(--foreground);
+		border-radius: 1rem;
+		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+	}
+</style>
