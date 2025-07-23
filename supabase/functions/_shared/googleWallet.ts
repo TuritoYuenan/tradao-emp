@@ -2,7 +2,7 @@
 import GoogleWallet from "npm:@googleapis/walletobjects"
 
 // Import JWT library for creating tokens
-import { importPKCS8, SignJWT } from "npm:jose@5.9.6";
+import { importPKCS8, JWTPayload, SignJWT } from "npm:jose@5.9.6";
 
 // Import database models
 import { Tables } from "../_shared/models.ts";
@@ -55,6 +55,7 @@ export async function createPassClass() {
 					fields: [
 						{
 							fieldPath: "object.textModulesData['event_date']",
+							dateFormat: "DATE_TIME_YEAR"
 						}
 					]
 				}
@@ -63,7 +64,8 @@ export async function createPassClass() {
 				firstValue: {
 					fields: [
 						{
-							fieldPath: "object.textModulesData['full_name']",
+							fieldPath: "object.textModulesData['ticket_created_at']",
+							dateFormat: "DATE_YEAR"
 						}
 					]
 				}
@@ -77,7 +79,7 @@ export async function createPassClass() {
 				firstValue: {
 					fields: [
 						{
-							fieldPath: "object.textModulesData['email']",
+							fieldPath: "object.textModulesData['full_name']",
 						}
 					]
 				}
@@ -86,7 +88,7 @@ export async function createPassClass() {
 				firstValue: {
 					fields: [
 						{
-							fieldPath: "object.textModulesData['academic_year']",
+							fieldPath: "object.textModulesData['email']",
 						}
 					]
 				}
@@ -100,7 +102,7 @@ export async function createPassClass() {
 				firstValue: {
 					fields: [
 						{
-							fieldPath: "object.textModulesData['field_of_study']",
+							fieldPath: "object.textModulesData['academic_year']",
 						}
 					]
 				}
@@ -109,7 +111,7 @@ export async function createPassClass() {
 				firstValue: {
 					fields: [
 						{
-							fieldPath: "object.textModulesData['major']",
+							fieldPath: "object.textModulesData['field_of_study']",
 						}
 					]
 				}
@@ -140,25 +142,26 @@ export async function createPassClass() {
 		multipleDevicesAndHoldersAllowedStatus: "ONE_USER_ALL_DEVICES",
 	};
 
-	// Check if the pass class already exists
-	const getResult = await walletClient.eventticketclass.get({ resourceId: classId });
+	let response;
+	try {
+		// Check if the pass class already exists
+		response = await walletClient.genericclass.get({ resourceId: classId });
 
-	// If the class exists, return its ID
-	if (getResult.ok) return classId;
+		console.log(`Pass class ${classId} already exists.`);
+		console.log(response);
+		return classId;
+	} catch (error) {
+		if (error.response?.status === 404) {
+			response = await walletClient.genericclass.insert({ requestBody: passClass });
 
-	// If the class does not exist, create it
-	if (getResult.status === 404) {
-		const postResult = await walletClient.eventticketclass.insert({ requestBody: passClass });
-
-		// If the insert was successful, return the class ID
-		if (postResult.ok) return classId;
-
-		// If the insert failed, throw an error
-		throw new Error(`Failed to create pass class: ${postResult.statusText}`);
+			console.log(`Pass class ${classId} created successfully.`);
+			console.log(response);
+			return classId;
+		} else {
+			// If the request failed for another reason, throw an error
+			throw new Error(`Failed to get pass class: ${error.message}`);
+		}
 	}
-
-	// If the request failed for another reason, throw an error
-	throw new Error(`Failed to get pass class: ${getResult.statusText}`);
 }
 
 /**
@@ -172,19 +175,19 @@ export async function createPassObject(
 	properties: Tables<"tickets_with_event_details">
 ) {
 	const passObject: PassObject = {
-		id: `${classID}.${properties.ticket_id}`,
+		id: `${issuerId}.${properties.ticket_id}`,
 		classId: classID,
 		genericType: "GENERIC_ENTRY_TICKET",
 		hexBackgroundColor: "#FFFFFF",
 		notifications: {
 			upcomingNotification: { enableNotification: true, }
 		},
-		logo: {
-			sourceUri: {
-				uri: "https://tradao-emp.pages.dev/icon-lab.svg",
-				description: "ITea Lab Logo",
-			}
-		},
+		// logo: {
+		// 	sourceUri: {
+		// 		uri: "https://tradao-emp.pages.dev/icon-lab.svg",
+		// 		description: "ITea Lab Logo",
+		// 	}
+		// },
 		cardTitle: {
 			defaultValue: {
 				value: "ITea Lab",
@@ -210,28 +213,33 @@ export async function createPassObject(
 				body: serialiseDate(properties.event_start_time!),
 			},
 			{
+				id: "ticket_created_at",
+				header: "Ticket Created At",
+				body: serialiseDate(properties.created_at!),
+			},
+			{
 				id: "full_name",
-				header: "Full Name",
+				header: "My Name",
 				body: properties.name,
 			},
 			{
 				id: "email",
-				header: "Email",
+				header: "My Email",
 				body: properties.email,
 			},
 			{
 				id: "academic_year",
-				header: "Academic Year",
+				header: "My Current Year",
 				body: properties.academic_year,
 			},
 			{
 				id: "field_of_study",
-				header: "Field of Study",
+				header: "My Field",
 				body: properties.field_of_study,
 			},
 			{
 				id: "major",
-				header: "Major",
+				header: "My Major",
 				body: properties.major,
 			}
 		],
@@ -250,6 +258,10 @@ export async function createPassObject(
 					{
 						value: "Xem vé trên Tradao",
 						language: "vi-VN",
+					},
+					{
+						value: "Tradaoでチケットを見る",
+						language: "ja-JP",
 					}
 				]
 			},
@@ -262,41 +274,44 @@ export async function createPassObject(
 				},
 			}
 		},
-		merchantLocations: [
-			{ longitude: 106.669, latitude: 10.8162, },
-			{ longitude: 106.6711, latitude: 10.8143, }
-		],
+		// merchantLocations: [
+		// 	{ longitude: 106.669, latitude: 10.8162, },
+		// 	{ longitude: 106.6711, latitude: 10.8143, }
+		// ],
 		validTimeInterval: {
 			start: { date: serialiseDate(properties.event_start_time!) },
 			end: { date: serialiseDate(properties.event_end_time!) },
 		},
-		heroImage: {
-			sourceUri: {
-				uri: properties.event_image || "placehold.co/160x90",
-				description: "Event Hero Image",
-			}
-		},
+		// heroImage: {
+		// 	sourceUri: {
+		// 		uri: properties.event_image || "https://placehold.co/160x90",
+		// 		description: "Event Hero Image",
+		// 	}
+		// },
 	};
 
-	// Check if the pass object already exists
-	const getResult = await walletClient.eventticketobject.get({ resourceId: passObject.id! });
+	let response;
+	try {
+		// Check if the pass object already exists
+		response = await walletClient.genericobject.get({ resourceId: passObject.id! });
 
-	// If the pass object exists, return its ID
-	if (getResult.ok) return passObject.id!;
+		console.log(`Pass object ${passObject.id} already exists.`);
+		console.log(response);
 
-	// If the pass object does not exist, create it
-	if (getResult.status === 404) {
-		const postResult = await walletClient.eventticketobject.insert({ requestBody: passObject });
+		return passObject.id!;
+	} catch (error) {
+		if (error.response?.status === 404) {
+			response = await walletClient.genericobject.insert({ requestBody: passObject });
 
-		// If the insert was successful, return the pass object ID
-		if (postResult.ok) return passObject.id!;
+			console.log(`Pass object ${passObject.id} created successfully.`);
+			console.log(response);
 
-		// If the insert failed, return an error message
-		throw new Error(`Failed to create pass object: ${postResult.statusText}`);
+			return passObject.id!;
+		} else {
+			// If the request failed for another reason, throw an error
+			throw new Error(`Failed to get pass object: ${error.message}`);
+		}
 	}
-
-	// If the request failed for another reason, return an error message
-	throw new Error(`Failed to get pass object: ${getResult.statusText}`);
 }
 
 /**
@@ -305,17 +320,19 @@ export async function createPassObject(
  * @returns The URL to save the pass to Google Wallet.
  */
 export async function getPassSaveUrl(objectID: string) {
-	const genericObjects: GoogleWallet.walletobjects_v1.Schema$GenericObject[] = [{
-		id: objectID,
-		classId: classId,
-	}]
-
-	const key = await importPKCS8(privateKey, "RS256");
-	const token: string = await new SignJWT({
+	const payload: JWTPayload = {
 		origins: [],
 		typ: 'savetowallet',
-		payload: { genericObjects }
-	})
+		payload: { genericObjects: [{
+			id: objectID,
+			classId: classId,
+		}] }
+	}
+
+	console.log(`Generating save URL for pass object ${objectID}...`);
+
+	const key = await importPKCS8(privateKey, "RS256");
+	const token: string = await new SignJWT(payload)
 		.setProtectedHeader({ alg: "RS256" })
 		.setIssuedAt()
 		.setIssuer(clientEmail)
