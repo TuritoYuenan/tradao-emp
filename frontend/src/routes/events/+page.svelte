@@ -4,34 +4,10 @@
 	import EventCard from "$components/EventCard.svelte";
 	import Title from "$components/Title.svelte";
 
-	const EVENTS_PER_PAGE = 5;
-
 	let { data }: { data: { events: Tables<"upcoming_events">[] } } = $props();
-	let currentPage = $state(1);
-
-	// State for search, filter, and pagination
-	let search = $state("");
-	let selectedCategory = $state("");
-
-	function totalPages() {
-		return Math.ceil(filteredEvents().length / EVENTS_PER_PAGE);
-	}
-
-	const pagedEvents = $derived(() => {
-		const start = (currentPage - 1) * EVENTS_PER_PAGE;
-		const end = currentPage * EVENTS_PER_PAGE;
-		return filteredEvents().slice(start, end);
-	});
-
-	function prevPage() {
-		if (currentPage > 1) currentPage--;
-	}
-
-	function nextPage() {
-		if (currentPage < totalPages()) currentPage++;
-	}
 
 	// Extract unique categories from events
+	// https://mikebifulco.com/posts/javascript-filter-boolean
 	const categories = Array.from(
 		new Set(data.events.map((e) => e.category).filter(Boolean)),
 	);
@@ -47,6 +23,31 @@
 			return matchesSearch && matchesCategory;
 		});
 	});
+
+	const pagedEvents = $derived(() => {
+		const start = (currentPage - 1) * itemsPerPage;
+		const end = currentPage * itemsPerPage;
+		return filteredEvents().slice(start, end);
+	});
+
+	let currentPage = $state(1);
+	const itemsPerPage = 5;
+
+	// State for search, filter, and pagination
+	let search = $state("");
+	let selectedCategory = $state("");
+
+	const totalPages = $derived(() => {
+		return Math.ceil(filteredEvents().length / itemsPerPage);
+	});
+
+	function prevPage() {
+		if (currentPage > 1) currentPage--;
+	}
+
+	function nextPage() {
+		if (currentPage < totalPages()) currentPage++;
+	}
 </script>
 
 {#snippet paginationButtons()}
@@ -107,7 +108,7 @@
 
 	@media (width <= 1080px) {
 		article {
-			margin-inline: 2rem;
+			margin-inline: 1rem;
 		}
 	}
 
