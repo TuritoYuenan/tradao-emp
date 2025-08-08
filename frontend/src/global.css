@@ -57,8 +57,3 @@ a {
 	color: var(--green);
 	background-color: var(--dark-green);
 }
-
-.material-symbols-rounded {
-	position: relative;
-	top: 0.2em;
-}
