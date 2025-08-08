@@ -3,13 +3,9 @@
 		<img src="/logo.svg" alt="ITea Lab Logo" />
 	</a>
 	<nav>
-		<a href="/events">
-			<span class="material-symbols-rounded">event</span>
-			Events
-		</a>
-		<a href="/about">
-			<span class="material-symbols-rounded">info</span>
-			About
+		<a href="/manage">
+			<span class="material-symbols-rounded">manage_accounts</span>
+			Manage
 		</a>
 	</nav>
 </header>
@@ -33,5 +29,10 @@
 	.navbar nav {
 		display: flex;
 		gap: 1rem;
+	}
+
+	.material-symbols-rounded {
+		position: relative;
+		top: 0.2em;
 	}
 </style>

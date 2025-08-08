@@ -39,7 +39,7 @@
 		</dl>
 		<hr />
 		<section id="footer">
-			<a href={data.saveURL} id="save-button">
+			<a href={data.saveURL} id="save-button" target="_blank" rel="noopener noreferrer">
 				<img
 					src="/enAU_add_to_google_wallet_add-wallet-badge.svg"
 					alt="Add to Google Wallet"

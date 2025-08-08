@@ -62,7 +62,7 @@
 	</nav>
 {/snippet}
 
-<Title title="Events" />
+<Title title="Browse the latest ITea Lab events" />
 
 <Banner
 	title="Upcoming Events"
