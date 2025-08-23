@@ -1,6 +1,6 @@
 <header class="navbar">
 	<a class="brand" href="/">
-		<img src="/logo.svg" alt="ITea Lab Logo" />
+		<img src="/logos/logo.svg" alt="Tradao Logo" />
 	</a>
 	<nav>
 		<a href="/manage">
