@@ -1,0 +1,21 @@
+{
+	"name": "Tradao EMP",
+	"short_name": "Tradao",
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#103228",
+	"background_color": "#E6FFF2",
+	"prefer_related_applications": false,
+	"icons": [
+		{
+			"src": "icon.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		},
+		{
+			"src": "icon.svg",
+			"type": "image/svg+xml",
+			"sizes": "any"
+		}
+	]
+}
