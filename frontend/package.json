@@ -17,6 +17,8 @@
 		"vite": "^6.3.5"
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "^2.56.1"
+		"@googleapis/walletobjects": "^8.0.1",
+		"@supabase/supabase-js": "^2.56.1",
+		"jose": "^6.1.0"
 	}
 }

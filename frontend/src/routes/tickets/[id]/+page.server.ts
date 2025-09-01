@@ -1,14 +1,15 @@
 import type { PageServerLoad } from './$types';
 import { error } from "@sveltejs/kit";
-import supabase from "$lib/supabase";
 
-export const load: PageServerLoad = async ({ params }: { params: { id: string } }) => {
-	let { data, error: err } = await supabase
-		.functions.invoke(`get-ticket?ticketID=${encodeURIComponent(params.id)}`, {
-			method: "GET",
-			headers: {}
-		});
+export const load: PageServerLoad = async ({ params, fetch }: {
+	params: { id: string }, fetch: {
+		(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
+		(input: string | URL | globalThis.Request, init?: RequestInit): Promise<Response>;
+	}
+}) => {
+	const response = await fetch(`/api/ticket?ticketID=${encodeURIComponent(params.id)}`);
 
-	if (err) error(500, err.message);
+	if (!response.ok) error(response.status, await response.text());
+	const data = await response.json();
 	return { ...data };
 };
