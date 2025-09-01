@@ -10,13 +10,13 @@
 		"prepare": "svelte-kit sync || echo ''"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^6.0.1",
-		"@sveltejs/kit": "^2.21.2",
-		"@sveltejs/vite-plugin-svelte": "^5.1.0",
-		"svelte": "^5.33.17",
+		"@sveltejs/adapter-auto": "^6.1.0",
+		"@sveltejs/kit": "^2.37.0",
+		"@sveltejs/vite-plugin-svelte": "^5.1.1",
+		"svelte": "^5.38.6",
 		"vite": "^6.3.5"
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "^2.50.0"
+		"@supabase/supabase-js": "^2.56.1"
 	}
 }
