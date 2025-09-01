@@ -64,10 +64,10 @@
 		display: grid;
 		gap: 1rem;
 		grid-template-areas:
-			"image image loct"
+			"image image form"
 			"head head form"
-			"time host form"
-			"text text form";
+			"time host loct"
+			"text text loct";
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-rows: auto auto auto 1fr;
 	}

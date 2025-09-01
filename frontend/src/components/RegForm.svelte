@@ -4,6 +4,7 @@
 	import { goto } from "$app/navigation";
 
 	let { eventID = "" } = $props();
+	let isFormProcessing = $state(false);
 
 	/**
 	 * Registration form fields to collect
@@ -22,6 +23,7 @@
 	 * @param event The form submission event
 	 */
 	async function handleRegistration(event: Event) {
+		isFormProcessing = true;
 		event.preventDefault();
 
 		if (form.year === "" || form.field === "" || form.major === "") {
@@ -90,7 +92,7 @@
 		type="text"
 		required
 		bind:value={form.major}
-		list="mjs"
+		list="majors"
 		placeholder="e.g. Data Science"
 	/>
 
@@ -106,10 +108,10 @@
 		</label>
 	</p>
 
-	<button type="submit">Submit</button>
+	<button type="submit" disabled={isFormProcessing}>Submit</button>
 </form>
 
-<datalist id="mjs">
+<datalist id="majors">
 	<option value="Data Science">Data Science</option>
 	<option value="Software Development">Software Development</option>
 	<option value="Artificial Intelligence">Artificial Intelligence</option>

@@ -39,7 +39,7 @@
 	.event .image {
 		width: 100%;
 		height: 100%;
-		aspect-ratio: 16 / 9;
+		/* aspect-ratio: 16 / 9; this disrespects the grid layout */
 		border-radius: 1rem 0 0 1rem;
 		background-image: var(--src);
 		background-position: center;
@@ -49,6 +49,10 @@
 
 	.event :where(.details, .register) {
 		padding: 1rem;
+	}
+
+	.event .material-symbols-rounded {
+		vertical-align: middle;
 	}
 
 	/* Medium screen layout */

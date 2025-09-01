@@ -33,7 +33,6 @@
 	let currentPage = $state(1);
 	const itemsPerPage = 5;
 
-	// State for search, filter, and pagination
 	let search = $state("");
 	let selectedCategory = $state("");
 
@@ -48,6 +47,11 @@
 	function nextPage() {
 		if (currentPage < totalPages()) currentPage++;
 	}
+
+	// Reset pagination when search or filter changes
+	$effect(() => {
+		currentPage = 1;
+	});
 </script>
 
 {#snippet paginationButtons()}
@@ -78,9 +82,13 @@
 			bind:value={search}
 		/>
 		<select bind:value={selectedCategory}>
-			<option value="">All Categories</option>
+			<option value="">All Categories ({data.events.length})</option>
 			{#each categories as category}
-				<option value={category}>{category}</option>
+				<option value={category}>
+					{category}
+					({data.events.filter((e) => e.category === category)
+						.length})
+				</option>
 			{/each}
 		</select>
 	</search>
