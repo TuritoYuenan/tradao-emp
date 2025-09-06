@@ -1,0 +1,64 @@
+{
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
+		"useUnknownInCatchVariables": true
+	},
+	"deploy": {
+		"entrypoint": "main.ts",
+		"exclude": [
+			"**/node_modules"
+		],
+		"include": [],
+		"project": "73f89b20-dc51-46ff-af14-4f3206e1e972"
+	},
+	"exclude": [
+		"**/_fresh/*"
+	],
+	"fmt": {
+		"indentWidth": 4,
+		"lineWidth": 120,
+		"quoteProps": "consistent",
+		"semiColons": true,
+		"singleQuote": true,
+		"trailingCommas": "onlyMultiLine",
+		"useTabs": true
+	},
+	"imports": {
+		"@googleapis/walletobjects": "npm:@googleapis/walletobjects@^7.0.1",
+		"@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
+		"@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+		"@std/uuid": "jsr:@std/uuid",
+		"@supabase/supabase-js": "npm:@supabase/supabase-js@^2.0.0",
+		"$components/": "./components/",
+		"$fresh/": "https://deno.land/x/fresh@1.7.3/",
+		"$islands/": "./islands/",
+		"$lib/": "./lib/",
+		"$std/": "https://deno.land/std@0.216.0/",
+		"jose": "npm:jose@5.9.6",
+		"preact": "https://esm.sh/preact@10.22.0",
+		"preact/": "https://esm.sh/preact@10.22.0/",
+		"tailwindcss": "npm:tailwindcss@3.4.1",
+		"tailwindcss/": "npm:/tailwindcss@3.4.1/",
+		"tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
+	},
+	"lint": {
+		"rules": {
+			"tags": [
+				"fresh",
+				"recommended"
+			]
+		}
+	},
+	"lock": false,
+	"nodeModulesDir": "auto",
+	"tasks": {
+		"build": "deno run -A dev.ts build",
+		"check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
+		"cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
+		"manifest": "deno task cli manifest $(pwd)",
+		"preview": "deno run -A main.ts",
+		"start": "deno run -A --watch=static/,routes/ dev.ts",
+		"update": "deno run -A -r https://fresh.deno.dev/update ."
+	}
+}
