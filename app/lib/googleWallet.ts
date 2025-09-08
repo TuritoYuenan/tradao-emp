@@ -20,7 +20,7 @@ if (
 
 const issuerId = Deno.env.get('GOOGLE_ISSUER_ID') || '1234567890';
 const clientEmail = Deno.env.get('GOOGLE_CLIENT_EMAIL') || '';
-const privateKey = Deno.env.get('GOOGLE_PRIVATE_KEY') || '';
+const privateKey = Deno.env.get('GOOGLE_PRIVATE_KEY')?.replace(/\\n/g, '\n') || '';
 
 export const classId = `${issuerId}.tradao_event`;
 

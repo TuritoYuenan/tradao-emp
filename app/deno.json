@@ -7,7 +7,8 @@
 	"deploy": {
 		"entrypoint": "main.ts",
 		"exclude": [
-			"**/node_modules"
+			"**/node_modules",
+			".env"
 		],
 		"include": [],
 		"project": "73f89b20-dc51-46ff-af14-4f3206e1e972"

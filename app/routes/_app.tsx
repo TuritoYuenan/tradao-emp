@@ -18,9 +18,9 @@ export default function App({ Component }: PageProps) {
 				/>
 			</head>
 			<body>
-				<div style={{ display: 'contents' }}>
+				<div className='contents'>
 					<Navbar />
-					<main>
+					<main className='min-h-dvh'>
 						<Component />
 					</main>
 					<Footer />
