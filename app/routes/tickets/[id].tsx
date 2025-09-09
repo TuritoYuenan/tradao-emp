@@ -1,28 +1,22 @@
 import { Handlers, PageProps } from '$fresh/server.ts';
 import { TicketLookupProps } from '$lib/props.ts';
 import { supabase } from '$lib/supabase.ts';
-import { createPassClass, createPassObject, getPassSaveUrl } from '$lib/googleWallet.ts';
 import Banner from '$components/Banner.tsx';
+import { formatDate } from '$lib/utils.ts';
 
 export const handler: Handlers<TicketLookupProps> = {
 	async GET(_req, ctx) {
 		const ticketID = ctx.params.id;
 
-		const { data, error } = await supabase
-			.from('tickets_with_event_details')
-			.select('*')
-			.eq('ticket_id', ticketID)
-			.limit(1)
-			.single();
+		const { data, error: err } = await supabase
+			.functions.invoke(`get-ticket?ticketID=${ticketID}`, {
+				method: 'GET',
+				headers: {},
+			});
 
-		if (error) return ctx.render(undefined);
-		if (!data) return ctx.renderNotFound();
+		if (err) throw err;
 
-		const classID = await createPassClass();
-		const objectID = await createPassObject(classID, data);
-		const saveURL = await getPassSaveUrl(objectID);
-
-		return ctx.render({ lookup: data, saveURL });
+		return ctx.render({ ...data });
 	},
 };
 
@@ -46,7 +40,7 @@ function TicketDetails({ props }: { props: TicketLookupProps }) {
 			<dt className='font-bold text-right'>Participating</dt>
 			<dd>{props.lookup.participate ? 'Yes' : 'No'}</dd>
 			<dt className='font-bold text-right'>Created At</dt>
-			<dd>{props.lookup.created_at}</dd>
+			<dd>{formatDate(props.lookup.created_at!)}</dd>
 		</dl>
 	);
 }
