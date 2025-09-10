@@ -1,9 +1,9 @@
 import { Handlers, PageProps } from '$fresh/server.ts';
-import { Head } from '$fresh/runtime.ts';
 import { Tables } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import Banner from '$components/Banner.tsx';
 import EventsFeed from '$islands/EventsFeed.tsx';
+import PageTitle from '$components/PageTitle.tsx';
 
 export const handler: Handlers<Tables<'upcoming_events'>[]> = {
 	async GET(_req, ctx) {
@@ -23,9 +23,7 @@ export const handler: Handlers<Tables<'upcoming_events'>[]> = {
 export default function EventBrowsePage(props: PageProps<Tables<'upcoming_events'>[]>) {
 	return (
 		<>
-			<Head>
-				<title>Browse the latest ITea Lab events! | ITea Lab&trade; Tradao</title>
-			</Head>
+			<PageTitle title='Browse the latest lab events!' />
 			<Banner
 				title='Upcoming Events'
 				description='Check out the latest workshops, conferences, public talks and discussions in ITea Lab!'

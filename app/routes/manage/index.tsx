@@ -1,10 +1,12 @@
 import Banner from '$components/Banner.tsx';
+import PageTitle from '$components/PageTitle.tsx';
 
 export default function ManagementHomePage() {
 	const username = 'Minh-Triet';
 
 	return (
 		<>
+			<PageTitle title='Management Home' />
 			<Banner title={`Welcome back, ${username}`} description='Manage ITea Lab events and Tradao tickets here' />
 
 			<article>

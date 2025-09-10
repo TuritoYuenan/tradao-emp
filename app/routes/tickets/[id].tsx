@@ -1,8 +1,9 @@
 import { Handlers, PageProps } from '$fresh/server.ts';
 import { TicketLookupProps } from '$lib/props.ts';
 import { supabase } from '$lib/supabase.ts';
-import Banner from '$components/Banner.tsx';
 import { formatDate } from '$lib/utils.ts';
+import Banner from '$components/Banner.tsx';
+import PageTitle from '$components/PageTitle.tsx';
 
 export const handler: Handlers<TicketLookupProps> = {
 	async GET(_req, ctx) {
@@ -63,6 +64,7 @@ function TicketFooter({ props }: { props: TicketLookupProps }) {
 export default function TicketLookupPage(props: PageProps<TicketLookupProps>) {
 	return (
 		<>
+			<PageTitle title={'Your Ticket for ' + props.data.lookup.event_title} />
 			<Banner title='Here is your event ticket!' />
 
 			<div className='p-4'>

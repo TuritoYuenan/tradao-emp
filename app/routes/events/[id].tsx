@@ -3,7 +3,7 @@ import { Tables } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { formatDate } from '$lib/utils.ts';
 import RegForm from '$islands/RegForm.tsx';
-import { Head } from '$fresh/runtime.ts';
+import PageTitle from '$components/PageTitle.tsx';
 
 export const handler: Handlers<Tables<'community_events'>> = {
 	async GET(_req, ctx) {
@@ -27,9 +27,8 @@ export default function EventDetailsPage(props: PageProps<Tables<'community_even
 	const event = props.data;
 	return (
 		<>
-			<Head>
-				<title>{event.title} | ITea Lab&trade; Tradao</title>
-			</Head>
+			<PageTitle title={event.title} />
+
 			<article className='m-4 grid gap-4 md:grid-cols-3 md:grid-rows-[540px_auto_auto_1fr] md:[grid-template-areas:"image_image_form"_"head_head_loct"_"time_host_loct"_"text_text_loct"] flex flex-col md:flex-none'>
 				<div
 					className='block aspect-video md:aspect-auto rounded-2xl bg-cover bg-center bg-no-repeat border-2 border-[var(--foreground)] shadow-[0_0_1rem_rgba(0,0,0,0.2)] md:[grid-area:image]'
