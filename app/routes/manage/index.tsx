@@ -9,28 +9,48 @@ export default function ManagementHomePage() {
 			<PageTitle title='Management Home' />
 			<Banner title={`Welcome back, ${username}`} description='Manage ITea Lab events and Tradao tickets here' />
 
-			<article>
-				<section className='max-w-3xl min-h-[30vh] mx-auto grid content-center grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4'>
-					<div className='p-4 text-center rounded-2xl shadow-md' style={{ backgroundColor: 'var(--green)' }}>
-						<a href='/manage-events'>
-							<span className='material-symbols-rounded' style={{ fontSize: '6rem' }}>event</span>
-							<h2 className='text-2xl font-bold'>Events CRUD</h2>
+			<article className='max-w-3xl min-h-[30vh] mx-auto px-4'>
+				<section className='border-2 border-[var(--foreground)] rounded-2xl p-4 shadow-xl'>
+					<h2 className='text-2xl font-bold'>
+						<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>
+							event
+						</span>{' '}
+						Events
+					</h2>
+					<div className='mt-4 flex flex-row-reverse gap-4'>
+						<a className='hover:scale-110' href=''>
+							<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>
+								table_view
+							</span>{' '}
+							View Events
+						</a>
+						<a className='hover:scale-110' href='/manage/create-event'>
+							<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>
+								add_diamond
+							</span>{' '}
+							New Event
 						</a>
 					</div>
-					<div className='p-4 text-center rounded-2xl shadow-md' style={{ backgroundColor: 'var(--green)' }}>
-						<a href='/manage-tickets'>
-							<span className='material-symbols-rounded' style={{ fontSize: '6rem' }}>
-								local_activity
-							</span>
-							<h2 className='text-2xl font-bold'>Tickets CRUD</h2>
+				</section>
+				<section className='mt-4 border-2 border-[var(--foreground)] rounded-2xl p-4 shadow-xl'>
+					<h2 className='text-2xl font-bold'>
+						<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>
+							local_activity
+						</span>{' '}
+						Tickets
+					</h2>
+					<div className='mt-4 flex flex-row-reverse gap-4'>
+						<a className='hover:scale-110' href=''>
+							<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>
+								table_view
+							</span>{' '}
+							View Tickets
 						</a>
-					</div>
-					<div className='p-4 text-center rounded-2xl shadow-md' style={{ backgroundColor: 'var(--green)' }}>
-						<a href='/manage-admins'>
-							<span className='material-symbols-rounded' style={{ fontSize: '6rem' }}>
-								manage_accounts
-							</span>
-							<h2 className='text-2xl font-bold'>Admins CRUD</h2>
+						<a className='hover:scale-110' href=''>
+							<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>
+								add_diamond
+							</span>{' '}
+							New Ticket
 						</a>
 					</div>
 				</section>
