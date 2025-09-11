@@ -2,7 +2,7 @@ import { Handlers, PageProps } from '$fresh/server.ts';
 import { Tables } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { formatDate } from '$lib/utils.ts';
-import RegForm from '$islands/RegForm.tsx';
+import EventRegistrationForm from '$islands/EventRegistrationForm.tsx';
 import PageTitle from '$components/PageTitle.tsx';
 
 export const handler: Handlers<Tables<'community_events'>> = {
@@ -42,7 +42,7 @@ export default function EventDetailsPage(props: PageProps<Tables<'community_even
 
 				<div className='p-4 border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)] md:[grid-area:form] overflow-y-scroll'>
 					<h2 className='text-2xl font-bold'>Participate in this event</h2>
-					<RegForm eventID={event.id} />
+					<EventRegistrationForm eventID={event.id} />
 				</div>
 
 				<div className='p-4 border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)] md:[grid-area:time]'>
