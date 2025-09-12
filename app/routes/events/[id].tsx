@@ -48,11 +48,11 @@ export default function EventDetailsPage(props: PageProps<Tables<'community_even
 				<div className='p-4 border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)] md:[grid-area:time]'>
 					<h2 className='text-2xl font-bold'>Event Time</h2>
 					<p>
-						<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>event</span>{' '}
+						<span className='material-symbols-rounded relative top-[0.3rem]'>event</span>{' '}
 						<strong>Start:</strong> {formatDate(event.start_time)}
 					</p>
 					<p>
-						<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>event</span>{' '}
+						<span className='material-symbols-rounded relative top-[0.3rem]'>event</span>{' '}
 						<strong>End:</strong> {formatDate(event.end_time)}
 					</p>
 				</div>

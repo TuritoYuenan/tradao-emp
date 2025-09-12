@@ -22,7 +22,7 @@ export default function Navbar() {
 						target={item.external ? '_blank' : '_self'}
 						rel={item.external ? 'noopener noreferrer' : ''}
 					>
-						<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>
+						<span className='material-symbols-rounded relative top-[0.3rem]'>
 							{item.icon}
 						</span>{' '}
 						{item.name}

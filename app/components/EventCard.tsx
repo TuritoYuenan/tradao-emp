@@ -11,12 +11,12 @@ export default function EventCard({ event }: { event: Tables<'upcoming_events'> 
 			<div className='p-4 md:max-w-[900px]:[grid-area:details]'>
 				<h2 className='text-2xl font-bold line-clamp-2 text-ellipsis'>{event.title}</h2>
 				<p>
-					<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>event</span>{' '}
+					<span className='material-symbols-rounded relative top-[0.3rem]'>event</span>{' '}
 					<strong>Date:</strong> {event.start_time ? formatDate(event.start_time) : 'N/A'} &ndash;{' '}
 					{event.end_time ? formatDate(event.end_time) : 'N/A'}
 				</p>
 				<p>
-					<span className='material-symbols-rounded relative' style={{ top: '0.3rem' }}>location_on</span>
+					<span className='material-symbols-rounded relative top-[0.3rem]'>location_on</span>
 					{' '}
 					<strong>Location:</strong> {event.location}
 				</p>
