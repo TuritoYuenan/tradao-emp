@@ -1,4 +1,4 @@
-import { validate } from '$lib/utils.ts';
+import { validate } from '$lib/validation.ts';
 import { assertEquals } from '$std/assert/assert_equals.ts';
 import { assertArrayIncludes } from '$std/assert/assert_array_includes.ts';
 import { assertGreater } from '$std/assert/assert_greater.ts';

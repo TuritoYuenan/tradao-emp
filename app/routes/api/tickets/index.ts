@@ -1,7 +1,8 @@
 import { Handlers } from '$fresh/server.ts';
 import { Database } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
-import { errorResponse, validate } from '$lib/utils.ts';
+import { errorResponse } from '$lib/utils.ts';
+import { validate } from '$lib/validation.ts';
 
 interface RegistrationFormProps {
 	eventID: string;
@@ -16,7 +17,7 @@ interface RegistrationFormProps {
 export const handler: Handlers<RegistrationFormProps> = {
 	async POST(req, _ctx) {
 		const form = await req.formData();
-		const registrationData = {
+		const registrationData: RegistrationFormProps = {
 			eventID: form.get('eventID')?.toString() || '',
 			name: form.get('name')?.toString() || '',
 			email: form.get('email')?.toString() || '',

@@ -1,7 +1,3 @@
-import * as uuid from '@std/uuid';
-import { EventRegistrationProps } from './props.ts';
-import { Constants } from './models.ts';
-
 /**
  * Utility function to create an error response for HTTP requests.
  * @param message Error message
@@ -70,37 +66,4 @@ export function search<T>(array: T[], query: string, keys: (keyof T)[]): T[] {
 			return typeof value === 'string' && value.toLowerCase().includes(lowerQuery);
 		})
 	);
-}
-
-function validateUUID(id: string) {
-	return uuid.validate(id) && uuid.version(id) === 4;
-}
-
-export function validate(form: EventRegistrationProps) {
-	const errors: string[] = [];
-
-	// Field exists
-	if (!form.eventID.trim()) errors.push('Event ID is required');
-	if (!form.name.trim()) errors.push('Name is required');
-	if (!form.email.trim()) errors.push('Email is required');
-	if (!form.year.trim()) errors.push('Academic year is required');
-	if (!form.field.trim()) errors.push('Field of study is required');
-	if (!form.major.trim()) errors.push('Major is required');
-	if (!form.confirm) errors.push('Confirmation is required');
-
-	// Field is in valid format
-	if (form.eventID && !validateUUID(form.eventID)) {
-		errors.push('Event ID must be a valid UUID version 4');
-	}
-	if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-		errors.push('Invalid email format');
-	}
-	if (form.year && !Constants.public.Enums.academic_year.includes(form.year as any)) {
-		errors.push('Invalid academic year');
-	}
-	if (form.field && !Constants.public.Enums.field_of_study.includes(form.field as any)) {
-		errors.push('Invalid field of study');
-	}
-
-	return errors;
 }

@@ -19,14 +19,14 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				const data = await response.json();
 				setErrors(data.errors);
 				setIsRegistering(false);
-				return;
+				break;
 			}
 
 			case 500: {
 				// 5xx errors
 				setErrors(['Something went wrong on our end. Please try again later.']);
 				setIsRegistering(false);
-				return;
+				break;
 			}
 
 			case 200: {
@@ -34,7 +34,7 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				const data = await response.json();
 				const ticketID = data.ticketID;
 				globalThis.location.href = `/tickets/${ticketID}`;
-				return;
+				break;
 			}
 
 			default: {
