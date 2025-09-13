@@ -1,19 +1,32 @@
-import { Tables } from '$lib/models.ts';
+import { TablesInsert } from '$lib/models.ts';
 import { Handlers } from '$fresh/server.ts';
 import { supabase } from '$lib/supabase.ts';
 import { errorResponse } from '$lib/utils.ts';
 
-export const handler: Handlers<Tables<'community_events'>> = {
+interface CommunityEventProps extends Omit<TablesInsert<'community_events'>, 'image'> {
+	imageFile: File;
+}
+
+export const handler: Handlers<CommunityEventProps> = {
 	async POST(req, _ctx) {
-		const event = (await req.json()) as Tables<'community_events'>;
-		const { error } = await supabase
+		const formData = await req.formData();
+		const eventForm: CommunityEventProps = {
+			title: formData.get('title')?.toString() || '',
+			description: formData.get('description')?.toString() || '',
+			start_time: formData.get('start_time')?.toString() || '',
+			end_time: formData.get('end_time')?.toString() || '',
+			location: formData.get('location')?.toString() || '',
+			imageFile: formData.get('imageFile') as File,
+		};
+
+		const { status, error } = await supabase
 			.from('community_events')
-			.insert([event]);
+			.upsert([eventForm]);
 
-		if (error) return errorResponse(500, error.message);
+		if (error) return errorResponse(status, error.message);
 
-		return new Response(JSON.stringify({ success: true, event }), {
-			headers: { 'Content-Type': 'application/json' },
+		return new Response(JSON.stringify({ eventID: 'a' }), {
+			status, headers: { 'Content-Type': 'application/json' },
 		});
 	},
 

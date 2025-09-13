@@ -1,20 +1,4 @@
-// MARK: Handler
-function handleSubmission(event: Event) {
-	event.preventDefault();
-	const form = event.target as HTMLFormElement;
-	const formData = new FormData(form);
-
-	const thumbnailImage = formData.get('image') as File;
-	if (thumbnailImage && thumbnailImage.size > 5 * 1024 * 1024) {
-		alert('Image size exceeds 5MB. Please choose a smaller file.');
-		return;
-	}
-
-	// Log form data for demonstration purposes
-	for (const [key, value] of formData.entries()) {
-		console.log(`${key}: ${value}`);
-	}
-}
+import { useState } from 'preact/hooks';
 
 // MARK: Step 1
 function Step1() {
@@ -61,6 +45,7 @@ function Step1() {
 						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
 						required
 					/>
+					<small>Can simply be room name, which defaults to Swinburne A35 building</small>
 				</div>
 			</div>
 		</fieldset>
@@ -109,10 +94,14 @@ function Step3() {
 					<select
 						id='category'
 						name='category'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+						className='h-full p-2 border-2 border-[var(--foreground)] bg-white rounded-lg'
 						required
 					>
 						<option value=''>Select a category</option>
+						<option value='conference'>Conference</option>
+						<option value='meetup'>Meetup</option>
+						<option value='pitching'>Pitching</option>
+						<option value='workshop'>Workshop</option>
 					</select>
 				</div>
 				<div className='flex flex-col'>
@@ -120,9 +109,13 @@ function Step3() {
 					<input
 						type='file'
 						id='image'
-						name='image'
+						name='imageFile'
 						accept='image/png,image/jpeg,image/webp'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+						className='
+							p-1 border-2 border-[var(--foreground)] bg-white
+							rounded-lg file:border-0 file:bg-[var(--green)]
+							file:text-[var(--foreground)] file:px-4 file:py-2
+							file:rounded-md'
 						required
 					/>
 				</div>
@@ -141,6 +134,48 @@ function Step3() {
 
 // MARK: Main Component
 export default function EventCreationForm() {
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [errors, setErrors] = useState<string[]>([]);
+
+	async function handleSubmission(event: Event) {
+		setIsSubmitting(true);
+		event.preventDefault();
+		const form = event.target as HTMLFormElement;
+		const formData = new FormData(form);
+
+		const response = await fetch('/api/events', { method: 'POST', body: formData });
+
+		switch (response.status) {
+			case 400: {
+				// 4xx errors
+				const data = await response.json();
+				setErrors(data.errors);
+				setIsSubmitting(false);
+				break;
+			}
+
+			case 500: {
+				// 5xx errors
+				setErrors(['Something went wrong on our end. Please try again later.']);
+				setIsSubmitting(false);
+				break;
+			}
+
+			case 200: {
+				// eventID
+				const data = await response.json();
+				const eventID = data.event.id;
+				globalThis.location.href = `/events/${eventID}`;
+				break;
+			}
+
+			default:
+				// Unexpected status code
+				setErrors(['Unexpected error. Please try again later.']);
+				break;
+		}
+	}
+
 	return (
 		<form
 			method='POST'
@@ -151,8 +186,18 @@ export default function EventCreationForm() {
 			<Step1 />
 			<Step2 />
 			<Step3 />
+
+			{errors.length > 0 && (
+				<section id='errors'>
+					<h2 className='text-red-500'>Oops! There were some problems with registering!</h2>
+					<ul className='list-disc list-inside text-red-500'>
+						{errors.map((error, index) => <li key={index}>{error}</li>)}
+					</ul>
+				</section>
+			)}
+
 			<fieldset>
-				<button type='submit' className='button'>Create Event</button>
+				<button type='submit' className='button' disabled={isSubmitting}>Create Event</button>
 			</fieldset>
 		</form>
 	);
