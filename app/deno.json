@@ -37,6 +37,7 @@
 		"$lib/": "./lib/",
 		"$std/": "https://deno.land/std@0.216.0/",
 		"jose": "npm:jose@5.9.6",
+		"jsqr": "https://esm.sh/jsqr@1.4.0",
 		"preact": "https://esm.sh/preact@10.22.0",
 		"preact/": "https://esm.sh/preact@10.22.0/",
 		"tailwindcss": "npm:tailwindcss@3.4.1",

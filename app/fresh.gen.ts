@@ -6,10 +6,12 @@ import * as $_404 from './routes/_404.tsx';
 import * as $_500 from './routes/_500.tsx';
 import * as $_app from './routes/_app.tsx';
 import * as $api_events_index from './routes/api/events/index.ts';
+import * as $api_tickets_id_ from './routes/api/tickets/[id].ts';
 import * as $api_tickets_index from './routes/api/tickets/index.ts';
 import * as $events_id_ from './routes/events/[id].tsx';
 import * as $index from './routes/index.tsx';
 import * as $login_index from './routes/login/index.tsx';
+import * as $manage_check_ticket_index from './routes/manage/check-ticket/index.tsx';
 import * as $manage_create_event_index from './routes/manage/create-event/index.tsx';
 import * as $manage_index from './routes/manage/index.tsx';
 import * as $tickets_id_ from './routes/tickets/[id].tsx';
@@ -17,6 +19,7 @@ import * as $EventCreationForm from './islands/EventCreationForm.tsx';
 import * as $EventRegistrationForm from './islands/EventRegistrationForm.tsx';
 import * as $EventsFeed from './islands/EventsFeed.tsx';
 import * as $TextClock from './islands/TextClock.tsx';
+import * as $TicketScanner from './islands/TicketScanner.tsx';
 import type { Manifest } from '$fresh/server.ts';
 
 const manifest = {
@@ -25,10 +28,12 @@ const manifest = {
 		'./routes/_500.tsx': $_500,
 		'./routes/_app.tsx': $_app,
 		'./routes/api/events/index.ts': $api_events_index,
+		'./routes/api/tickets/[id].ts': $api_tickets_id_,
 		'./routes/api/tickets/index.ts': $api_tickets_index,
 		'./routes/events/[id].tsx': $events_id_,
 		'./routes/index.tsx': $index,
 		'./routes/login/index.tsx': $login_index,
+		'./routes/manage/check-ticket/index.tsx': $manage_check_ticket_index,
 		'./routes/manage/create-event/index.tsx': $manage_create_event_index,
 		'./routes/manage/index.tsx': $manage_index,
 		'./routes/tickets/[id].tsx': $tickets_id_,
@@ -38,6 +43,7 @@ const manifest = {
 		'./islands/EventRegistrationForm.tsx': $EventRegistrationForm,
 		'./islands/EventsFeed.tsx': $EventsFeed,
 		'./islands/TextClock.tsx': $TextClock,
+		'./islands/TicketScanner.tsx': $TicketScanner,
 	},
 	baseUrl: import.meta.url,
 } satisfies Manifest;

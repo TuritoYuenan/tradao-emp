@@ -52,6 +52,12 @@ export default function ManagementHomePage() {
 							</span>{' '}
 							New Ticket
 						</a>
+						<a className='hover:scale-110' href='/manage/check-ticket'>
+							<span className='material-symbols-rounded relative top-[0.3rem]'>
+								check
+							</span>{' '}
+							Check Ticket
+						</a>
 					</div>
 				</section>
 			</article>
