@@ -1,4 +1,4 @@
-import { validate } from '$lib/validation.ts';
+import { validateEventRegistration } from '$lib/validation.ts';
 import { assertEquals } from '$std/assert/assert_equals.ts';
 import { assertArrayIncludes } from '$std/assert/assert_array_includes.ts';
 import { assertGreater } from '$std/assert/assert_greater.ts';
@@ -15,7 +15,7 @@ Deno.test('validate form data', async (t) => {
 			confirm: true,
 		};
 
-		const errors = validate(validForm);
+		const errors = validateEventRegistration(validForm);
 		assertEquals(errors.length, 0);
 	});
 
@@ -30,7 +30,7 @@ Deno.test('validate form data', async (t) => {
 			confirm: false,
 		};
 
-		const errors = validate(invalidForm);
+		const errors = validateEventRegistration(invalidForm);
 		assertGreater(errors.length, 0);
 		assertArrayIncludes(errors, [
 			'Event ID is required',
@@ -54,7 +54,7 @@ Deno.test('validate form data', async (t) => {
 			confirm: true,
 		};
 
-		const errors = validate(invalidForm);
+		const errors = validateEventRegistration(invalidForm);
 		assertGreater(errors.length, 0);
 		assertArrayIncludes(errors, [
 			'Event ID must be a valid UUID version 4',

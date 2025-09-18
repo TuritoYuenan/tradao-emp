@@ -2,7 +2,7 @@ import { Handlers } from '$fresh/server.ts';
 import { Database } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { errorResponse } from '$lib/utils.ts';
-import { validate } from '$lib/validation.ts';
+import { validateEventRegistration } from '$lib/validation.ts';
 
 interface RegistrationFormProps {
 	eventID: string;
@@ -31,7 +31,7 @@ export const handler: Handlers<RegistrationFormProps> = {
 			confirm: form.get('confirm') === 'on',
 		};
 
-		const errors = validate(registrationData);
+		const errors = validateEventRegistration(registrationData);
 		if (errors.length > 0) {
 			return new Response(JSON.stringify({ errors }), {
 				status: 400,

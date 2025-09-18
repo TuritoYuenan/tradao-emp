@@ -2,8 +2,8 @@ import * as uuid from '@std/uuid';
 import { Constants } from './models.ts';
 import { EventRegistrationProps } from './props.ts';
 
-function validateUUID(id: string) {
-	return uuid.validate(id) && uuid.version(id) === 4;
+export function validateUUID(id: string) {
+	return uuid.validate(id);
 }
 
 function validateEmail(email: string) {
@@ -25,7 +25,7 @@ function validateEventTime(start: string | Date, end: string | Date) {
 	return startTime < endTime;
 }
 
-export function validate(form: EventRegistrationProps) {
+export function validateEventRegistration(form: EventRegistrationProps) {
 	const errors: string[] = [];
 
 	// Field exists
