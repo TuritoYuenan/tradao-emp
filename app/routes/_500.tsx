@@ -1,7 +1,7 @@
 import { PageProps } from '$fresh/server.ts';
 import PageTitle from '$components/PageTitle.tsx';
 
-export default function Error500Page({ error }: PageProps) {
+export default function Error500Page({ error: _ }: PageProps) {
 	return (
 		<>
 			<PageTitle title='500 Internal Server Error' />
