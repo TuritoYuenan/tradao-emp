@@ -18,7 +18,7 @@ export default function ManagementHomePage() {
 						Events
 					</h2>
 					<div className='mt-4 flex flex-row-reverse gap-4'>
-						<a className='hover:scale-110' href=''>
+						<a className='hover:scale-110' href='/manage/view-events'>
 							<span className='material-symbols-rounded relative top-[0.3rem]'>
 								table_view
 							</span>{' '}
