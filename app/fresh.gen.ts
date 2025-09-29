@@ -15,6 +15,7 @@ import * as $login_index from './routes/login/index.tsx';
 import * as $manage_check_ticket_index from './routes/manage/check-ticket/index.tsx';
 import * as $manage_create_event_index from './routes/manage/create-event/index.tsx';
 import * as $manage_index from './routes/manage/index.tsx';
+import * as $manage_view_events_index from './routes/manage/view-events/index.tsx';
 import * as $tickets_id_ from './routes/tickets/[id].tsx';
 import * as $EventCreationForm from './islands/EventCreationForm.tsx';
 import * as $EventRegistrationForm from './islands/EventRegistrationForm.tsx';
@@ -38,6 +39,7 @@ const manifest = {
 		'./routes/manage/check-ticket/index.tsx': $manage_check_ticket_index,
 		'./routes/manage/create-event/index.tsx': $manage_create_event_index,
 		'./routes/manage/index.tsx': $manage_index,
+		'./routes/manage/view-events/index.tsx': $manage_view_events_index,
 		'./routes/tickets/[id].tsx': $tickets_id_,
 	},
 	islands: {
