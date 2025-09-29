@@ -1,9 +1,12 @@
 {
+	"[typescript]": {
+		"editor.defaultFormatter": "denoland.vscode-deno"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "denoland.vscode-deno"
+	},
 	"deno.enablePaths": [
 		"app"
 	],
-	"deno.lint": true,
-	"[typescript]": {
-		"editor.defaultFormatter": "vscode.typescript-language-features"
-	}
+	"deno.lint": true
 }

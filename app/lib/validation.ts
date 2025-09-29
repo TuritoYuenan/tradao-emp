@@ -1,47 +1,110 @@
-import * as uuid from '@std/uuid';
+import * as yup from 'yup';
 import { Constants } from './models.ts';
-import { EventRegistrationProps } from './props.ts';
 
-export function validateUUID(id: string) {
-	return uuid.validate(id);
-}
+/**
+ * Yup validation schema for event registration form.
+ */
+export const eventRegistrationSchema = yup.object({
+	eventID: yup.string()
+		.trim()
+		.required('Event ID is required')
+		.test('uuid-check', 'Event ID must be a valid UUID version 4', (value) => {
+			if (!value) return true;
+			return yup.string().uuid().isValidSync(value);
+		}),
 
-function validateEmail(email: string) {
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	return emailRegex.test(email);
-}
+	name: yup.string()
+		.trim()
+		.required('Name is required')
+		.test('name-check', 'Name must contain only letters and spaces', (value) => {
+			if (!value) return true;
+			return /^[a-zA-Z\s]+$/.test(value);
+		}),
 
-function validateAcademicYear(year: string) {
-	return Constants.public.Enums.academic_year.includes(year as any);
-}
+	email: yup.string()
+		.trim()
+		.required('Email is required')
+		.test('email-check', 'Invalid email format', (value) => {
+			if (!value) return true;
+			return yup.string().email().isValidSync(value);
+		}),
 
-function validateFieldOfStudy(field: string) {
-	return Constants.public.Enums.field_of_study.includes(field as any);
-}
+	year: yup.string()
+		.trim()
+		.required('Academic year is required')
+		.test('year-check', 'Invalid academic year', (value) => {
+			if (!value) return true;
+			return yup.string().oneOf(Constants.public.Enums.academic_year).isValidSync(value);
+		}),
 
-function validateEventTime(start: string | Date, end: string | Date) {
-	const startTime = new Date(start);
-	const endTime = new Date(end);
-	return startTime < endTime;
-}
+	field: yup.string()
+		.trim()
+		.required('Field of study is required')
+		.test('field-check', 'Invalid field of study', (value) => {
+			if (!value) return true;
+			return yup.string().oneOf(Constants.public.Enums.field_of_study).isValidSync(value);
+		}),
 
-export function validateEventRegistration(form: EventRegistrationProps) {
-	const errors: string[] = [];
+	major: yup.string()
+		.trim()
+		.required('Major is required'),
 
-	// Field exists
-	if (!form.eventID.trim()) errors.push('Event ID is required');
-	if (!form.name.trim()) errors.push('Name is required');
-	if (!form.email.trim()) errors.push('Email is required');
-	if (!form.year.trim()) errors.push('Academic year is required');
-	if (!form.field.trim()) errors.push('Field of study is required');
-	if (!form.major.trim()) errors.push('Major is required');
-	if (!form.confirm) errors.push('Confirmation is required');
+	confirm: yup.boolean()
+		.required('Confirmation is required')
+		.oneOf([true], 'Confirmation is required'),
+});
 
-	// Field is in valid format
-	if (form.eventID && !validateUUID(form.eventID)) errors.push('Event ID must be a valid UUID version 4');
-	if (form.email && !validateEmail(form.email)) errors.push('Invalid email format');
-	if (form.year && !validateAcademicYear(form.year)) errors.push('Invalid academic year');
-	if (form.field && !validateFieldOfStudy(form.field)) errors.push('Invalid field of study');
+/**
+ * Yup validation schema for event creation form.
+ */
+export const eventCreationSchema = yup.object({
+	title: yup.string()
+		.trim()
+		.required('Event title is required'),
 
-	return errors;
-}
+	start_time: yup.string()
+		.trim()
+		.required('Event start time is required')
+		.datetime('Start time must be of valid format'),
+
+	end_time: yup.string()
+		.trim()
+		.required('Event end time is required')
+		.datetime('End time must be of valid format')
+		.test('end-after-start', 'End time must be after start time', function (value) {
+			const { start_time } = this.parent;
+			if (!value || !start_time) return true;
+			return new Date(value) > new Date(start_time);
+		}),
+
+	location: yup.string()
+		.trim()
+		.required('Event location is required'),
+
+	host_name: yup.string()
+		.trim()
+		.required('Host name is required'),
+
+	host_email: yup.string()
+		.trim()
+		.required('Host email is required')
+		.email('Invalid email format'),
+
+	category: yup.string()
+		.trim()
+		.required('Event category is required'),
+
+	imageFile: yup.mixed()
+		.notRequired()
+		.test('is-image', 'Image file must be JPEG/PNG/GIF and under 5MB.', (value) => {
+			if (!value) return true; // Image is optional
+			if (!(value instanceof File)) return false;
+			const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+			const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+			return validTypes.includes(value.type) && value.size <= maxSizeInBytes;
+		}),
+
+	description: yup.string()
+		.trim()
+		.notRequired(),
+});

@@ -42,7 +42,8 @@
 		"preact/": "https://esm.sh/preact@10.22.0/",
 		"tailwindcss": "npm:tailwindcss@3.4.1",
 		"tailwindcss/": "npm:/tailwindcss@3.4.1/",
-		"tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
+		"tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
+		"yup": "https://esm.sh/yup@1.7.0"
 	},
 	"lint": {
 		"rules": {

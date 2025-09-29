@@ -1,8 +1,9 @@
+import * as yup from 'yup';
 import { Handlers } from '$fresh/server.ts';
 import { Database } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { errorResponse } from '$lib/utils.ts';
-import { validateEventRegistration } from '$lib/validation.ts';
+import { eventRegistrationSchema } from '$lib/validation.ts';
 
 interface RegistrationFormProps {
 	eventID: string;
@@ -14,29 +15,32 @@ interface RegistrationFormProps {
 	confirm: boolean;
 }
 
+function formToObject(form: FormData): RegistrationFormProps {
+	return {
+		eventID: form.get('eventID') as string || '',
+		name: form.get('name') as string || '',
+		email: form.get('email') as string || '',
+		year: form.get('year') as Database['public']['Enums']['academic_year'] || '',
+		field: form.get('field') as Database['public']['Enums']['field_of_study'] || '',
+		major: form.get('major') as string || '',
+		confirm: form.get('confirm') === 'on',
+	};
+}
+
 export const handler: Handlers<RegistrationFormProps> = {
 	async POST(req, _ctx) {
 		const form = await req.formData();
-		const registrationData: RegistrationFormProps = {
-			eventID: form.get('eventID')?.toString() || '',
-			name: form.get('name')?.toString() || '',
-			email: form.get('email')?.toString() || '',
-			year: (form.get('year')?.toString() || '') as
-				| Database['public']['Enums']['academic_year']
-				| '',
-			field: (form.get('field')?.toString() || '') as
-				| Database['public']['Enums']['field_of_study']
-				| '',
-			major: form.get('major')?.toString() || '',
-			confirm: form.get('confirm') === 'on',
-		};
+		const registrationData = formToObject(form);
 
-		const errors = validateEventRegistration(registrationData);
-		if (errors.length > 0) {
-			return new Response(JSON.stringify({ errors }), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' },
-			});
+		try {
+			await eventRegistrationSchema.validate(registrationData, { abortEarly: false });
+		} catch (error) {
+			if (error instanceof yup.ValidationError) {
+				return new Response(JSON.stringify({ errors: error.errors }), {
+					status: 400,
+					headers: { 'Content-Type': 'application/json' }
+				});
+			}
 		}
 
 		const { data: ticketID, error } = await supabase.rpc('create_event_ticket', {
