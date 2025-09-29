@@ -1,6 +1,6 @@
 import jsQR from 'jsqr';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { validateUUID } from '$lib/validation.ts';
+import * as yup from 'yup';
 import { Tables } from '$lib/models.ts';
 
 export default function CameraFeed() {
@@ -55,11 +55,16 @@ export default function CameraFeed() {
 			setError(null);
 			setTicket(null);
 			setQrResult(data);
+
+			// Ignore empty strings (no QR code detected)
+			if (!data || data.trim() === '') return;
+
 			// Validate UUID
-			if (!validateUUID(data)) {
-				setError(`Scanned code '${data}' is not a valid UUID v4.`);
+			if (!yup.string().uuid().isValidSync(data)) {
+				setError(`Scanned code '${data}' is not a valid UUID format.`);
 				return;
 			}
+
 			setLoading(true);
 			fetch(`/api/tickets/${data}`)
 				.then(async (res) => {

@@ -29,7 +29,6 @@
 		"@googleapis/walletobjects": "npm:@googleapis/walletobjects@^7.0.1",
 		"@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
 		"@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
-		"@std/uuid": "jsr:@std/uuid",
 		"@supabase/supabase-js": "npm:@supabase/supabase-js@^2.0.0",
 		"$components/": "./components/",
 		"$fresh/": "https://deno.land/x/fresh@1.7.3/",
