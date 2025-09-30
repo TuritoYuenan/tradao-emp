@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import { Constants } from '$lib/models.ts';
 
 export default function RegForm({ eventID }: { eventID: string }) {
 	const [isRegistering, setIsRegistering] = useState(false);
@@ -82,10 +83,9 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				required
 			>
 				<option value=''>Select Academic Year</option>
-				<option value='Freshman'>Freshman</option>
-				<option value='Sophomore'>Sophomore</option>
-				<option value='Junior'>Junior</option>
-				<option value='Senior'>Senior</option>
+				{Constants.public.Enums.academic_year.map(year => (
+					<option value={year} key={year}>{year}</option>
+				))}
 			</select>
 
 			<label htmlFor='ff-field' className='inline-block mb-1'>Field of Study</label>
@@ -96,9 +96,9 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				required
 			>
 				<option value=''>Select Field of Study</option>
-				<option value='business'>Business</option>
-				<option value='comp-sci'>Computer Science</option>
-				<option value='mediacom'>Media and Communication</option>
+				{Constants.public.Enums.field_of_study.map(field => (
+					<option value={field} key={field}>{field}</option>
+				))}
 			</select>
 
 			<label htmlFor='ff-major' className='inline-block mb-1'>Major</label>
