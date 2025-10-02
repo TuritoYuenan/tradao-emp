@@ -1,8 +1,24 @@
+import { Handlers, PageProps } from '$fresh/server.ts';
+import { supabase } from '$lib/supabase.ts';
+import { User } from '@supabase/supabase-js';
 import Banner from '$components/Banner.tsx';
 import PageTitle from '$components/PageTitle.tsx';
 
-export default function ManagementHomePage() {
-	const username = 'Minh-Triet';
+export const handler: Handlers<User> = {
+	async GET(_req, ctx) {
+		const { data: { user }, error } = await supabase.auth.getUser();
+		if (error) return new Response(error.message, { status: 500 });
+		console.log(user);
+
+		return ctx.render(user!);
+	},
+};
+
+export default function ManagementHomePage(props: PageProps<User | null>) {
+	const username = props.data?.email;
+
+	// const username = 'Minh-Triet';
+	console.log(props.data);
 
 	return (
 		<>

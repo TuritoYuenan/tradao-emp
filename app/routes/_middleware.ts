@@ -1,18 +1,18 @@
 import { FreshContext } from '$fresh/server.ts';
-import { isLoggedIn } from '$lib/auth.ts';
+import { supabase } from '$lib/supabase.ts';
 
-export function handler(req: Request, ctx: FreshContext) {
+export async function handler(req: Request, ctx: FreshContext) {
 	const url = new URL(req.url);
+	if (!url.pathname.startsWith('/manage')) return ctx.next();
 
-	if (url.pathname.startsWith('/manage')) {
-		if (!isLoggedIn(req)) {
-			const redirectTo = encodeURIComponent(url.pathname + url.search);
-			return new Response(null, {
-				status: 302,
-				headers: { Location: `/login?redirectTo=${redirectTo}` }
-			});
-		}
+	const { data: { user }, error } = await supabase.auth.getUser();
+
+	if (!error && user) {
+		console.log('Middleware: User is logged in: ', user.email);
+		return ctx.next();
 	}
 
-	return ctx.next();
+	console.log('Middleware: Not logged in, redirecting to login');
+	const redirectTo = encodeURIComponent(url.pathname + url.search);
+	return Response.redirect(new URL(`/login?redirectTo=${redirectTo}`, req.url), 303);
 }

@@ -7,4 +7,11 @@ import { Database } from './models.ts';
 export const supabase = createClient<Database>(
 	Deno.env.get('SUPABASE_URL') || '',
 	Deno.env.get('SUPABASE_KEY') || '',
+	{
+		auth: {
+			autoRefreshToken: false,
+			persistSession: false,
+			detectSessionInUrl: false,
+		},
+	},
 );
