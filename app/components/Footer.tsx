@@ -28,11 +28,11 @@ const contact = {
 
 export default function Footer() {
 	return (
-		<footer className='mt-8 overflow-hidden' style={{ backgroundColor: 'var(--green)' }}>
+		<footer className='mt-8 overflow-hidden bg-[--green]'>
 			<div
 				id='curve'
-				className='h-12'
-				style={{ backgroundColor: 'var(--background)', borderRadius: '0 0 100% 100%' }}
+				className='h-12 bg-[--background]'
+				style={{ borderRadius: '0 0 100% 100%' }}
 			/>
 			<section
 				id='menu'

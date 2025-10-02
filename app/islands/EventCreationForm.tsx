@@ -113,7 +113,7 @@ function Step3() {
 						accept='image/png,image/jpeg,image/webp'
 						className='
 							p-1 border-2 border-[var(--foreground)] bg-white
-							rounded-lg file:border-0 file:bg-[var(--green)]
+							rounded-lg file:border-0 file:bg-[--green]
 							file:text-[var(--foreground)] file:px-4 file:py-2
 							file:rounded-md'
 						required

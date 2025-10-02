@@ -73,9 +73,9 @@ export default function TicketLookupPage(props: PageProps<TicketLookupProps>) {
 					style={{ borderColor: 'var(--foreground)' }}
 				>
 					<TicketHeader props={props.data} />
-					<hr className='my-4 border rounded-2xl' style={{ borderColor: 'var(--foreground)' }} />
+					<hr className='my-4 border rounded-2xl border-[--foreground]' />
 					<TicketDetails props={props.data} />
-					<hr className='my-4 border rounded-2xl' style={{ borderColor: 'var(--foreground)' }} />
+					<hr className='my-4 border rounded-2xl border-[--foreground]' />
 					<TicketFooter props={props.data} />
 				</article>
 			</div>
