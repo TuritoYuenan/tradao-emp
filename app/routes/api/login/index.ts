@@ -1,9 +1,9 @@
-import { Handlers } from '$fresh/server.ts';
+import { define } from '$lib/utils.ts';
 import { supabase } from '$lib/supabase.ts';
 
-export const handler: Handlers = {
-	async POST(req, _ctx) {
-		const formData = await req.json();
+export const handler = define.handlers({
+	async POST(ctx) {
+		const formData = await ctx.req.json();
 		const redirectTo = formData.redirectTo || '/manage';
 
 		const { data: { user }, error } = await supabase.auth.getUser();
@@ -21,12 +21,12 @@ export const handler: Handlers = {
 			const sessionData = {
 				access_token: data.session.access_token,
 				refresh_token: data.session.refresh_token,
-				expires_at: data.session.expires_at
+				expires_at: data.session.expires_at,
 			};
 
 			const headers = new Headers({
 				'Content-Type': 'application/json',
-				'Set-Cookie': `sb-session=${JSON.stringify(sessionData)}; Path=/; HttpOnly; Secure; SameSite=Lax`
+				'Set-Cookie': `sb-session=${JSON.stringify(sessionData)}; Path=/; HttpOnly; Secure; SameSite=Lax`,
 			});
 
 			return new Response(JSON.stringify({ redirectTo }), { status: 200, headers });
@@ -37,4 +37,4 @@ export const handler: Handlers = {
 			{ status: 200, headers: { 'Content-Type': 'application/json' } },
 		);
 	},
-};
+});

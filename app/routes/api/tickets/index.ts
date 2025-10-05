@@ -1,9 +1,9 @@
 import * as yup from 'yup';
-import { Handlers } from '$fresh/server.ts';
 import { Database } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { errorResponse } from '$lib/utils.ts';
 import { eventRegistrationSchema } from '$lib/validation.ts';
+import { define } from '$lib/utils.ts';
 
 interface RegistrationFormProps {
 	eventID: string;
@@ -27,9 +27,9 @@ function formToObject(form: FormData): RegistrationFormProps {
 	};
 }
 
-export const handler: Handlers<RegistrationFormProps> = {
-	async POST(req, _ctx) {
-		const form = await req.formData();
+export const handler = define.handlers<RegistrationFormProps>({
+	async POST(ctx) {
+		const form = await ctx.req.formData();
 		const registrationData = formToObject(form);
 
 		try {
@@ -38,7 +38,7 @@ export const handler: Handlers<RegistrationFormProps> = {
 			if (error instanceof yup.ValidationError) {
 				return new Response(JSON.stringify({ errors: error.errors }), {
 					status: 400,
-					headers: { 'Content-Type': 'application/json' }
+					headers: { 'Content-Type': 'application/json' },
 				});
 			}
 		}
@@ -61,4 +61,4 @@ export const handler: Handlers<RegistrationFormProps> = {
 			{ status: 200, headers: { 'Content-Type': 'application/json' } },
 		);
 	},
-};
+});

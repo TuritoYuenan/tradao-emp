@@ -1,36 +1,39 @@
-import { TablesInsert } from '$lib/models.ts';
-import { Handlers } from '$fresh/server.ts';
+import { define } from '$lib/utils.ts';
 import { supabase } from '$lib/supabase.ts';
 import { errorResponse } from '$lib/utils.ts';
+import { eventCreationSchema } from '$lib/validation.ts';
+import { InferType, ValidationError } from 'yup';
 
-interface CommunityEventProps extends Omit<TablesInsert<'community_events'>, 'image'> {
-	imageFile: File;
-}
+type EventCreationProps = InferType<typeof eventCreationSchema>;
 
-export const handler: Handlers<CommunityEventProps> = {
-	async POST(req, _ctx) {
-		const formData = await req.formData();
-		const eventForm: CommunityEventProps = {
-			title: formData.get('title')?.toString() || '',
-			description: formData.get('description')?.toString() || '',
-			start_time: formData.get('start_time')?.toString() || '',
-			end_time: formData.get('end_time')?.toString() || '',
-			location: formData.get('location')?.toString() || '',
-			imageFile: formData.get('imageFile') as File,
-		};
+export const handler = define.handlers({
+	async POST(ctx) {
+		const req = ctx.req;
+		const body = await req.json();
 
-		const { status, error } = await supabase
-			.from('community_events')
-			.upsert([eventForm]);
+		try {
+			const eventForm = eventCreationSchema.cast(body) as EventCreationProps;
 
-		if (error) return errorResponse(status, error.message);
+			const { status, error } = await supabase
+				.from('community_events')
+				.upsert([eventForm]);
 
-		return new Response(JSON.stringify({ eventID: 'a' }), {
-			status, headers: { 'Content-Type': 'application/json' },
-		});
+			if (error) return errorResponse(status, error.message);
+
+			return new Response(JSON.stringify({ eventID: 'a' }), {
+				status,
+				headers: { 'Content-Type': 'application/json' },
+			});
+		} catch (e) {
+			if (e instanceof ValidationError) return errorResponse(400, e.errors);
+			if (e instanceof Error) return errorResponse(400, e.message);
+
+			return errorResponse(400, 'Invalid request body');
+		}
 	},
 
-	async GET(req, _ctx) {
+	async GET(ctx) {
+		const req = ctx.req;
 		const url = new URL(req.url);
 		const upcoming = url.searchParams.get('upcoming') === 'true';
 
@@ -52,4 +55,4 @@ export const handler: Handlers<CommunityEventProps> = {
 			headers: { 'Content-Type': 'application/json' },
 		});
 	},
-};
+});

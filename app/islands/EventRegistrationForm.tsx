@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import { Constants } from '$lib/models.ts';
 
-export default function RegForm({ eventID }: { eventID: string }) {
+export function EventRegistrationForm({ eventID }: { eventID: string }) {
 	const [isRegistering, setIsRegistering] = useState(false);
 	const [errors, setErrors] = useState<string[]>([]);
 
@@ -12,7 +12,10 @@ export default function RegForm({ eventID }: { eventID: string }) {
 		const formData = new FormData(form);
 		formData.append('eventID', eventID);
 
-		const response = await fetch('/api/tickets', { method: 'POST', body: formData });
+		const response = await fetch('/api/tickets', {
+			method: 'POST',
+			body: formData,
+		});
 
 		switch (response.status) {
 			case 400: {
@@ -46,7 +49,12 @@ export default function RegForm({ eventID }: { eventID: string }) {
 	}
 
 	return (
-		<form method='POST' className='mt-2' onSubmit={handleFormSubmission} noValidate>
+		<form
+			method='POST'
+			className='mt-2'
+			onSubmit={handleFormSubmission}
+			noValidate
+		>
 			<datalist id='majors'>
 				<option value='Data Science'>Data Science</option>
 				<option value='Software Development'>Software Development</option>
@@ -65,7 +73,9 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				required
 			/>
 
-			<label htmlFor='ff-mail' className='inline-block mb-1'>Email address</label>
+			<label htmlFor='ff-mail' className='inline-block mb-1'>
+				Email address
+			</label>
 			<input
 				id='ff-mail'
 				name='email'
@@ -75,7 +85,9 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				required
 			/>
 
-			<label htmlFor='ff-year' className='inline-block mb-1'>Academic Year</label>
+			<label htmlFor='ff-year' className='inline-block mb-1'>
+				Academic Year
+			</label>
 			<select
 				id='ff-year'
 				name='year'
@@ -83,12 +95,12 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				required
 			>
 				<option value=''>Select Academic Year</option>
-				{Constants.public.Enums.academic_year.map(year => (
-					<option value={year} key={year}>{year}</option>
-				))}
+				{Constants.public.Enums.academic_year.map((year) => <option value={year} key={year}>{year}</option>)}
 			</select>
 
-			<label htmlFor='ff-field' className='inline-block mb-1'>Field of Study</label>
+			<label htmlFor='ff-field' className='inline-block mb-1'>
+				Field of Study
+			</label>
 			<select
 				id='ff-field'
 				name='field'
@@ -96,9 +108,8 @@ export default function RegForm({ eventID }: { eventID: string }) {
 				required
 			>
 				<option value=''>Select Field of Study</option>
-				{Constants.public.Enums.field_of_study.map(field => (
-					<option value={field} key={field}>{field}</option>
-				))}
+				{Constants.public.Enums.field_of_study.map((field) => <option value={field} key={field}>{field}
+				</option>)}
 			</select>
 
 			<label htmlFor='ff-major' className='inline-block mb-1'>Major</label>
@@ -126,7 +137,9 @@ export default function RegForm({ eventID }: { eventID: string }) {
 
 			{errors.length > 0 && (
 				<section id='errors'>
-					<h2 className='text-red-500'>Oops! There were some problems with registering!</h2>
+					<h2 className='text-red-500'>
+						Oops! There were some problems with registering!
+					</h2>
 					<ul className='list-disc list-inside text-red-500'>
 						{errors.map((error, index) => <li key={index}>{error}</li>)}
 					</ul>

@@ -1,15 +1,24 @@
-import TextClock from '$islands/TextClock.tsx';
+import { TextClock } from '$islands/TextClock.tsx';
 
 const menuItems = [
 	{ name: 'Manage', href: '/manage', icon: 'manage_accounts', external: false },
-	{ name: 'Main website', href: 'https://itealab.vercel.app', icon: 'home', external: true },
+	{
+		name: 'Main website',
+		href: 'https://itealab.vercel.app',
+		icon: 'home',
+		external: true,
+	},
 ];
 
-export default function Navbar() {
+export function Navbar() {
 	return (
 		<header className='flex flex-col md:flex-row items-center justify-between px-8 py-4 gap-4'>
 			<a className='hover:scale-110' href='/'>
-				<img src='/logos/logo.svg' alt='Tradao Logo' style={{ height: '4rem' }} />
+				<img
+					src='/logos/logo.svg'
+					alt='Tradao Logo'
+					style={{ height: '4rem' }}
+				/>
 			</a>
 			<nav className='flex flex-row flex-wrap gap-2 justify-center md:items-center'>
 				<TextClock />

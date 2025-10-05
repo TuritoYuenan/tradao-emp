@@ -1,47 +1,61 @@
 {
 	"compilerOptions": {
-		"jsx": "react-jsx",
+		"jsx": "precompile",
 		"jsxImportSource": "preact",
-		"useUnknownInCatchVariables": true
-	},
-	"deploy": {
-		"entrypoint": "main.ts",
-		"exclude": [
-			"**/node_modules",
-			".env"
+		"jsxPrecompileSkipElements": [
+			"a",
+			"img",
+			"source",
+			"body",
+			"html",
+			"head",
+			"title",
+			"meta",
+			"script",
+			"link",
+			"style",
+			"base",
+			"noscript",
+			"template"
 		],
-		"include": [],
-		"project": "73f89b20-dc51-46ff-af14-4f3206e1e972"
+		"lib": [
+			"dom",
+			"dom.asynciterable",
+			"dom.iterable",
+			"deno.ns"
+		],
+		"types": [
+			"vite/client"
+		]
 	},
 	"exclude": [
 		"**/_fresh/*"
 	],
 	"fmt": {
-		"indentWidth": 4,
-		"lineWidth": 120,
-		"quoteProps": "consistent",
-		"semiColons": true,
-		"singleQuote": true,
-		"trailingCommas": "onlyMultiLine",
-		"useTabs": true
+		"options": {
+			"indentWidth": 4,
+			"lineWidth": 120,
+			"quoteProps": "consistent",
+			"semiColons": true,
+			"singleQuote": true,
+			"useTabs": true
+		}
 	},
 	"imports": {
+		"@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.0.4",
 		"@googleapis/walletobjects": "npm:@googleapis/walletobjects@^7.0.1",
-		"@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
-		"@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+		"@preact/signals": "npm:@preact/signals@^2.3.1",
 		"@supabase/supabase-js": "npm:@supabase/supabase-js@^2.0.0",
+		"@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.12",
 		"$components/": "./components/",
-		"$fresh/": "https://deno.land/x/fresh@1.7.3/",
 		"$islands/": "./islands/",
 		"$lib/": "./lib/",
 		"$std/": "https://deno.land/std@0.216.0/",
-		"jose": "npm:jose@5.9.6",
+		"fresh": "jsr:@fresh/core@^2.1.1",
 		"jsqr": "https://esm.sh/jsqr@1.4.0",
-		"preact": "https://esm.sh/preact@10.22.0",
-		"preact/": "https://esm.sh/preact@10.22.0/",
-		"tailwindcss": "npm:tailwindcss@3.4.1",
-		"tailwindcss/": "npm:/tailwindcss@3.4.1/",
-		"tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
+		"preact": "npm:preact@^10.27.2",
+		"tailwindcss": "npm:tailwindcss@^4.1.10",
+		"vite": "npm:vite@^7.1.3",
 		"yup": "https://esm.sh/yup@1.7.0"
 	},
 	"lint": {
@@ -52,16 +66,12 @@
 			]
 		}
 	},
-	"lock": false,
 	"nodeModulesDir": "auto",
 	"tasks": {
-		"build": "deno run -A dev.ts build",
-		"check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
-		"cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
-		"deploy": "deployctl deploy --env-file=.env --prod --project=tradao",
-		"manifest": "deno task cli manifest $(pwd)",
-		"preview": "deno run -A main.ts",
-		"start": "deno run -A --watch=static/,routes/ dev.ts",
-		"update": "deno run -A -r https://fresh.deno.dev/update ."
+		"build": "vite build",
+		"check": "deno fmt --check . && deno lint . && deno check",
+		"dev": "vite",
+		"start": "deno serve -A _fresh/server.js",
+		"update": "deno run -A -r jsr:@fresh/update ."
 	}
 }

@@ -1,7 +1,8 @@
-import Banner from '$components/Banner.tsx';
-import PageTitle from '$components/PageTitle.tsx';
+import { define } from '$lib/utils.ts';
+import { Banner } from '$components/Banner.tsx';
+import { PageTitle } from '$components/PageTitle.tsx';
 
-export default function ViewEventsPage() {
+export default define.page(function ViewEventsPage() {
 	return (
 		<>
 			<PageTitle title='Manage Events' />
@@ -26,4 +27,4 @@ export default function ViewEventsPage() {
 			</section>
 		</>
 	);
-}
+});

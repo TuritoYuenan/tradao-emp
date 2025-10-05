@@ -1,23 +1,21 @@
-import { Handlers, PageProps } from '$fresh/server.ts';
+import { define } from '$lib/utils.ts';
 import { supabase } from '$lib/supabase.ts';
 import { User } from '@supabase/supabase-js';
-import Banner from '$components/Banner.tsx';
-import PageTitle from '$components/PageTitle.tsx';
+import { Banner } from '$components/Banner.tsx';
+import { PageTitle } from '$components/PageTitle.tsx';
 
-export const handler: Handlers<User> = {
-	async GET(_req, ctx) {
+export const handler = define.handlers<User | null>({
+	async GET(_ctx) {
 		const { data: { user }, error } = await supabase.auth.getUser();
 		if (error) return new Response(error.message, { status: 500 });
 		console.log(user);
 
-		return ctx.render(user!);
+		return { data: user };
 	},
-};
+});
 
-export default function ManagementHomePage(props: PageProps<User | null>) {
-	const username = props.data?.email;
-
-	// const username = 'Minh-Triet';
+export default define.page<typeof handler>(function ManagementHomePage(props) {
+	const username = props.data?.email ?? 'User';
 	console.log(props.data);
 
 	return (
@@ -79,4 +77,4 @@ export default function ManagementHomePage(props: PageProps<User | null>) {
 			</article>
 		</>
 	);
-}
+});

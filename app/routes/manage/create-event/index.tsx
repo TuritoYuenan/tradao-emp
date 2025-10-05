@@ -1,8 +1,9 @@
-import Banner from '$components/Banner.tsx';
-import PageTitle from '$components/PageTitle.tsx';
-import EventCreationForm from '$islands/EventCreationForm.tsx';
+import { define } from '$lib/utils.ts';
+import { Banner } from '$components/Banner.tsx';
+import { PageTitle } from '$components/PageTitle.tsx';
+import { EventCreationForm } from '$islands/EventCreationForm.tsx';
 
-export default function CreateEventPage() {
+export default define.page(function CreateEventPage() {
 	return (
 		<article>
 			<PageTitle title='Create New Event' />
@@ -10,4 +11,4 @@ export default function CreateEventPage() {
 			<EventCreationForm />
 		</article>
 	);
-}
+});

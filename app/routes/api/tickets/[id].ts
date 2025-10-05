@@ -1,10 +1,10 @@
-import { Handlers } from '$fresh/server.ts';
+import { define } from '$lib/utils.ts';
+import { Tables } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { errorResponse } from '$lib/utils.ts';
-import { Tables } from '$lib/models.ts';
 
-export const handler: Handlers<Tables<'event_tickets'>> = {
-	async GET(_req, ctx) {
+export const handler = define.handlers<Tables<'event_tickets'>>({
+	async GET(ctx) {
 		const ticketID = ctx.params.id;
 
 		const { data, error } = await supabase
@@ -19,5 +19,5 @@ export const handler: Handlers<Tables<'event_tickets'>> = {
 			status: 200,
 			headers: { 'Content-Type': 'application/json' },
 		});
-	}
-}
+	},
+});

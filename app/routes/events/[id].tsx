@@ -1,12 +1,12 @@
-import { Handlers, PageProps } from '$fresh/server.ts';
 import { Tables } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { formatDate } from '$lib/utils.ts';
-import EventRegistrationForm from '$islands/EventRegistrationForm.tsx';
-import PageTitle from '$components/PageTitle.tsx';
+import { EventRegistrationForm } from '$islands/EventRegistrationForm.tsx';
+import { PageTitle } from '$components/PageTitle.tsx';
+import { define } from '$lib/utils.ts';
 
-export const handler: Handlers<Tables<'community_events'>> = {
-	async GET(_req, ctx) {
+export const handler = define.handlers<Tables<'community_events'>>({
+	async GET(ctx) {
 		const eventID = ctx.params.id;
 
 		const { data, error } = await supabase
@@ -17,13 +17,12 @@ export const handler: Handlers<Tables<'community_events'>> = {
 			.single();
 
 		if (error) throw error;
-		if (!data) return ctx.renderNotFound();
 
-		return ctx.render(data);
-	}
-};
+		return { data: data };
+	},
+});
 
-export default function EventDetailsPage(props: PageProps<Tables<'community_events'>>) {
+export default define.page<typeof handler>(function EventDetailsPage(props) {
 	const event = props.data;
 	return (
 		<>
@@ -48,11 +47,15 @@ export default function EventDetailsPage(props: PageProps<Tables<'community_even
 				<div className='p-4 border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)] md:[grid-area:time]'>
 					<h2 className='text-2xl font-bold'>Event Time</h2>
 					<p>
-						<span className='material-symbols-rounded relative top-[0.3rem]'>event</span>{' '}
+						<span className='material-symbols-rounded relative top-[0.3rem]'>
+							event
+						</span>{' '}
 						<strong>Start:</strong> {formatDate(event.start_time)}
 					</p>
 					<p>
-						<span className='material-symbols-rounded relative top-[0.3rem]'>event</span>{' '}
+						<span className='material-symbols-rounded relative top-[0.3rem]'>
+							event
+						</span>{' '}
 						<strong>End:</strong> {formatDate(event.end_time)}
 					</p>
 				</div>
@@ -81,4 +84,4 @@ export default function EventDetailsPage(props: PageProps<Tables<'community_even
 			</article>
 		</>
 	);
-}
+});

@@ -1,139 +1,135 @@
 import { useState } from 'preact/hooks';
 
 // MARK: Step 1
-function Step1() {
-	return (
-		<fieldset className='mb-4'>
-			<legend className='mb-2 text-2xl font-bold'>Step 1: The Basics</legend>
-			<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-				<div className='flex flex-col md:col-span-2'>
-					<label htmlFor='title' className='font-semibold mb-1'>Title</label>
-					<input
-						type='text'
-						id='title'
-						name='title'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-						required
-					/>
-				</div>
-				<div className='flex flex-col'>
-					<label htmlFor='start_time' className='font-semibold mb-1'>Start Time</label>
-					<input
-						type='datetime-local'
-						id='start_time'
-						name='start_time'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-						required
-					/>
-				</div>
-				<div className='flex flex-col'>
-					<label htmlFor='end_time' className='font-semibold mb-1'>End Time</label>
-					<input
-						type='datetime-local'
-						id='end_time'
-						name='end_time'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-						required
-					/>
-				</div>
-				<div className='flex flex-col md:col-span-2'>
-					<label htmlFor='location' className='font-semibold mb-1'>Location</label>
-					<input
-						type='text'
-						id='location'
-						name='location'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-						required
-					/>
-					<small>Can simply be room name, which defaults to Swinburne A35 building</small>
-				</div>
+const Step1 = () => (
+	<fieldset className='mb-4'>
+		<legend className='mb-2 text-2xl font-bold'>Step 1: The Basics</legend>
+		<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+			<div className='flex flex-col md:col-span-2'>
+				<label htmlFor='title' className='font-semibold mb-1'>Title</label>
+				<input
+					type='text'
+					id='title'
+					name='title'
+					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+					required
+				/>
 			</div>
-		</fieldset>
-	);
-}
+			<div className='flex flex-col'>
+				<label htmlFor='start_time' className='font-semibold mb-1'>Start Time</label>
+				<input
+					type='datetime-local'
+					id='start_time'
+					name='start_time'
+					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+					required
+				/>
+			</div>
+			<div className='flex flex-col'>
+				<label htmlFor='end_time' className='font-semibold mb-1'>End Time</label>
+				<input
+					type='datetime-local'
+					id='end_time'
+					name='end_time'
+					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+					required
+				/>
+			</div>
+			<div className='flex flex-col md:col-span-2'>
+				<label htmlFor='location' className='font-semibold mb-1'>Location</label>
+				<input
+					type='text'
+					id='location'
+					name='location'
+					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+					required
+				/>
+				<small>
+					Can simply be room name, which defaults to Swinburne A35 building
+				</small>
+			</div>
+		</div>
+	</fieldset>
+);
 
 // MARK: Step 2
-function Step2() {
-	return (
-		<fieldset className='mb-4'>
-			<legend className='mb-2 text-2xl font-bold'>Step 2: Host</legend>
-			<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-				<div className='flex flex-col'>
-					<label htmlFor='host_name' className='font-semibold mb-1'>Host Name</label>
-					<input
-						type='text'
-						id='host_name'
-						name='host_name'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-						required
-					/>
-				</div>
-				<div className='flex flex-col'>
-					<label htmlFor='host_email' className='font-semibold mb-1'>Contact Email</label>
-					<input
-						type='email'
-						id='host_email'
-						name='host_email'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-						required
-					/>
-				</div>
+const Step2 = () => (
+	<fieldset className='mb-4'>
+		<legend className='mb-2 text-2xl font-bold'>Step 2: Host</legend>
+		<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+			<div className='flex flex-col'>
+				<label htmlFor='host_name' className='font-semibold mb-1'>Host Name</label>
+				<input
+					type='text'
+					id='host_name'
+					name='host_name'
+					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+					required
+				/>
 			</div>
-		</fieldset>
-	);
-}
+			<div className='flex flex-col'>
+				<label htmlFor='host_email' className='font-semibold mb-1'>Contact Email</label>
+				<input
+					type='email'
+					id='host_email'
+					name='host_email'
+					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
+					required
+				/>
+			</div>
+		</div>
+	</fieldset>
+);
 
 // MARK: Step 3
-function Step3() {
-	return (
-		<fieldset className='mb-4'>
-			<legend className='mb-2 text-2xl font-bold'>Step 3: Description</legend>
-			<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-				<div className='flex flex-col'>
-					<label htmlFor='category' className='font-semibold mb-1'>Category</label>
-					<select
-						id='category'
-						name='category'
-						className='h-full p-2 border-2 border-[var(--foreground)] bg-white rounded-lg'
-						required
-					>
-						<option value=''>Select a category</option>
-						<option value='conference'>Conference</option>
-						<option value='meetup'>Meetup</option>
-						<option value='pitching'>Pitching</option>
-						<option value='workshop'>Workshop</option>
-					</select>
-				</div>
-				<div className='flex flex-col'>
-					<label htmlFor='image' className='font-semibold mb-1'>Thumbnail Image</label>
-					<input
-						type='file'
-						id='image'
-						name='imageFile'
-						accept='image/png,image/jpeg,image/webp'
-						className='
+const Step3 = () => (
+	<fieldset className='mb-4'>
+		<legend className='mb-2 text-2xl font-bold'>Step 3: Description</legend>
+		<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+			<div className='flex flex-col'>
+				<label htmlFor='category' className='font-semibold mb-1'>Category</label>
+				<select
+					id='category'
+					name='category'
+					className='h-full p-2 border-2 border-[var(--foreground)] bg-white rounded-lg'
+					required
+				>
+					<option value=''>Select a category</option>
+					<option value='conference'>Conference</option>
+					<option value='meetup'>Meetup</option>
+					<option value='pitching'>Pitching</option>
+					<option value='workshop'>Workshop</option>
+				</select>
+			</div>
+			<div className='flex flex-col'>
+				<label htmlFor='image' className='font-semibold mb-1'>Thumbnail Image</label>
+				<input
+					type='file'
+					id='image'
+					name='imageFile'
+					accept='image/png,image/jpeg,image/webp'
+					className='
 							p-1 border-2 border-[var(--foreground)] bg-white
-							rounded-lg file:border-0 file:bg-[--green]
+							rounded-lg file:border-0 file:bg-(--green)
 							file:text-[var(--foreground)] file:px-4 file:py-2
 							file:rounded-md'
-						required
-					/>
-				</div>
-				<div className='flex flex-col md:col-span-2'>
-					<label htmlFor='description' className='font-semibold mb-1'>Event Description</label>
-					<textarea
-						id='description'
-						name='description'
-						className='p-2 border-2 border-[var(--foreground)] rounded-lg h-40'
-					/>
-				</div>
+					required
+				/>
 			</div>
-		</fieldset>
-	);
-}
+			<div className='flex flex-col md:col-span-2'>
+				<label htmlFor='description' className='font-semibold mb-1'>Event Description</label>
+				<textarea
+					id='description'
+					name='description'
+					className='p-2 border-2 border-[var(--foreground)] rounded-lg h-40'
+				/>
+			</div>
+		</div>
+	</fieldset>
+);
 
 // MARK: Main Component
-export default function EventCreationForm() {
+export function EventCreationForm() {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [errors, setErrors] = useState<string[]>([]);
 
@@ -141,9 +137,13 @@ export default function EventCreationForm() {
 		setIsSubmitting(true);
 		event.preventDefault();
 		const form = event.target as HTMLFormElement;
-		const formData = new FormData(form);
+		const data = Object.fromEntries(new FormData(form).entries());
 
-		const response = await fetch('/api/events', { method: 'POST', body: formData });
+		const response = await fetch('/api/events', {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: { 'Content-Type': 'application/json' },
+		});
 
 		switch (response.status) {
 			case 400: {
@@ -189,7 +189,9 @@ export default function EventCreationForm() {
 
 			{errors.length > 0 && (
 				<section id='errors'>
-					<h2 className='text-red-500'>Oops! There were some problems with registering!</h2>
+					<h2 className='text-red-500'>
+						Oops! There were some problems with registering!
+					</h2>
 					<ul className='list-disc list-inside text-red-500'>
 						{errors.map((error, index) => <li key={index}>{error}</li>)}
 					</ul>
@@ -197,7 +199,9 @@ export default function EventCreationForm() {
 			)}
 
 			<fieldset>
-				<button type='submit' className='button' disabled={isSubmitting}>Create Event</button>
+				<button type='submit' className='button' disabled={isSubmitting}>
+					Create Event
+				</button>
 			</fieldset>
 		</form>
 	);

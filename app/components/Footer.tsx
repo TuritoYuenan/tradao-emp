@@ -1,4 +1,4 @@
-import Leaf from './Leaf.tsx';
+import { Leaf } from './Leaf.tsx';
 
 /**
  * Explore - Links to internal ITea Lab sections
@@ -26,12 +26,12 @@ const contact = {
 	address: 'A35 Bach Dang street, Tan Binh district, Ho Chi Minh city, Vietnam',
 };
 
-export default function Footer() {
+export function Footer() {
 	return (
-		<footer className='mt-8 overflow-hidden bg-[--green]'>
+		<footer className='mt-8 overflow-hidden bg-(--green)'>
 			<div
 				id='curve'
-				className='h-12 bg-[--background]'
+				className='h-12 bg-(--background)'
 				style={{ borderRadius: '0 0 100% 100%' }}
 			/>
 			<section

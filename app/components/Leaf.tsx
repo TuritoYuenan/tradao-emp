@@ -1,4 +1,8 @@
-export default function Leaf({ fill = 'var(--foreground)' }: { fill?: string }) {
+interface LeafProps {
+	fill?: string;
+}
+
+export function Leaf({ fill = 'var(--foreground)' }: LeafProps) {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'

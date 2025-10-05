@@ -10,7 +10,7 @@ Deno.test('valid data passes validation', async () => {
 		name: 'John Doe',
 		email: 'jdoe@mail.com',
 		year: 'Junior',
-		field: 'comp-sci',
+		field: 'Computer Science',
 		major: 'Software Engineering',
 		confirm: true,
 	};

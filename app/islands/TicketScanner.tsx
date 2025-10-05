@@ -1,29 +1,60 @@
 import jsQR from 'jsqr';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import * as yup from 'yup';
 import { Tables } from '$lib/models.ts';
+import { useSignal } from '@preact/signals';
 
-export default function CameraFeed() {
+export function TicketScanner() {
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const debounceTimeout = useRef<number | null>(null);
 	const lastScannedCode = useRef<string | null>(null);
-	const [qrResult, setQrResult] = useState<string | null>(null);
-	const [error, setError] = useState<string | null>(null);
-	const [ticket, setTicket] = useState<Tables<'event_tickets'> | null>(null);
-	const [loading, setLoading] = useState(false);
+	const qrResult = useSignal<string | null>(null);
+	const error = useSignal<string | null>(null);
+	const ticket = useSignal<Tables<'event_tickets'> | null>(null);
+	const loading = useSignal(false);
+
+	async function startCamera() {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({
+				video: { facingMode: 'environment' },
+			});
+			if (videoRef.current) videoRef.current.srcObject = stream;
+		} catch {
+			error.value = 'Camera access denied or not available.';
+		}
+	}
+
+	function handleQRResult(data: string) {
+		error.value = null;
+		ticket.value = null;
+		qrResult.value = data;
+
+		// Ignore empty strings (no QR code detected)
+		if (!data || data.trim() === '') return;
+
+		// Validate UUID
+		if (!yup.string().uuid().isValidSync(data)) {
+			error.value = `Scanned code '${data}' is not a valid UUID format.`;
+			return;
+		}
+
+		loading.value = true;
+		fetch(`/api/tickets/${data}`)
+			.then(async (res) => {
+				if (!res.ok) {
+					const err = await res.text();
+					throw new Error(err);
+				}
+				return res.json();
+			})
+			.then((result) => ticket.value = result.ticket)
+			.catch((err) => error.value = 'Ticket not found or error: ' + err.message)
+			.finally(() => loading.value = false);
+	}
 
 	useEffect(() => {
 		let animationId: number;
-
-		async function startCamera() {
-			try {
-				const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-				if (videoRef.current) videoRef.current.srcObject = stream;
-			} catch {
-				setError('Camera access denied or not available.');
-			}
-		}
 
 		function scanQRCode() {
 			const video = videoRef.current;
@@ -51,39 +82,14 @@ export default function CameraFeed() {
 			animationId = requestAnimationFrame(scanQRCode);
 		}
 
-		function handleQRResult(data: string) {
-			setError(null);
-			setTicket(null);
-			setQrResult(data);
-
-			// Ignore empty strings (no QR code detected)
-			if (!data || data.trim() === '') return;
-
-			// Validate UUID
-			if (!yup.string().uuid().isValidSync(data)) {
-				setError(`Scanned code '${data}' is not a valid UUID format.`);
-				return;
-			}
-
-			setLoading(true);
-			fetch(`/api/tickets/${data}`)
-				.then(async (res) => {
-					if (!res.ok) {
-						const err = await res.text();
-						throw new Error(err);
-					}
-					return res.json();
-				})
-				.then((result) => setTicket(result.ticket))
-				.catch((err) => setError('Ticket not found or error: ' + err.message))
-				.finally(() => setLoading(false));
-		}
-
-		if (typeof window !== 'undefined' && navigator.mediaDevices && 'getUserMedia' in navigator.mediaDevices) {
+		if (
+			typeof window !== 'undefined' && navigator.mediaDevices &&
+			'getUserMedia' in navigator.mediaDevices
+		) {
 			startCamera();
 			animationId = requestAnimationFrame(scanQRCode);
 		} else {
-			setError('Camera not supported in this environment.');
+			error.value = 'Camera not supported in this environment.';
 		}
 
 		return () => {
@@ -92,9 +98,9 @@ export default function CameraFeed() {
 				const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
 				tracks.forEach((track) => track.stop());
 			}
-			setQrResult(null);
-			setTicket(null);
-			setError(null);
+			qrResult.value = null;
+			ticket.value = null;
+			error.value = null;
 			if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 		};
 	}, []);
@@ -108,16 +114,14 @@ export default function CameraFeed() {
 				className='w-fill mx-auto bg-black rounded-lg'
 				aria-label='Camera feed'
 			/>
-			<canvas ref={canvasRef} className='hidden w-fill mx-auto bg-black rounded-lg' />
-			{qrResult && <p class='mt-4 p-2 bg-blue-100 rounded'>Scanned: {qrResult}</p>}
-			{loading && <p class='mt-4 p-2 bg-yellow-100 rounded'>Checking ticket...</p>}
-			{error && <p class='mt-4 p-2 bg-red-100 rounded'>{error}</p>}
-			{ticket && (
-				<div class='mt-4 p-2 bg-green-100 rounded'>
-					<h3 class='font-bold'>Ticket Found</h3>
-					<pre class='text-xs'>{JSON.stringify(ticket, null, 2)}</pre>
-				</div>
-			)}
+			<canvas
+				ref={canvasRef}
+				className='hidden w-fill mx-auto bg-black rounded-lg'
+			/>
+			{qrResult.value && <p>Scanned: {qrResult.value}</p>}
+			{loading.value && <p>Checking ticket...</p>}
+			{error.value && <p>{error.value}</p>}
+			{ticket.value && <pre>{JSON.stringify(ticket.value, null, 2)}</pre>}
 		</article>
 	);
 }

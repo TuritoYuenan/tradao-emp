@@ -1,15 +1,18 @@
 import { useMemo, useState } from 'preact/hooks';
-import EventCard from '$components/EventCard.tsx';
+import { EventCard } from '$components/EventCard.tsx';
 import { Tables } from '$lib/models.ts';
 import { search } from '$lib/utils.ts';
 
-export default function EventsFeed({ events }: { events: Tables<'upcoming_events'>[] }) {
+export function EventsFeed(
+	{ events }: { events: Tables<'upcoming_events'>[] },
+) {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('all');
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 5;
 
-	const categories = Array.from(new Set(events.map((event) => event.category!))).sort();
+	const categories = Array.from(new Set(events.map((event) => event.category!)))
+		.sort();
 
 	const filteredEvents = useMemo(() => {
 		let filtered = events;
@@ -29,7 +32,10 @@ export default function EventsFeed({ events }: { events: Tables<'upcoming_events
 
 	const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
 	const startIndex = (currentPage - 1) * itemsPerPage;
-	const eventsToDisplay = filteredEvents.slice(startIndex, startIndex + itemsPerPage);
+	const eventsToDisplay = filteredEvents.slice(
+		startIndex,
+		startIndex + itemsPerPage,
+	);
 
 	const handleSearch = (query: string) => {
 		setSearchQuery(query);
@@ -70,7 +76,12 @@ export default function EventsFeed({ events }: { events: Tables<'upcoming_events
 
 			{filteredEvents.length === 0 ? <p>No events found</p> : null}
 
-			{eventsToDisplay.map((event) => <EventCard key={event.id} event={event} />)}
+			{eventsToDisplay.map((event) => (
+				<EventCard
+					key={event.id}
+					event={event}
+				/>
+			))}
 
 			<nav className='flex justify-center items-center gap-2 mt-4'>
 				<button

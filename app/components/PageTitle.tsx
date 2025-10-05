@@ -1,6 +1,6 @@
-import { Head } from '$fresh/runtime.ts';
+import { Head } from 'fresh/runtime';
 
-export default function PageTitle({ title }: { title: string }) {
+export function PageTitle({ title }: { title: string }) {
 	return (
 		<Head>
 			<title>{title} | Tradao by ITea Lab&trade;</title>

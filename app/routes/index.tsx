@@ -1,26 +1,25 @@
-import { Handlers, PageProps } from '$fresh/server.ts';
-import { Tables } from '$lib/models.ts';
+import { define } from '$lib/utils.ts';
 import { supabase } from '$lib/supabase.ts';
-import Banner from '$components/Banner.tsx';
-import EventsFeed from '$islands/EventsFeed.tsx';
-import PageTitle from '$components/PageTitle.tsx';
+import { Banner } from '$components/Banner.tsx';
+import { PageTitle } from '$components/PageTitle.tsx';
+import { EventsFeed } from '$islands/EventsFeed.tsx';
 
-export const handler: Handlers<Tables<'upcoming_events'>[]> = {
-	async GET(_req, ctx) {
+export const handler = define.handlers({
+	async GET(_ctx) {
 		const { data, error } = await supabase
 			.from('upcoming_events')
 			.select('*');
 
 		if (error) {
 			console.error(error);
-			return ctx.render([]);
+			return { data: [] };
 		}
 
-		return ctx.render(data ?? []);
+		return { data: data ?? [] };
 	},
-};
+});
 
-export default function EventBrowsePage(props: PageProps<Tables<'upcoming_events'>[]>) {
+export default define.page<typeof handler>(function EventBrowsePage(props) {
 	return (
 		<>
 			<PageTitle title='Browse the latest lab events!' />
@@ -31,4 +30,4 @@ export default function EventBrowsePage(props: PageProps<Tables<'upcoming_events
 			<EventsFeed events={props.data} />
 		</>
 	);
-}
+});

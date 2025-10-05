@@ -1,8 +1,9 @@
-import PageTitle from '$components/PageTitle.tsx';
-import Banner from '$components/Banner.tsx';
-import TicketScanner from '$islands/TicketScanner.tsx';
+import { define } from '$lib/utils.ts';
+import { Banner } from '$components/Banner.tsx';
+import { PageTitle } from '$components/PageTitle.tsx';
+import { TicketScanner } from '$islands/TicketScanner.tsx';
 
-export default function CheckTicketPage() {
+export default define.page(function CheckTicketPage() {
 	return (
 		<>
 			<PageTitle title='Check Ticket' />
@@ -13,4 +14,4 @@ export default function CheckTicketPage() {
 			</article>
 		</>
 	);
-}
+});

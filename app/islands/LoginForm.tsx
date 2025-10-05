@@ -61,7 +61,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
 					name='email'
 					id='email'
 					required
-					className='p-2 bg-transparent border-2 border-[--foreground] rounded'
+					className='p-2 bg-transparent border-2 border-(--foreground) rounded'
 				/>
 			</div>
 			<div className='grid gap-1'>
@@ -71,7 +71,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
 					name='password'
 					id='password'
 					required
-					className='p-2 bg-transparent border-2 border-[--foreground] rounded'
+					className='p-2 bg-transparent border-2 border-(--foreground) rounded'
 				/>
 			</div>
 			{errors.length > 0 && (
