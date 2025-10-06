@@ -2,6 +2,16 @@ import { define } from '$lib/utils.ts';
 import { Navbar } from '$components/Navbar.tsx';
 import { Footer } from '$components/Footer.tsx';
 
+const menuItems = [
+	{ name: 'Manage', href: '/manage', icon: 'manage_accounts', external: false },
+	{
+		name: 'ITea Lab',
+		href: 'https://itealab.vercel.app',
+		icon: 'home',
+		external: true,
+	},
+];
+
 export default define.page(function App({ Component }) {
 	return (
 		<html lang='en-VN'>
@@ -17,7 +27,7 @@ export default define.page(function App({ Component }) {
 			</head>
 			<body>
 				<div className='contents'>
-					<Navbar />
+					<Navbar menuItems={menuItems} />
 					<main className='min-h-dvh'>
 						<Component />
 					</main>

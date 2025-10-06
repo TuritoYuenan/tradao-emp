@@ -1,16 +1,15 @@
 import { TextClock } from '$islands/TextClock.tsx';
 
-const menuItems = [
-	{ name: 'Manage', href: '/manage', icon: 'manage_accounts', external: false },
-	{
-		name: 'Main website',
-		href: 'https://itealab.vercel.app',
-		icon: 'home',
-		external: true,
-	},
-];
+interface NavbarProps {
+	menuItems: {
+		name: string;
+		href: string;
+		icon: string;
+		external: boolean;
+	}[];
+}
 
-export function Navbar() {
+export function Navbar({ menuItems }: NavbarProps) {
 	return (
 		<header className='flex flex-col md:flex-row items-center justify-between px-8 py-4 gap-4'>
 			<a className='hover:scale-110' href='/'>
