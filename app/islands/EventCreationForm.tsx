@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useSignal } from '@preact/signals';
 
 // MARK: Step 1
 const Step1 = () => (
@@ -130,11 +130,11 @@ const Step3 = () => (
 
 // MARK: Main Component
 export function EventCreationForm() {
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [errors, setErrors] = useState<string[]>([]);
+	const isSubmitting = useSignal(false);
+	const errors = useSignal<string[]>([]);
 
 	async function handleSubmission(event: Event) {
-		setIsSubmitting(true);
+		isSubmitting.value = true;
 		event.preventDefault();
 		const form = event.target as HTMLFormElement;
 		const data = Object.fromEntries(new FormData(form).entries());
@@ -149,15 +149,15 @@ export function EventCreationForm() {
 			case 400: {
 				// 4xx errors
 				const data = await response.json();
-				setErrors(data.errors);
-				setIsSubmitting(false);
+				errors.value = data.errors;
+				isSubmitting.value = false;
 				break;
 			}
 
 			case 500: {
 				// 5xx errors
-				setErrors(['Something went wrong on our end. Please try again later.']);
-				setIsSubmitting(false);
+				errors.value = ['Something went wrong on our end. Please try again later.'];
+				isSubmitting.value = false;
 				break;
 			}
 
@@ -171,7 +171,7 @@ export function EventCreationForm() {
 
 			default:
 				// Unexpected status code
-				setErrors(['Unexpected error. Please try again later.']);
+				errors.value = ['Unexpected error. Please try again later.'];
 				break;
 		}
 	}
@@ -187,13 +187,13 @@ export function EventCreationForm() {
 			<Step2 />
 			<Step3 />
 
-			{errors.length > 0 && (
+			{errors.value.length > 0 && (
 				<section id='errors'>
 					<h2 className='text-red-500'>
 						Oops! There were some problems with registering!
 					</h2>
 					<ul className='list-disc list-inside text-red-500'>
-						{errors.map((error, index) => <li key={index}>{error}</li>)}
+						{errors.value.map((error, index) => <li key={index}>{error}</li>)}
 					</ul>
 				</section>
 			)}

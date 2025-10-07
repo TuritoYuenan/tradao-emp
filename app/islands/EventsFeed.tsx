@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
+import { useSignal } from '@preact/signals';
 import { EventCard } from '$components/EventCard.tsx';
 import { Tables } from '$lib/models.ts';
 import { search } from '$lib/utils.ts';
@@ -6,9 +7,9 @@ import { search } from '$lib/utils.ts';
 export function EventsFeed(
 	{ events }: { events: Tables<'upcoming_events'>[] },
 ) {
-	const [searchQuery, setSearchQuery] = useState('');
-	const [selectedCategory, setSelectedCategory] = useState('all');
-	const [currentPage, setCurrentPage] = useState(1);
+	const searchQuery = useSignal('');
+	const selectedCategory = useSignal('all');
+	const currentPage = useSignal(1);
 	const itemsPerPage = 5;
 
 	const categories = Array.from(new Set(events.map((event) => event.category!)))
@@ -18,33 +19,33 @@ export function EventsFeed(
 		let filtered = events;
 
 		// Apply search filter
-		if (searchQuery.trim()) {
-			filtered = search(filtered, searchQuery, ['title', 'description']);
+		if (searchQuery.value.trim()) {
+			filtered = search(filtered, searchQuery.value, ['title', 'description']);
 		}
 
 		// Apply category filter
-		if (selectedCategory !== 'all') {
-			filtered = filtered.filter((event) => event.category === selectedCategory);
+		if (selectedCategory.value !== 'all') {
+			filtered = filtered.filter((event) => event.category === selectedCategory.value);
 		}
 
 		return filtered;
 	}, [events, searchQuery, selectedCategory]);
 
 	const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
-	const startIndex = (currentPage - 1) * itemsPerPage;
+	const startIndex = (currentPage.value - 1) * itemsPerPage;
 	const eventsToDisplay = filteredEvents.slice(
 		startIndex,
 		startIndex + itemsPerPage,
 	);
 
 	const handleSearch = (query: string) => {
-		setSearchQuery(query);
-		setCurrentPage(1); // Reset to first page when filters change
+		searchQuery.value = query;
+		currentPage.value = 1; // Reset to first page when filters change
 	};
 
 	const handleCategoryChange = (category: string) => {
-		setSelectedCategory(category);
-		setCurrentPage(1); // Reset to first page when filters change
+		selectedCategory.value = category;
+		currentPage.value = 1; // Reset to first page when filters change
 	};
 
 	return (
@@ -86,8 +87,8 @@ export function EventsFeed(
 			<nav className='flex justify-center items-center gap-2 mt-4'>
 				<button
 					type='button'
-					disabled={currentPage === 1}
-					onClick={() => setCurrentPage(currentPage - 1)}
+					disabled={currentPage.value === 1}
+					onClick={() => currentPage.value -= 1}
 					className='button disabled:opacity-50'
 				>
 					Previous
@@ -99,8 +100,8 @@ export function EventsFeed(
 
 				<button
 					type='button'
-					disabled={currentPage === totalPages}
-					onClick={() => setCurrentPage(currentPage + 1)}
+					disabled={currentPage.value === totalPages}
+					onClick={() => currentPage.value += 1}
 					className='button disabled:opacity-50'
 				>
 					Next

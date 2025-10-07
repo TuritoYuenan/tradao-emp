@@ -1,11 +1,11 @@
-import { useState } from 'preact/hooks';
+import { useSignal } from '@preact/signals';
 
 export function LoginForm({ redirectTo }: { redirectTo?: string }) {
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [errors, setErrors] = useState<string[]>([]);
+	const isSubmitting = useSignal(false);
+	const errors = useSignal<string[]>([]);
 
 	async function handleLogin(e: Event) {
-		setIsSubmitting(true);
+		isSubmitting.value = true;
 		e.preventDefault();
 		const form = e.target as HTMLFormElement;
 		const data = Object.fromEntries(new FormData(form).entries());
@@ -20,15 +20,15 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
 			case 400: {
 				// 4xx errors
 				const data = await response.json();
-				setErrors(data.errors);
-				setIsSubmitting(false);
+				errors.value = data.errors;
+				isSubmitting.value = false;
 				break;
 			}
 
 			case 500: {
 				// 5xx errors
-				setErrors(['Something went wrong on our end. Please try again later.']);
-				setIsSubmitting(false);
+				errors.value = ['Something went wrong on our end. Please try again later.'];
+				isSubmitting.value = false;
 				break;
 			}
 
@@ -42,7 +42,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
 
 			default: {
 				// Unexpected status code
-				setErrors(['Unexpected error. Please try again later.']);
+				errors.value = ['Unexpected error. Please try again later.'];
 			}
 		}
 	}
@@ -74,9 +74,9 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
 					className='p-2 bg-transparent border-2 border-(--foreground) rounded'
 				/>
 			</div>
-			{errors.length > 0 && (
+			{errors.value.length > 0 && (
 				<div className='text-red-500'>
-					{errors.map((error) => <p key={error}>{error}</p>)}
+					{errors.value.map((error) => <p key={error}>{error}</p>)}
 				</div>
 			)}
 			<button type='submit' className='button' disabled={isSubmitting}>

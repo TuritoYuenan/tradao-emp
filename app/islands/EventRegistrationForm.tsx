@@ -1,12 +1,12 @@
-import { useState } from 'preact/hooks';
+import { useSignal } from '@preact/signals';
 import { Constants } from '$lib/models.ts';
 
 export function EventRegistrationForm({ eventID }: { eventID: string }) {
-	const [isRegistering, setIsRegistering] = useState(false);
-	const [errors, setErrors] = useState<string[]>([]);
+	const isRegistering = useSignal(false);
+	const errors = useSignal<string[]>([]);
 
 	async function handleFormSubmission(e: Event) {
-		setIsRegistering(true);
+		isRegistering.value = true;
 		e.preventDefault();
 		const form = e.target as HTMLFormElement;
 		const formData = new FormData(form);
@@ -21,15 +21,15 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 			case 400: {
 				// 4xx errors
 				const data = await response.json();
-				setErrors(data.errors);
-				setIsRegistering(false);
+				errors.value = data.errors;
+				isRegistering.value = false;
 				break;
 			}
 
 			case 500: {
 				// 5xx errors
-				setErrors(['Something went wrong on our end. Please try again later.']);
-				setIsRegistering(false);
+				errors.value = ['Something went wrong on our end. Please try again later.'];
+				isRegistering.value = false;
 				break;
 			}
 
@@ -43,7 +43,7 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 
 			default: {
 				// Unexpected status code
-				setErrors(['Unexpected error. Please try again later.']);
+				errors.value = ['Unexpected error. Please try again later.'];
 			}
 		}
 	}
@@ -135,13 +135,13 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 				</label>
 			</p>
 
-			{errors.length > 0 && (
+			{errors.value.length > 0 && (
 				<section id='errors'>
 					<h2 className='text-red-500'>
 						Oops! There were some problems with registering!
 					</h2>
 					<ul className='list-disc list-inside text-red-500'>
-						{errors.map((error, index) => <li key={index}>{error}</li>)}
+						{errors.value.map((error, index) => <li key={index}>{error}</li>)}
 					</ul>
 				</section>
 			)}
