@@ -1,11 +1,11 @@
 // Import the Google Auth library for authentication
-import GoogleWallet from "npm:@googleapis/walletobjects"
+import GoogleWallet from "@googleapis/walletobjects"
 
 // Import JWT library for creating tokens
-import { importPKCS8, JWTPayload, SignJWT } from "npm:jose@5.9.6";
+import { importPKCS8, JWTPayload, SignJWT } from "jose";
 
 // Import database models
-import { Tables } from "../_shared/models.ts";
+import { Tables } from "./models.ts";
 import { serialiseDate } from "./utils.ts";
 
 // Abstract types. Configurable later.
