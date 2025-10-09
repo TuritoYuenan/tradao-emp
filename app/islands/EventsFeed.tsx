@@ -1,5 +1,4 @@
-import { useMemo } from 'preact/hooks';
-import { useSignal } from '@preact/signals';
+import { useComputed, useSignal } from '@preact/signals';
 import { EventCard } from '$components/EventCard.tsx';
 import { Tables } from '$lib/models.ts';
 import { search } from '$lib/utils.ts';
@@ -15,7 +14,7 @@ export function EventsFeed(
 	const categories = Array.from(new Set(events.map((event) => event.category!)))
 		.sort();
 
-	const filteredEvents = useMemo(() => {
+	const filteredEvents = useComputed(() => {
 		let filtered = events;
 
 		// Apply search filter
@@ -29,11 +28,11 @@ export function EventsFeed(
 		}
 
 		return filtered;
-	}, [events, searchQuery, selectedCategory]);
+	});
 
-	const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
+	const totalPages = Math.ceil(filteredEvents.value.length / itemsPerPage);
 	const startIndex = (currentPage.value - 1) * itemsPerPage;
-	const eventsToDisplay = filteredEvents.slice(
+	const eventsToDisplay = filteredEvents.value.slice(
 		startIndex,
 		startIndex + itemsPerPage,
 	);
@@ -75,7 +74,7 @@ export function EventsFeed(
 				</select>
 			</search>
 
-			{filteredEvents.length === 0 ? <p>No events found</p> : null}
+			{filteredEvents.value.length === 0 ? <p>No events found</p> : null}
 
 			{eventsToDisplay.map((event) => (
 				<EventCard
