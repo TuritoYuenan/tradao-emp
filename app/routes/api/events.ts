@@ -30,29 +30,5 @@ export const handler = define.handlers({
 
 			return errorResponse(400, 'Invalid request body');
 		}
-	},
-
-	async GET(ctx) {
-		const req = ctx.req;
-		const url = new URL(req.url);
-		const upcoming = url.searchParams.get('upcoming') === 'true';
-
-		const query = upcoming
-			? supabase
-				.from('upcoming_events')
-				.select('*')
-				.order('start_time', { ascending: true })
-			: supabase
-				.from('community_events')
-				.select('*')
-				.order('start_time', { ascending: true });
-
-		const { data, error } = await query;
-
-		if (error) return errorResponse(500, error.message);
-
-		return new Response(JSON.stringify({ success: true, events: data }), {
-			headers: { 'Content-Type': 'application/json' },
-		});
-	},
+	}
 });

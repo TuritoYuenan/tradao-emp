@@ -34,13 +34,8 @@ export const handler = define.handlers<RegistrationFormProps>({
 
 		try {
 			await eventRegistrationSchema.validate(registrationData, { abortEarly: false });
-		} catch (error) {
-			if (error instanceof yup.ValidationError) {
-				return new Response(JSON.stringify({ errors: error.errors }), {
-					status: 400,
-					headers: { 'Content-Type': 'application/json' },
-				});
-			}
+		} catch (e) {
+			if (e instanceof yup.ValidationError) return errorResponse(400, e.errors);
 		}
 
 		const { data: ticketID, error } = await supabase.rpc('create_event_ticket', {

@@ -962,8 +962,8 @@
     "base64-js@1.5.1": {
       "integrity": "sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA=="
     },
-    "baseline-browser-mapping@2.8.15": {
-      "integrity": "sha512-qsJ8/X+UypqxHXN75M7dF88jNK37dLBRW7LeUzCPz+TNs37G8cfWy9nWzS+LS//g600zrt2le9KuXt0rWfDz5Q==",
+    "baseline-browser-mapping@2.8.16": {
+      "integrity": "sha512-OMu3BGQ4E7P1ErFsIPpbJh0qvDudM/UuJeHgkAvfWe+0HFJCXh+t/l8L6fVLR55RI/UbKrVLnAXZSVwd9ysWYw==",
       "bin": true
     },
     "bignumber.js@9.3.1": {
@@ -997,8 +997,8 @@
         "get-intrinsic"
       ]
     },
-    "caniuse-lite@1.0.30001749": {
-      "integrity": "sha512-0rw2fJOmLfnzCRbkm8EyHL8SvI2Apu5UbnQuTsJ0ClgrH8hcwFooJ1s5R0EP8o8aVrFu8++ae29Kt9/gZAZp/Q=="
+    "caniuse-lite@1.0.30001750": {
+      "integrity": "sha512-cuom0g5sdX6rw00qOoLNSFCJ9/mYIsuSOA+yzpDw8eopiFqcVwQvZHqov0vmEighRxX++cfC0Vg1G+1Iy/mSpQ=="
     },
     "chownr@3.0.0": {
       "integrity": "sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g=="
@@ -1032,8 +1032,8 @@
         "safe-buffer"
       ]
     },
-    "electron-to-chromium@1.5.234": {
-      "integrity": "sha512-RXfEp2x+VRYn8jbKfQlRImzoJU01kyDvVPBmG39eU2iuRVhuS6vQNocB8J0/8GrIMLnPzgz4eW6WiRnJkTuNWg=="
+    "electron-to-chromium@1.5.235": {
+      "integrity": "sha512-i/7ntLFwOdoHY7sgjlTIDo4Sl8EdoTjWIaKinYOVfC6bOp71bmwenyZthWHcasxgHDNWbWxvG9M3Ia116zIaYQ=="
     },
     "enhanced-resolve@5.18.3": {
       "integrity": "sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==",
@@ -1616,8 +1616,6 @@
     "https://deno.land/std@0.216.0/assert/assertion_error.ts": "9f689a101ee586c4ce92f52fa7ddd362e86434ffdf1f848e45987dc7689976b8",
     "https://deno.land/std@0.216.0/assert/equal.ts": "fae5e8a52a11d3ac694bbe1a53e13a7969e3f60791262312e91a3e741ae519e2",
     "https://deno.land/std@0.216.0/fmt/colors.ts": "d239d84620b921ea520125d778947881f62c50e78deef2657073840b8af9559a",
-    "https://esm.sh/jsqr@1.4.0": "7b6fc8e9e8a0bed6347e5e0b80f8ca79bd38e3e5696cd797168d0ff4413b28ba",
-    "https://esm.sh/jsqr@1.4.0/denonext/jsqr.mjs": "4a37436f750388226ce2c30e59697bacb97032c2b11813684156c84a3cec7afa",
     "https://esm.sh/property-expr@2.0.6/denonext/property-expr.mjs": "2a2720575d71abf19295ddeeab70b9c0f5411fd525ac8a9695992b9016e2c36c",
     "https://esm.sh/property-expr@2.0.6?target=denonext": "ec33de2905cf3ac4625381f2a872d5047ce357d0982713d9926f3803586ea7b8",
     "https://esm.sh/tiny-case@1.0.3/denonext/tiny-case.mjs": "1e4151bd8c50c8c58743b58c69555a3f9674748b89bf1cb4dfee6839e3a66977",
