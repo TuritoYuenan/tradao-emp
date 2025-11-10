@@ -7,8 +7,9 @@ import { EventsFeed } from '$islands/EventsFeed.tsx';
 export const handler = define.handlers({
 	async GET(_ctx) {
 		const { data, error } = await supabase
-			.from('upcoming_events')
-			.select('*');
+			.from('community_events')
+			.select('*')
+			.order('start_time', { ascending: false });
 
 		if (error) {
 			console.error(error);
@@ -24,7 +25,7 @@ export default define.page<typeof handler>(function EventBrowsePage(props) {
 		<>
 			<PageTitle title='Browse the latest lab events!' />
 			<Banner
-				title='Upcoming Events'
+				title='The latest ITea Lab events'
 				description='Check out the latest workshops, conferences, public talks and discussions in ITea Lab!'
 			/>
 			<EventsFeed events={props.data} />
