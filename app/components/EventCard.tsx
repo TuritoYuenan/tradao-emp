@@ -1,5 +1,5 @@
 import { Tables } from '$lib/models.ts';
-import { formatDate } from '$lib/utils.ts';
+import { formatDate, isEventUpcoming } from '$lib/utils.ts';
 
 interface EventCardProps {
 	event: Tables<'upcoming_events'>;
@@ -31,7 +31,9 @@ export function EventCard({ event }: EventCardProps) {
 				</p>
 			</div>
 			<div className='p-4 md:max-w-[900px]:[grid-area:register] md:max-w-[900px]:self-start max-sm:pt-0'>
-				<a className='cta' href={`/events/${event.id}`}>Register</a>
+				<a className='cta' href={`/events/${event.id}`}>
+					{isEventUpcoming(event.start_time!) ? 'Register' : 'View'}
+				</a>
 			</div>
 		</div>
 	);

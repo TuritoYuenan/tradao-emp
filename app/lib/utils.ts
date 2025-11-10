@@ -77,3 +77,7 @@ export function search<T>(array: T[], query: string, keys: (keyof T)[]): T[] {
 		})
 	);
 }
+
+export function isEventUpcoming(eventDate: string | Date): boolean {
+	return new Date(eventDate) > new Date();
+}

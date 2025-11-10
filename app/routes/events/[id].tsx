@@ -1,9 +1,8 @@
+import { define, formatDate, isEventUpcoming } from '$lib/utils.ts';
 import { Tables } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
-import { formatDate } from '$lib/utils.ts';
 import { EventRegistrationForm } from '$islands/EventRegistrationForm.tsx';
 import { PageTitle } from '$components/PageTitle.tsx';
-import { define } from '$lib/utils.ts';
 
 export const handler = define.handlers<Tables<'community_events'>>({
 	async GET(ctx) {
@@ -41,7 +40,9 @@ export default define.page<typeof handler>(function EventDetailsPage(props) {
 
 				<div className='p-4 border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)] md:[grid-area:form] overflow-y-scroll'>
 					<h2 className='text-2xl font-bold'>Participate in this event</h2>
-					<EventRegistrationForm eventID={event.id} />
+					{isEventUpcoming(event.start_time)
+						? <EventRegistrationForm eventID={event.id} />
+						: <p className='mt-4'>This event has ended. Registration is closed.</p>}
 				</div>
 
 				<div className='p-4 border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)] md:[grid-area:time]'>
