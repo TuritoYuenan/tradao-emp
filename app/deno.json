@@ -28,6 +28,10 @@
 			"vite/client"
 		]
 	},
+	"deploy": {
+		"app": "tradao",
+		"org": "turitoyuenan"
+	},
 	"exclude": [
 		"**/_fresh/*"
 	],
