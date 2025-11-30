@@ -3,18 +3,44 @@ CREATE EXTENSION IF NOT EXISTS pgmq;
 CREATE EXTENSION IF NOT EXISTS pgtap;
 CREATE EXTENSION IF NOT EXISTS index_advisor;
 
-DO $$
-BEGIN
-	-- Academic Year enum
-	IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'academic_year') THEN
-		CREATE TYPE academic_year AS ENUM ('Freshman', 'Sophomore', 'Junior', 'Senior');
-	END IF;
+-- Lookup table for academic years
+CREATE TABLE IF NOT EXISTS academic_years (
+	id CHARACTER VARYING(16) NOT NULL PRIMARY KEY,
 
-	-- Field of Study enum
-	IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'field_of_study') THEN
-		CREATE TYPE field_of_study AS ENUM ('business', 'comp-sci', 'mediacom');
-	END IF;
-END$$;
+	-- Academic year
+	label CHARACTER VARYING(16) NOT NULL,
+
+	-- Year description
+	description TEXT NULL
+);
+
+INSERT INTO academic_years (acad_year, description) VALUES
+	('Freshman', 'First year student'),
+	('Sophomore', 'Second year student'),
+	('Junior', 'Third year student'),
+	('Senior', 'Fourth year student'),
+	('Graduate', 'Graduate student'),
+	('Other', 'Other academic status');
+
+-- Lookup table for fields of study
+CREATE TABLE IF NOT EXISTS fields_of_study (
+	id CHARACTER VARYING(16) NOT NULL PRIMARY KEY,
+
+	-- Field of study
+	label CHARACTER VARYING(64) NOT NULL,
+
+	-- Year description
+	description TEXT NULL
+);
+
+INSERT INTO fields_of_study (field, description) VALUES
+	('Computer Science', 'Field related to computing and programming'),
+	('Business', 'Field related to business and management'),
+	('Media & Communication', 'Field related to media, journalism, and communication studies'),
+	('Engineering', 'Field related to various engineering disciplines'),
+	('Arts & Humanities', 'Field related to arts, literature, and humanities'),
+	('Sciences', 'Field related to natural and physical sciences'),
+	('Other', 'Other fields of study');
 
 -- Table to store community events
 CREATE TABLE IF NOT EXISTS community_events (
@@ -113,6 +139,8 @@ COMMENT ON COLUMN event_tickets.created_at IS 'Timestamp when the ticket record 
 COMMENT ON COLUMN event_tickets.updated_at IS 'Timestamp when the ticket record was last updated.';
 
 -- Enable row-level security
+ALTER TABLE academic_years ENABLE ROW LEVEL SECURITY;
+ALTER TABLE fields_of_study ENABLE ROW LEVEL SECURITY;
 ALTER TABLE community_events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE event_tickets ENABLE ROW LEVEL SECURITY;
 

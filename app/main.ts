@@ -1,15 +1,12 @@
-import { App, staticFiles } from 'fresh';
-import { type State } from './utils.ts';
+import { App, cors, staticFiles, trailingSlashes } from 'fresh';
+import { type State } from '$lib/utils.ts';
 
-export const app = new App<State>();
-
-app.use(staticFiles());
-
-// Pass a shared value from a middleware
-app.use(async (ctx) => {
-	ctx.state.shared = 'hello';
-	return await ctx.next();
-});
-
-// Include file-system based routes here
-app.fsRoutes();
+export const app = new App<State>()
+	.use(cors({
+		origin: '*',
+		allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+		allowHeaders: ['Content-Type', 'Authorization'],
+	}))
+	.use(trailingSlashes('never'))
+	.use(staticFiles())
+	.fsRoutes();

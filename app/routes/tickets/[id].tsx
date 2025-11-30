@@ -80,4 +80,4 @@ export default define.page<typeof handler>(function TicketLookupPage(props) {
 			</div>
 		</>
 	);
-})
+});

@@ -30,5 +30,5 @@ export const handler = define.handlers({
 
 			return errorResponse(400, 'Invalid request body');
 		}
-	}
+	},
 });
