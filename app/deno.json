@@ -55,12 +55,13 @@
 		"$islands/": "./islands/",
 		"$lib/": "./lib/",
 		"$std/": "https://deno.land/std@0.216.0/",
+		"beercss": "npm:beercss@^3.12.13",
 		"fresh": "jsr:@fresh/core@^2.2.0",
-		"jsqr": "https://esm.sh/jsqr@1.4.0",
+		"jsqr": "npm:jsqr@^1.4.0",
 		"preact": "npm:preact@^10.27.2",
 		"tailwindcss": "npm:tailwindcss@^4.1.10",
 		"vite": "npm:vite@^7.1.3",
-		"yup": "https://esm.sh/yup@1.7.0"
+		"yup": "npm:yup@^1.7.1"
 	},
 	"lint": {
 		"rules": {
