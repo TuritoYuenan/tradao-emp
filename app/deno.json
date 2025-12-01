@@ -36,14 +36,12 @@
 		"**/_fresh/*"
 	],
 	"fmt": {
-		"options": {
-			"indentWidth": 4,
-			"lineWidth": 120,
-			"quoteProps": "consistent",
-			"semiColons": true,
-			"singleQuote": true,
-			"useTabs": true
-		}
+		"indentWidth": 4,
+		"lineWidth": 120,
+		"quoteProps": "consistent",
+		"semiColons": true,
+		"singleQuote": true,
+		"useTabs": true
 	},
 	"imports": {
 		"@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.0.8",
@@ -76,6 +74,7 @@
 		"dev": "vite",
 		"start": "deno serve -A _fresh/server.js",
 		"test": "deno test --coverage=\"./tests/coverage\"",
+		"testcov:win": "start .\\tests\\coverage\\html\\index.html",
 		"update": "deno run -A -r jsr:@fresh/update ."
 	}
 }

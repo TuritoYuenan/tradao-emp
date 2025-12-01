@@ -38,8 +38,8 @@ describe('Utils', () => {
 		const errorResponse = utils.errorResponse(404, 'Not Found');
 		expect(errorResponse.status).toBe(404);
 
-		errorResponse.text().then(async (body) => {
-			const data = JSON.parse(await body);
+		errorResponse.text().then((body) => {
+			const data = JSON.parse(body);
 			expect(data).toEqual({ error: 'Not Found' });
 		});
 	});

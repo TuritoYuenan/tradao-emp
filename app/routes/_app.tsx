@@ -38,7 +38,7 @@ const contact = {
 	address: 'A35 Bach Dang street, Tan Binh district, Ho Chi Minh city, Vietnam',
 };
 
-export default define.page(function App({ Component }) {
+export default define.layout(function App({ Component }) {
 	return (
 		<html lang='en-VN'>
 			<head>
