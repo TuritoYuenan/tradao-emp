@@ -1,32 +1,7 @@
+import { FooterProps } from '$lib/props.ts';
 import { Leaf } from './Leaf.tsx';
 
-/**
- * Explore - Links to internal ITea Lab sections
- */
-const explore = [
-	{ name: 'About', href: '/' },
-	{ name: 'Community', href: '/' },
-	{ name: 'Join Us', href: '/' },
-];
-
-/**
- * Community - Links to external ITea Lab social media
- */
-const community = [
-	{ name: 'GitHub', href: 'https://github.com/itea-lab' },
-	{ name: 'Facebook', href: 'https://facebook.com/ITeaLabTeam/' },
-	{ name: 'LinkedIn', href: 'https://linkedin.com/company/itea-lab' },
-];
-
-/**
- * Contact - Contact information for ITea Lab
- */
-const contact = {
-	email: 'contact.itealab@gmail.com',
-	address: 'A35 Bach Dang street, Tan Binh district, Ho Chi Minh city, Vietnam',
-};
-
-export function Footer() {
+export function Footer({ explore, community, contact }: FooterProps) {
 	return (
 		<footer className='mt-8 overflow-hidden bg-(--green)'>
 			<div

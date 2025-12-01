@@ -1,7 +1,7 @@
 import { define } from '$lib/utils.ts';
 import { supabase } from '$lib/supabase.ts';
 import { Banner } from '$components/Banner.tsx';
-import { PageTitle } from '$components/PageTitle.tsx';
+import { PageMetadata } from '$components/PageMetadata.tsx';
 import { EventsFeed } from '$islands/EventsFeed.tsx';
 
 export const handler = define.handlers({
@@ -23,7 +23,7 @@ export const handler = define.handlers({
 export default define.page<typeof handler>(function EventBrowsePage(props) {
 	return (
 		<>
-			<PageTitle title='Browse the latest lab events!' />
+			<PageMetadata title='Browse the latest lab events!' />
 			<Banner
 				title='The latest ITea Lab events'
 				description='Check out the latest workshops, conferences, public talks and discussions in ITea Lab!'

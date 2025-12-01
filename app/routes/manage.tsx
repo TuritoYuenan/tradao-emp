@@ -2,7 +2,7 @@ import { define } from '$lib/utils.ts';
 import { supabase } from '$lib/supabase.ts';
 import { User } from '@supabase/supabase-js';
 import { Banner } from '$components/Banner.tsx';
-import { PageTitle } from '$components/PageTitle.tsx';
+import { PageMetadata } from '$components/PageMetadata.tsx';
 
 export const handler = define.handlers<User | null>({
 	async GET(_ctx) {
@@ -20,7 +20,7 @@ export default define.page<typeof handler>(function ManagementHomePage(props) {
 
 	return (
 		<>
-			<PageTitle title='Management Home' />
+			<PageMetadata title='Management Home' />
 			<Banner title={`Welcome back, ${username}`} description='Manage ITea Lab events and Tradao tickets here' />
 
 			<article className='max-w-3xl min-h-[30vh] mx-auto px-4'>

@@ -1,9 +1,5 @@
-import { Tables } from '$lib/models.ts';
+import { EventCardProps } from '$lib/props.ts';
 import { formatDate, isEventUpcoming } from '$lib/utils.ts';
-
-interface EventCardProps {
-	event: Tables<'upcoming_events'>;
-}
 
 export function EventCard({ event }: EventCardProps) {
 	return (

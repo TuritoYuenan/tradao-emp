@@ -1,5 +1,5 @@
 import { define } from '$lib/utils.ts';
-import { Navbar } from '$components/Navbar.tsx';
+import { Navigation } from '$components/Navigation.tsx';
 import { Footer } from '$components/Footer.tsx';
 
 const menuItems = [
@@ -11,6 +11,32 @@ const menuItems = [
 		external: true,
 	},
 ];
+
+/**
+ * Explore - Links to internal ITea Lab sections
+ */
+const explore = [
+	{ name: 'About', href: '/' },
+	{ name: 'Community', href: '/' },
+	{ name: 'Join Us', href: '/' },
+];
+
+/**
+ * Community - Links to external ITea Lab social media
+ */
+const community = [
+	{ name: 'GitHub', href: 'https://github.com/itea-lab' },
+	{ name: 'Facebook', href: 'https://facebook.com/ITeaLabTeam/' },
+	{ name: 'LinkedIn', href: 'https://linkedin.com/company/itea-lab' },
+];
+
+/**
+ * Contact - Contact information for ITea Lab
+ */
+const contact = {
+	email: 'contact.itealab@gmail.com',
+	address: 'A35 Bach Dang street, Tan Binh district, Ho Chi Minh city, Vietnam',
+};
 
 export default define.page(function App({ Component }) {
 	return (
@@ -27,11 +53,11 @@ export default define.page(function App({ Component }) {
 			</head>
 			<body>
 				<div className='contents'>
-					<Navbar menuItems={menuItems} />
+					<Navigation menuItems={menuItems} />
 					<main className='min-h-dvh'>
 						<Component />
 					</main>
-					<Footer />
+					<Footer explore={explore} community={community} contact={contact} />
 				</div>
 			</body>
 		</html>

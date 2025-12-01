@@ -1,11 +1,11 @@
 import { define } from '$lib/utils.ts';
 import { Banner } from '$components/Banner.tsx';
-import { PageTitle } from '$components/PageTitle.tsx';
+import { PageMetadata } from '$components/PageMetadata.tsx';
 
 export default define.page(function ViewEventsPage() {
 	return (
 		<>
-			<PageTitle title='Manage Events' />
+			<PageMetadata title='Manage Events' />
 			<Banner title='View Events' />
 			<section className='p-4'>
 				<table className='mx-auto container-md table-auto w-full border-collapse border border-[--foreground]'>

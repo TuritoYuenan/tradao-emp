@@ -1,7 +1,7 @@
 import { define, formatDate } from '$lib/utils.ts';
 import { TicketLookupProps } from '$lib/props.ts';
 import { supabase } from '$lib/supabase.ts';
-import { PageTitle } from '$components/PageTitle.tsx';
+import { PageMetadata } from '$components/PageMetadata.tsx';
 import { Banner } from '$components/Banner.tsx';
 
 export const handler = define.handlers<TicketLookupProps>({
@@ -63,7 +63,7 @@ function TicketFooter({ props }: { props: TicketLookupProps }) {
 export default define.page<typeof handler>(function TicketLookupPage(props) {
 	return (
 		<>
-			<PageTitle title={'Your Ticket for ' + props.data.lookup.event_title} />
+			<PageMetadata title={'Your Ticket for ' + props.data.lookup.event_title} />
 
 			<Banner title='Here is your event ticket!' />
 			<div className='p-4'>

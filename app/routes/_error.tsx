@@ -1,9 +1,9 @@
 import { HttpError, PageProps } from 'fresh';
-import { PageTitle } from '$components/PageTitle.tsx';
+import { PageMetadata } from '$components/PageMetadata.tsx';
 
 const Error404 = (url: URL) => (
 	<>
-		<PageTitle title='404 Not Found' />
+		<PageMetadata title='404 Not Found' />
 		<article className='grid place-items-center h-screen text-center px-4'>
 			<h1>404</h1>
 			<p>Cannot find the page at the following address: {url.pathname}</p>
@@ -13,7 +13,7 @@ const Error404 = (url: URL) => (
 
 const Error500 = () => (
 	<>
-		<PageTitle title='500 Internal Server Error' />
+		<PageMetadata title='500 Internal Server Error' />
 		<article className='grid place-items-center h-screen text-center px-4'>
 			<div>
 				<h1>Oops! Something else happened</h1>

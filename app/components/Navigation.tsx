@@ -1,15 +1,7 @@
+import { NavigationProps } from '$lib/props.ts';
 import { TextClock } from '$islands/TextClock.tsx';
 
-interface NavbarProps {
-	menuItems: {
-		name: string;
-		href: string;
-		icon: string;
-		external: boolean;
-	}[];
-}
-
-export function Navbar({ menuItems }: NavbarProps) {
+export function Navigation({ menuItems }: NavigationProps) {
 	return (
 		<header className='flex flex-col md:flex-row items-center justify-between px-8 py-4 gap-4'>
 			<a className='hover:scale-110' href='/'>

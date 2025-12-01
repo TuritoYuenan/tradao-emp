@@ -1,7 +1,7 @@
 import { define } from '$lib/utils.ts';
 import { supabase } from '$lib/supabase.ts';
 import { Banner } from '$components/Banner.tsx';
-import { PageTitle } from '$components/PageTitle.tsx';
+import { PageMetadata } from '$components/PageMetadata.tsx';
 import { LoginForm } from '$islands/LoginForm.tsx';
 
 export const handler = define.handlers({
@@ -20,7 +20,7 @@ export const handler = define.handlers({
 export default function LoginPage({ redirectTo }: { redirectTo?: string }) {
 	return (
 		<>
-			<PageTitle title='Login' />
+			<PageMetadata title='Login' />
 			<Banner title='Login' />
 			<div className='p-4'>
 				<article className='max-w-2xl mx-auto p-4 border-2 rounded-2xl relative border-[--foreground]'>

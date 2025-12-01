@@ -1,11 +1,9 @@
 import { useComputed, useSignal } from '@preact/signals';
 import { EventCard } from '$components/EventCard.tsx';
-import { Tables } from '$lib/models.ts';
 import { search } from '$lib/utils.ts';
+import { EventFeedProps } from '$lib/props.ts';
 
-export function EventsFeed(
-	{ events }: { events: Tables<'upcoming_events'>[] },
-) {
+export function EventsFeed({ events }: EventFeedProps) {
 	const searchQuery = useSignal('');
 	const selectedCategory = useSignal('all');
 	const currentPage = useSignal(1);

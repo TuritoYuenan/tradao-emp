@@ -1,6 +1,7 @@
 import { useSignal } from '@preact/signals';
+import { LoginFormProps } from '$lib/props.ts';
 
-export function LoginForm({ redirectTo }: { redirectTo?: string }) {
+export function LoginForm({ redirectTo }: LoginFormProps) {
 	const isSubmitting = useSignal(false);
 	const errors = useSignal<string[]>([]);
 

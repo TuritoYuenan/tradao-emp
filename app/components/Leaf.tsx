@@ -1,6 +1,4 @@
-interface LeafProps {
-	fill?: string;
-}
+import { LeafProps } from '$lib/props.ts';
 
 export function Leaf({ fill = 'var(--foreground)' }: LeafProps) {
 	return (

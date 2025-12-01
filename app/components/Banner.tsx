@@ -1,7 +1,4 @@
-export interface BannerProps {
-	title: string;
-	description?: string;
-}
+import { BannerProps } from '$lib/props.ts';
 
 export function Banner({ title, description }: BannerProps) {
 	return (

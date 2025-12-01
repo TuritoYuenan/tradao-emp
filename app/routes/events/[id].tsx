@@ -2,7 +2,7 @@ import { define, formatDate, isEventUpcoming } from '$lib/utils.ts';
 import { Tables } from '$lib/models.ts';
 import { supabase } from '$lib/supabase.ts';
 import { EventRegistrationForm } from '$islands/EventRegistrationForm.tsx';
-import { PageTitle } from '$components/PageTitle.tsx';
+import { PageMetadata } from '$components/PageMetadata.tsx';
 
 export const handler = define.handlers<Tables<'community_events'>>({
 	async GET(ctx) {
@@ -25,7 +25,7 @@ export default define.page<typeof handler>(function EventDetailsPage(props) {
 	const event = props.data;
 	return (
 		<>
-			<PageTitle title={event.title} />
+			<PageMetadata title={event.title} />
 
 			<article className='m-4 grid gap-4 md:grid-cols-3 md:grid-rows-[540px_auto_auto_1fr] md:[grid-template-areas:"image_image_form"_"head_head_loct"_"time_host_loct"_"text_text_loct"] flex flex-col md:flex-none'>
 				<div
