@@ -1,17 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
-import { Database } from './models.ts';
+import { getSupabaseClient } from './utils.ts';
 
 /**
  * Connects to the Supabase client
  */
-export const supabase = createClient<Database>(
+export const supabase = getSupabaseClient(
 	Deno.env.get('SUPABASE_URL') || '',
-	Deno.env.get('SUPABASE_KEY') || '',
-	{
-		auth: {
-			autoRefreshToken: false,
-			persistSession: false,
-			detectSessionInUrl: false,
-		},
-	},
+	Deno.env.get('SUPABASE_KEY') || ''
 );

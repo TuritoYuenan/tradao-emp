@@ -1,6 +1,24 @@
 import { createDefine } from 'fresh';
+import { createClient } from '@supabase/supabase-js';
+import { Database } from './models.ts';
 
 export const define = createDefine();
+
+/**
+ * Get a Supabase client instance.
+ * @param url URL of the Supabase instance
+ * @param key Access key - anonymous or service
+ * @returns Supabase client
+ */
+export function getSupabaseClient(url: string, key: string) {
+    return createClient<Database>(url, key, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false,
+            detectSessionInUrl: false,
+        },
+    });
+}
 
 /**
  * Utility function to create an error response for HTTP requests.
