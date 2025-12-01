@@ -1228,6 +1228,7 @@
     "dependencies": [
       "jsr:@fresh/core@^2.2.0",
       "jsr:@fresh/plugin-vite@^1.0.8",
+      "jsr:@std/dotenv@~0.225.5",
       "jsr:@std/expect@^1.0.17",
       "jsr:@std/testing@^1.0.16",
       "npm:@preact/signals@^2.5.1",

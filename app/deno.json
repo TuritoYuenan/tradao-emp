@@ -46,6 +46,7 @@
 	"imports": {
 		"@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.0.8",
 		"@preact/signals": "npm:@preact/signals@^2.5.1",
+		"@std/dotenv": "jsr:@std/dotenv@^0.225.5",
 		"@std/expect": "jsr:@std/expect@^1.0.17",
 		"@std/testing": "jsr:@std/testing@^1.0.16",
 		"@supabase/supabase-js": "npm:@supabase/supabase-js@^2.86.0",
@@ -73,8 +74,7 @@
 		"check": "deno fmt --check . && deno lint . && deno check",
 		"dev": "vite",
 		"start": "deno serve -A _fresh/server.js",
-		"test": "deno test --coverage=\"./tests/coverage\"",
-		"testcov:win": "start .\\tests\\coverage\\html\\index.html",
+		"test": "deno test --coverage -A",
 		"update": "deno run -A -r jsr:@fresh/update ."
 	}
 }

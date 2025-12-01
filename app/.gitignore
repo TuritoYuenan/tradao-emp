@@ -13,4 +13,4 @@ node_modules/
 vendor/
 
 # Test results
-tests/coverage/
+coverage/
