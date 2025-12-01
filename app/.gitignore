@@ -7,7 +7,10 @@
 
 # Fresh build directory
 _fresh/
+
 # npm + other dependencies
 node_modules/
 vendor/
 
+# Test results
+tests/coverage/
