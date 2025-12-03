@@ -46,15 +46,11 @@ export default define.layout(function App({ Component }) {
 				<meta name='viewport' content='width=device-width, initial-scale=1.0' />
 				<link rel='icon' href='/icons/icon.svg' />
 				<link rel='manifest' href='/manifest.json' />
-				<link
-					rel='stylesheet'
-					href='https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
-				/>
 			</head>
 			<body>
 				<div className='contents'>
 					<Navigation menuItems={menuItems} />
-					<main className='min-h-dvh'>
+					<main className='responsive padding'>
 						<Component />
 					</main>
 					<Footer explore={explore} community={community} contact={contact} />

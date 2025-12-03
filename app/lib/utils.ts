@@ -11,13 +11,13 @@ export const define = createDefine();
  * @returns Supabase client
  */
 export function getSupabaseClient(url: string, key: string) {
-    return createClient<Database>(url, key, {
-        auth: {
-            autoRefreshToken: false,
-            persistSession: false,
-            detectSessionInUrl: false,
-        },
-    });
+	return createClient<Database>(url, key, {
+		auth: {
+			autoRefreshToken: false,
+			persistSession: false,
+			detectSessionInUrl: false,
+		},
+	});
 }
 
 /**

@@ -4,11 +4,12 @@ import { PageMetadata } from '$components/PageMetadata.tsx';
 import { EventCreationForm } from '$islands/EventCreationForm.tsx';
 
 export default define.page(function CreateEventPage() {
-	return (
-		<article>
-			<PageMetadata title='Create New Event' />
-			<Banner title='Create New Event' description='What will you announce today?' />
+	return (<>
+		<PageMetadata title='Create New Event' />
+		<Banner title='Create New Event' description='What will you announce today?' />
+
+		<article style={{ maxWidth: '90ch', margin: 'auto' }}>
 			<EventCreationForm />
 		</article>
-	);
+	</>);
 });

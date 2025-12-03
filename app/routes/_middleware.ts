@@ -8,7 +8,7 @@ export default define.middleware(async (ctx) => {
 	const { data: { user }, error } = await supabase.auth.getUser();
 
 	if (!error && user) {
-		console.log('Middleware: User is logged in: ', user.email);
+		console.log('Auth>', 'User is logged in:', user.email);
 		return ctx.next();
 	}
 

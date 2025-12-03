@@ -1,11 +1,10 @@
 import { LeafProps } from '$lib/props.ts';
 
-export function Leaf({ fill = 'var(--foreground)' }: LeafProps) {
+export function Leaf({ fill = 'var(--primary)' }: LeafProps) {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			viewBox='0 0 65 90'
-			className='w-full h-auto'
 			style={{ aspectRatio: '23 / 32', maxWidth: '230px' }}
 		>
 			<path

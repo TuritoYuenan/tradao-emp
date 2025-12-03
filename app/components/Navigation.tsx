@@ -3,15 +3,16 @@ import { TextClock } from '$islands/TextClock.tsx';
 
 export function Navigation({ menuItems }: NavigationProps) {
 	return (
-		<header className='flex flex-col md:flex-row items-center justify-between px-8 py-4 gap-4'>
-			<a className='hover:scale-110' href='/'>
-				<img
-					src='/logos/logo.svg'
-					alt='Tradao Logo'
-					style={{ height: '4rem' }}
-				/>
-			</a>
-			<nav className='flex flex-row flex-wrap gap-2 justify-center md:items-center'>
+		<nav className='top l'>
+			<p className='large-text'>
+				<a href='/'>
+					<img src='/logos/logo_dark.svg' alt='Tradao Logo' style={{ height: '3rem' }} />
+				</a>
+			</p>
+
+			<div className='max'></div>
+
+			<div className='row'>
 				<TextClock />
 				<span className='hidden md:inline'>|</span>
 				{menuItems.map((item) => (
@@ -22,13 +23,10 @@ export function Navigation({ menuItems }: NavigationProps) {
 						target={item.external ? '_blank' : '_self'}
 						rel={item.external ? 'noopener noreferrer' : ''}
 					>
-						<span className='material-symbols-rounded relative top-[0.3rem]'>
-							{item.icon}
-						</span>{' '}
-						{item.name}
+						<i>{item.icon}</i> {item.name}
 					</a>
 				))}
-			</nav>
-		</header>
+			</div>
+		</nav>
 	);
 }

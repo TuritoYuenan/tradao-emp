@@ -2,129 +2,90 @@ import { useSignal } from '@preact/signals';
 
 // MARK: Step 1
 const Step1 = () => (
-	<fieldset className='mb-4'>
-		<legend className='mb-2 text-2xl font-bold'>Step 1: The Basics</legend>
-		<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-			<div className='flex flex-col md:col-span-2'>
-				<label htmlFor='title' className='font-semibold mb-1'>Title</label>
-				<input
-					type='text'
-					id='title'
-					name='title'
-					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-					required
-				/>
-			</div>
-			<div className='flex flex-col'>
-				<label htmlFor='start_time' className='font-semibold mb-1'>Start Time</label>
-				<input
-					type='datetime-local'
-					id='start_time'
-					name='start_time'
-					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-					required
-				/>
-			</div>
-			<div className='flex flex-col'>
-				<label htmlFor='end_time' className='font-semibold mb-1'>End Time</label>
-				<input
-					type='datetime-local'
-					id='end_time'
-					name='end_time'
-					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-					required
-				/>
-			</div>
-			<div className='flex flex-col md:col-span-2'>
-				<label htmlFor='location' className='font-semibold mb-1'>Location</label>
-				<input
-					type='text'
-					id='location'
-					name='location'
-					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-					required
-				/>
-				<small>
-					Can simply be room name, which defaults to Swinburne A35 building
-				</small>
-			</div>
+	<fieldset>
+		<legend>Step 1: The Basics</legend>
+
+		<div className='field label border prefix'>
+			<i>title</i>
+			<input type='text' id='title' name='title' required />
+			<label htmlFor='title'>Title</label>
+		</div>
+
+		<div className='field label border prefix'>
+			<i>event</i>
+			<input type='datetime-local' id='start_time' name='start_time' required />
+			<label htmlFor='start_time'>Start Time</label>
+		</div>
+
+		<div className='field label border prefix'>
+			<i>event</i>
+			<input type='datetime-local' id='end_time' name='end_time' required />
+			<label htmlFor='end_time'>End Time</label>
+		</div>
+
+		<div className='field label border prefix'>
+			<i>location_on</i>
+			<input type='text' id='location' name='location' required />
+			<label htmlFor='location'>Location</label>
+			<span className='helper'>
+				Can simply be room name, which defaults to Swinburne A35 building
+			</span>
 		</div>
 	</fieldset>
 );
 
 // MARK: Step 2
 const Step2 = () => (
-	<fieldset className='mb-4'>
-		<legend className='mb-2 text-2xl font-bold'>Step 2: Host</legend>
-		<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-			<div className='flex flex-col'>
-				<label htmlFor='host_name' className='font-semibold mb-1'>Host Name</label>
-				<input
-					type='text'
-					id='host_name'
-					name='host_name'
-					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-					required
-				/>
-			</div>
-			<div className='flex flex-col'>
-				<label htmlFor='host_email' className='font-semibold mb-1'>Contact Email</label>
-				<input
-					type='email'
-					id='host_email'
-					name='host_email'
-					className='p-2 border-2 border-[var(--foreground)] rounded-lg'
-					required
-				/>
-			</div>
+	<fieldset>
+		<legend>Step 2: Host</legend>
+
+		<div className='field label border prefix'>
+			<i>badge</i>
+			<input type='text' id='host_name' name='host_name' required />
+			<label htmlFor='host_name'>Host Name</label>
+		</div>
+
+		<div className='field label border prefix'>
+			<i>mail</i>
+			<input type='email' id='host_email' name='host_email' required />
+			<label htmlFor='host_email'>Contact Email</label>
 		</div>
 	</fieldset>
 );
 
 // MARK: Step 3
 const Step3 = () => (
-	<fieldset className='mb-4'>
-		<legend className='mb-2 text-2xl font-bold'>Step 3: Description</legend>
-		<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-			<div className='flex flex-col'>
-				<label htmlFor='category' className='font-semibold mb-1'>Category</label>
-				<select
-					id='category'
-					name='category'
-					className='h-full p-2 border-2 border-[var(--foreground)] bg-white rounded-lg'
-					required
-				>
-					<option value=''>Select a category</option>
-					<option value='conference'>Conference</option>
-					<option value='meetup'>Meetup</option>
-					<option value='pitching'>Pitching</option>
-					<option value='workshop'>Workshop</option>
-				</select>
-			</div>
-			<div className='flex flex-col'>
-				<label htmlFor='image' className='font-semibold mb-1'>Thumbnail Image</label>
-				<input
-					type='file'
-					id='image'
-					name='imageFile'
-					accept='image/png,image/jpeg,image/webp'
-					className='
-							p-1 border-2 border-[var(--foreground)] bg-white
-							rounded-lg file:border-0 file:bg-(--green)
-							file:text-[var(--foreground)] file:px-4 file:py-2
-							file:rounded-md'
-					required
-				/>
-			</div>
-			<div className='flex flex-col md:col-span-2'>
-				<label htmlFor='description' className='font-semibold mb-1'>Event Description</label>
-				<textarea
-					id='description'
-					name='description'
-					className='p-2 border-2 border-[var(--foreground)] rounded-lg h-40'
-				/>
-			</div>
+	<fieldset>
+		<legend>Step 3: Description</legend>
+
+		<div className='field label border prefix'>
+			<i>category</i>
+			<select id='category' name='category' required>
+				<option value=''>Select a category</option>
+				<option value='conference'>Conference</option>
+				<option value='meetup'>Meetup</option>
+				<option value='pitching'>Pitching</option>
+				<option value='workshop'>Workshop</option>
+			</select>
+			<label htmlFor='category'>Category</label>
 		</div>
+
+		<div className='field textarea label border'>
+			<textarea id='description' name='description' />
+			<label htmlFor='description'>Event Description</label>
+		</div>
+
+		<button type='button'>
+			<i>image</i>
+			<span>Image Thumbnail</span>
+			<input
+				type='file'
+				id='image'
+				name='imageFile'
+				accept='image/png,image/jpeg,image/webp'
+				required
+			/>
+		</button>
 	</fieldset>
 );
 
@@ -177,32 +138,26 @@ export function EventCreationForm() {
 	}
 
 	return (
-		<form
-			method='POST'
-			noValidate
-			onSubmit={handleSubmission}
-			className='max-w-3xl mx-auto p-4 md:shadow-lg md:border-2 border-[var(--foreground)] rounded-lg'
-		>
+		<form method='POST' noValidate onSubmit={handleSubmission}>
 			<Step1 />
 			<Step2 />
 			<Step3 />
 
 			{errors.value.length > 0 && (
-				<section id='errors'>
-					<h2 className='text-red-500'>
+				<section className='error'>
+					<h2>
 						Oops! There were some problems with registering!
 					</h2>
-					<ul className='list-disc list-inside text-red-500'>
+					<ul>
 						{errors.value.map((error, index) => <li key={index}>{error}</li>)}
 					</ul>
 				</section>
 			)}
 
-			<fieldset>
-				<button type='submit' className='button' disabled={isSubmitting}>
-					Create Event
-				</button>
-			</fieldset>
+			<div className='medium-space'></div>
+			<button type='submit' className='responsive' disabled={isSubmitting}>
+				Create Event
+			</button>
 		</form>
 	);
 }

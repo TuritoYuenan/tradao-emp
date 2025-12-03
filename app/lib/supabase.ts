@@ -5,5 +5,5 @@ import { getSupabaseClient } from './utils.ts';
  */
 export const supabase = getSupabaseClient(
 	Deno.env.get('SUPABASE_URL') || '',
-	Deno.env.get('SUPABASE_KEY') || ''
+	Deno.env.get('SUPABASE_KEY') || '',
 );

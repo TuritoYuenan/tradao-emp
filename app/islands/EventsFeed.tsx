@@ -46,47 +46,47 @@ export function EventsFeed({ events }: EventFeedProps) {
 	};
 
 	return (
-		<article className='max-w-4xl mx-auto px-4 grid grid-cols-1 gap-4'>
-			<search className='flex flex-col md:flex-row gap-2 gap-y-4 md:items-center md:justify-between'>
-				<input
-					className='search-bar w-full p-2 bg-transparent border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)]'
-					id='search'
-					type='text'
-					placeholder='Search by title or description'
-					value={searchQuery}
-					onInput={(e) => handleSearch((e.target as HTMLInputElement).value)}
-				/>
-				<select
-					className='w-full p-2 bg-transparent rounded-2xl md:w-auto border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)]'
-					id='category'
-					value={selectedCategory}
-					title='Filter by category'
-					onChange={(e) => handleCategoryChange((e.target as HTMLSelectElement).value)}
-				>
-					<option value='all'>All Categories ({events.length})</option>
-					{categories.map((category) => (
-						<option key={category} value={category}>
-							{category} ({events.filter((e) => e.category === category).length})
-						</option>
-					))}
-				</select>
+		<div>
+			<search className='grid'>
+				<div className='s12 m8 field large prefix round fill'>
+					<i className='front'>search</i>
+					<input
+						className='search-bar w-full p-2 bg-transparent border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)]'
+						id='search'
+						type='text'
+						placeholder='Search by title or description'
+						value={searchQuery}
+						onInput={(e) => handleSearch((e.target as HTMLInputElement).value)}
+					/>
+				</div>
+				<div className='s12 m4 field large suffix round fill'>
+					<select
+						className='w-full p-2 bg-transparent rounded-2xl md:w-auto border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)]'
+						id='category'
+						value={selectedCategory}
+						title='Filter by category'
+						onChange={(e) => handleCategoryChange((e.target as HTMLSelectElement).value)}
+					>
+						<option value='all'>All Categories ({events.length})</option>
+						{categories.map((category) => (
+							<option key={category} value={category}>
+								{category} ({events.filter((e) => e.category === category).length})
+							</option>
+						))}
+					</select>
+					<i>arrow_drop_down</i>
+				</div>
 			</search>
 
 			{filteredEvents.value.length === 0 ? <p>No events found</p> : null}
 
-			{eventsToDisplay.map((event) => (
-				<EventCard
-					key={event.id}
-					event={event}
-				/>
-			))}
+			{eventsToDisplay.map((event) => <EventCard key={event.id} event={event} />)}
 
-			<nav className='flex justify-center items-center gap-2 mt-4'>
+			<nav className='center-align'>
 				<button
 					type='button'
 					disabled={currentPage.value === 1}
 					onClick={() => currentPage.value -= 1}
-					className='button disabled:opacity-50'
 				>
 					Previous
 				</button>
@@ -99,11 +99,10 @@ export function EventsFeed({ events }: EventFeedProps) {
 					type='button'
 					disabled={currentPage.value === totalPages}
 					onClick={() => currentPage.value += 1}
-					className='button disabled:opacity-50'
 				>
 					Next
 				</button>
 			</nav>
-		</article>
+		</div>
 	);
 }

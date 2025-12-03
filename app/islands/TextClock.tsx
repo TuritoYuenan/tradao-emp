@@ -14,15 +14,17 @@ export function TextClock() {
 
 	return (
 		<span>
-			<span className='material-symbols-rounded relative top-[0.3rem]'>
-				schedule
-			</span>{' '}
+			<i>schedule</i>{' '}
 			<span>
 				{formatDate(time.value, {
 					hour: '2-digit',
 					minute: '2-digit',
 					hour12: false,
-				})} &bull; {formatDate(time.value, { weekday: 'short', day: '2-digit', month: 'short' })}
+				})} &bull; {formatDate(time.value, {
+					weekday: 'short',
+					day: '2-digit',
+					month: 'short',
+				})}
 			</span>
 		</span>
 	);

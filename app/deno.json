@@ -54,8 +54,10 @@
 		"$components/": "./components/",
 		"$islands/": "./islands/",
 		"$lib/": "./lib/",
+		"beercss": "npm:beercss@^3.12.13",
 		"fresh": "jsr:@fresh/core@^2.2.0",
 		"jsqr": "npm:jsqr@^1.4.0",
+		"material-dynamic-colors": "npm:material-dynamic-colors@^1.1.2",
 		"preact": "npm:preact@^10.27.2",
 		"vite": "npm:vite@^7.2.6",
 		"yup": "npm:yup@^1.7.1"

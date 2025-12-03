@@ -36,5 +36,15 @@ export default function ErrorPage(props: PageProps) {
 		if (status === 500) return Error500();
 	}
 
-	return <h1>Oh no...</h1>;
+	if (error instanceof Error === false) {
+		return (<>
+			<h1>Unknown Error</h1>
+			<p>Something went wrong, but we don't know what.</p>
+		</>);
+	}
+
+	return (<>
+		<h1>An error occured...</h1>
+		<p>{error.message}</p>
+	</>);
 }

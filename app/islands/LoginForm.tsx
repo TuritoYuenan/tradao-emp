@@ -49,40 +49,34 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
 	}
 
 	return (
-		<form
-			method='POST'
-			className='grid gap-4'
-			onSubmit={handleLogin}
-			noValidate
-		>
-			<div className='grid gap-1'>
-				<label htmlFor='email' className='font-bold'>Email</label>
-				<input
-					type='email'
-					name='email'
-					id='email'
-					required
-					className='p-2 bg-transparent border-2 border-(--foreground) rounded'
-				/>
-			</div>
-			<div className='grid gap-1'>
-				<label htmlFor='password' className='font-bold'>Password</label>
-				<input
-					type='password'
-					name='password'
-					id='password'
-					required
-					className='p-2 bg-transparent border-2 border-(--foreground) rounded'
-				/>
-			</div>
-			{errors.value.length > 0 && (
-				<div className='text-red-500'>
-					{errors.value.map((error) => <p key={error}>{error}</p>)}
+		<article style={{ maxWidth: '90ch', margin: 'auto' }}>
+			<form method='POST' onSubmit={handleLogin} noValidate>
+				<div className='field border label'>
+					<input type='email' name='email' id='email' required />
+					<label htmlFor='email' className='font-bold'>Email</label>
 				</div>
-			)}
-			<button type='submit' className='button' disabled={isSubmitting}>
-				Login
-			</button>
-		</form>
+
+				<div className='field border label'>
+					<input type='password' name='password' id='password' required />
+					<label htmlFor='password' className='font-bold'>Password</label>
+				</div>
+
+				{errors.value.length > 0 && (
+					<div className='text-red-500'>
+						{errors.value.map((error) => <p key={error}>{error}</p>)}
+					</div>
+				)}
+
+				<button type='submit' className='responsive' disabled={isSubmitting}>
+					Login
+				</button>
+
+				<hr className='medium' />
+
+				<button type='submit' className='responsive' disabled={isSubmitting}>
+					Sign in with Google
+				</button>
+			</form>
+		</article>
 	);
 }

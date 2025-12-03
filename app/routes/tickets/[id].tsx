@@ -21,38 +21,51 @@ export const handler = define.handlers<TicketLookupProps>({
 });
 
 function TicketHeader({ props }: { props: TicketLookupProps }) {
-	return <h2 className='text-2xl text-center font-bold'>{props.lookup.event_title}</h2>;
+	return <h2 className='small'>{props.lookup.event_title}</h2>;
 }
 
 function TicketDetails({ props }: { props: TicketLookupProps }) {
 	return (
-		<dl className='grid gap-2 gap-x-4' style={{ gridTemplateColumns: 'auto auto' }}>
-			<dt className='font-bold text-right'>Name</dt>
-			<dd>{props.lookup.name}</dd>
-			<dt className='font-bold text-right'>Email</dt>
-			<dd>{props.lookup.email}</dd>
-			<dt className='font-bold text-right'>Academic Year</dt>
-			<dd>{props.lookup.academic_year}</dd>
-			<dt className='font-bold text-right'>Field of Study</dt>
-			<dd>{props.lookup.field_of_study}</dd>
-			<dt className='font-bold text-right'>Major</dt>
-			<dd>{props.lookup.major}</dd>
-			<dt className='font-bold text-right'>Participating</dt>
-			<dd>{props.lookup.participate ? 'Yes' : 'No'}</dd>
-			<dt className='font-bold text-right'>Created At</dt>
-			<dd>{formatDate(props.lookup.created_at!)}</dd>
+		<dl className='grid' left-align>
+			<dt className='s6 right-align'>
+				<strong>Name</strong>
+			</dt>
+			<dd className='s6 left-align'>{props.lookup.name}</dd>
+			<dt className='s6 right-align'>
+				<strong>Email</strong>
+			</dt>
+			<dd className='s6 left-align'>{props.lookup.email}</dd>
+			<dt className='s6 right-align'>
+				<strong>Academic Year</strong>
+			</dt>
+			<dd className='s6 left-align'>{props.lookup.academic_year}</dd>
+			<dt className='s6 right-align'>
+				<strong>Field of Study</strong>
+			</dt>
+			<dd className='s6 left-align'>{props.lookup.field_of_study}</dd>
+			<dt className='s6 right-align'>
+				<strong>Major</strong>
+			</dt>
+			<dd className='s6 left-align'>{props.lookup.major}</dd>
+			<dt className='s6 right-align'>
+				<strong>Participating</strong>
+			</dt>
+			<dd className='s6 left-align'>{props.lookup.participate ? 'Yes' : 'No'}</dd>
+			<dt className='s6 right-align'>
+				<strong>Created At</strong>
+			</dt>
+			<dd className='s6 left-align'>{formatDate(props.lookup.created_at!)}</dd>
 		</dl>
 	);
 }
 
 function TicketFooter({ props }: { props: TicketLookupProps }) {
 	return (
-		<section id='footer' className='text-center'>
-			<a href={props.saveURL} id='save-button' target='_blank' rel='noopener noreferrer'>
+		<section id='footer'>
+			<a href={props.saveURL} target='_blank' rel='noopener noreferrer'>
 				<img
 					src='/buttons/enAU_add_to_google_wallet_add-wallet-badge.svg'
 					alt='Add to Google Wallet'
-					className='mx-auto'
 				/>
 			</a>
 			<p>{props.lookup.ticket_id}</p>
@@ -66,18 +79,14 @@ export default define.page<typeof handler>(function TicketLookupPage(props) {
 			<PageMetadata title={'Your Ticket for ' + props.data.lookup.event_title} />
 
 			<Banner title='Here is your event ticket!' />
-			<div className='p-4'>
-				<article
-					className='max-w-[90ch] mx-auto p-4 border-2 rounded-2xl relative'
-					style={{ borderColor: 'var(--foreground)' }}
-				>
-					<TicketHeader props={props.data} />
-					<hr className='my-4 border rounded-2xl border-[--foreground]' />
-					<TicketDetails props={props.data} />
-					<hr className='my-4 border rounded-2xl border-[--foreground]' />
-					<TicketFooter props={props.data} />
-				</article>
-			</div>
+
+			<article className='center-align' style={{ maxWidth: '90ch', margin: 'auto' }}>
+				<TicketHeader props={props.data} />
+				<hr className='large' />
+				<TicketDetails props={props.data} />
+				<hr className='large' />
+				<TicketFooter props={props.data} />
+			</article>
 		</>
 	);
 });

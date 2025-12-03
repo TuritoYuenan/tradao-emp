@@ -21,7 +21,7 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 			case 400: {
 				// 4xx errors
 				const data = await response.json();
-				errors.value = data.errors;
+				errors.value = data.error;
 				isRegistering.value = false;
 				break;
 			}
@@ -49,12 +49,7 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 	}
 
 	return (
-		<form
-			method='POST'
-			className='mt-2'
-			onSubmit={handleFormSubmission}
-			noValidate
-		>
+		<form method='POST' className='mt-2' onSubmit={handleFormSubmission} noValidate>
 			<datalist id='majors'>
 				<option value='Data Science'>Data Science</option>
 				<option value='Software Development'>Software Development</option>
@@ -63,84 +58,49 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 				<option value='Cyber Security'>Cyber Security</option>
 			</datalist>
 
-			<label htmlFor='ff-name' className='inline-block mb-1'>Full name</label>
-			<input
-				id='ff-name'
-				name='name'
-				type='text'
-				placeholder='e.g. Nguyen Ta Minh Triet'
-				className='w-full p-2 mb-2 bg-transparent border-2 border-[var(--foreground)] rounded-lg text-inherit'
-				required
-			/>
+			<div className='field label border'>
+				<input id='ff-name' name='name' type='text' required />
+				<label htmlFor='ff-name'>Full name</label>
+			</div>
 
-			<label htmlFor='ff-mail' className='inline-block mb-1'>
-				Email address
+			<div className='field label border'>
+				<input id='ff-mail' name='email' type='email' required />
+				<label htmlFor='ff-mail'>Email address</label>
+			</div>
+
+			<div className='field border suffix'>
+				<select id='ff-year' name='year' required>
+					<option value=''>Select Academic Year</option>
+					{Constants.public.Enums.academic_year.map((year) => <option value={year} key={year}>{year}
+					</option>)}
+				</select>
+				<i>arrow_drop_down</i>
+			</div>
+
+			<div className='field border suffix'>
+				<select id='ff-field' name='field' required>
+					<option value=''>Select Field of Study</option>
+					{Constants.public.Enums.field_of_study.map((field) => (
+						<option value={field} key={field}>{field}</option>
+					))}
+				</select>
+				<i>arrow_drop_down</i>
+			</div>
+
+			<div className='field label border'>
+				<input id='ff-major' name='major' type='text' list='majors' required />
+				<label htmlFor='ff-major'>Major</label>
+			</div>
+
+			<label htmlFor='ff-confm' className='checkbox'>
+				<input id='ff-confm' name='confirm' type='checkbox' required />{' '}
+				<span>I confirm my participation in the event</span>
 			</label>
-			<input
-				id='ff-mail'
-				name='email'
-				type='email'
-				placeholder='e.g. 123456789@student.swin.edu.au'
-				className='w-full p-2 mb-2 bg-transparent border-2 border-[var(--foreground)] rounded-lg text-inherit'
-				required
-			/>
-
-			<label htmlFor='ff-year' className='inline-block mb-1'>
-				Academic Year
-			</label>
-			<select
-				id='ff-year'
-				name='year'
-				className='w-full p-2 mb-2 bg-transparent border-2 border-[var(--foreground)] rounded-lg'
-				required
-			>
-				<option value=''>Select Academic Year</option>
-				{Constants.public.Enums.academic_year.map((year) => <option value={year} key={year}>{year}</option>)}
-			</select>
-
-			<label htmlFor='ff-field' className='inline-block mb-1'>
-				Field of Study
-			</label>
-			<select
-				id='ff-field'
-				name='field'
-				className='w-full p-2 mb-2 bg-transparent border-2 border-[var(--foreground)] rounded-lg'
-				required
-			>
-				<option value=''>Select Field of Study</option>
-				{Constants.public.Enums.field_of_study.map((field) => <option value={field} key={field}>{field}
-				</option>)}
-			</select>
-
-			<label htmlFor='ff-major' className='inline-block mb-1'>Major</label>
-			<input
-				id='ff-major'
-				name='major'
-				type='text'
-				list='majors'
-				placeholder='e.g. Data Science'
-				className='w-full p-2 mb-2 bg-transparent border-2 border-[var(--foreground)] rounded-lg text-inherit'
-				required
-			/>
-
-			<p>
-				<input
-					id='ff-confm'
-					name='confirm'
-					type='checkbox'
-					required
-				/>{' '}
-				<label htmlFor='ff-confm'>
-					<small>By filling out this form, you agree to participate</small>
-				</label>
-			</p>
 
 			{errors.value.length > 0 && (
-				<section id='errors'>
-					<h2 className='text-red-500'>
-						Oops! There were some problems with registering!
-					</h2>
-					<ul className='list-disc list-inside text-red-500'>
+				<section className='error'>
+					<h2>Oops! There were some problems with registering!</h2>
+					<ul>
 						{errors.value.map((error, index) => <li key={index}>{error}</li>)}
 					</ul>
 				</section>
