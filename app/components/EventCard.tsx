@@ -4,11 +4,10 @@ import { formatDate, isEventUpcoming } from '$lib/utils.ts';
 export function EventCard({ event }: EventCardProps) {
 	return (
 		<article className='no-padding grid middle-align border'>
-			<div className='s12 m3'>
+			<div className='s12 m4'>
 				<img
 					className='responsive'
 					src={event.image ? event.image : 'https://placehold.co/160x90'}
-					style={{ aspectRatio: '16/9' }}
 				/>
 			</div>
 			<div className='padding s12 m8'>
@@ -20,8 +19,7 @@ export function EventCard({ event }: EventCardProps) {
 				<p>
 					<i>location_on</i> <strong>Location:</strong> {event.location}
 				</p>
-			</div>
-			<div className='padding s12 m1'>
+				<div className="space"></div>
 				<a className='button' href={`/events/${event.id}`}>
 					{isEventUpcoming(event.start_time!) ? 'Register' : 'View'}
 				</a>
