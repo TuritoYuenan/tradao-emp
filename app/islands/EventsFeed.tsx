@@ -46,12 +46,11 @@ export function EventsFeed({ events }: EventFeedProps) {
 	};
 
 	return (
-		<div>
+		<>
 			<search className='grid'>
-				<div className='s12 m8 field large prefix round fill'>
+				<div className='s12 m8 field border round prefix'>
 					<i className='front'>search</i>
 					<input
-						className='search-bar w-full p-2 bg-transparent border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)]'
 						id='search'
 						type='text'
 						placeholder='Search by title or description'
@@ -59,9 +58,8 @@ export function EventsFeed({ events }: EventFeedProps) {
 						onInput={(e) => handleSearch((e.target as HTMLInputElement).value)}
 					/>
 				</div>
-				<div className='s12 m4 field large suffix round fill'>
+				<div className='s12 m4 field border round suffix'>
 					<select
-						className='w-full p-2 bg-transparent rounded-2xl md:w-auto border-2 border-[var(--foreground)] rounded-2xl shadow-[0_0_1rem_rgba(0,0,0,0.2)]'
 						id='category'
 						value={selectedCategory}
 						title='Filter by category'
@@ -77,6 +75,8 @@ export function EventsFeed({ events }: EventFeedProps) {
 					<i>arrow_drop_down</i>
 				</div>
 			</search>
+
+			<div className='space'></div>
 
 			{filteredEvents.value.length === 0 ? <p>No events found</p> : null}
 
@@ -103,6 +103,6 @@ export function EventsFeed({ events }: EventFeedProps) {
 					Next
 				</button>
 			</nav>
-		</div>
+		</>
 	);
 }

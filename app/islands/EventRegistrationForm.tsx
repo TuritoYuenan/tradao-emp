@@ -58,17 +58,20 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 				<option value='Cyber Security'>Cyber Security</option>
 			</datalist>
 
-			<div className='field label border'>
+			<div className='field label border prefix'>
+				<i>badge</i>
 				<input id='ff-name' name='name' type='text' required />
 				<label htmlFor='ff-name'>Full name</label>
 			</div>
 
-			<div className='field label border'>
+			<div className='field label border prefix'>
+				<i>mail</i>
 				<input id='ff-mail' name='email' type='email' required />
 				<label htmlFor='ff-mail'>Email address</label>
 			</div>
 
-			<div className='field border suffix'>
+			<div className='field border prefix suffix'>
+				<i>school</i>
 				<select id='ff-year' name='year' required>
 					<option value=''>Select Academic Year</option>
 					{Constants.public.Enums.academic_year.map((year) => <option value={year} key={year}>{year}
@@ -77,7 +80,8 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 				<i>arrow_drop_down</i>
 			</div>
 
-			<div className='field border suffix'>
+			<div className='field border prefix suffix'>
+				<i>book</i>
 				<select id='ff-field' name='field' required>
 					<option value=''>Select Field of Study</option>
 					{Constants.public.Enums.field_of_study.map((field) => (
@@ -87,7 +91,8 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 				<i>arrow_drop_down</i>
 			</div>
 
-			<div className='field label border'>
+			<div className='field label border prefix'>
+				<i>local_library</i>
 				<input id='ff-major' name='major' type='text' list='majors' required />
 				<label htmlFor='ff-major'>Major</label>
 			</div>
@@ -96,6 +101,8 @@ export function EventRegistrationForm({ eventID }: { eventID: string }) {
 				<input id='ff-confm' name='confirm' type='checkbox' required />{' '}
 				<span>I confirm my participation in the event</span>
 			</label>
+
+			<div className='space'></div>
 
 			{errors.value.length > 0 && (
 				<section className='error'>

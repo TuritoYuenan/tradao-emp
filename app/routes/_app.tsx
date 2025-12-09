@@ -3,7 +3,18 @@ import { Navigation } from '$components/Navigation.tsx';
 import { Footer } from '$components/Footer.tsx';
 
 const menuItems = [
-	{ name: 'Manage', href: '/manage', icon: 'manage_accounts', external: false },
+	{
+		name: 'Events',
+		href: '/',
+		icon: 'event',
+		external: false,
+	},
+	{
+		name: 'Manage',
+		href: '/manage',
+		icon: 'manage_accounts',
+		external: false,
+	},
 	{
 		name: 'ITea Lab',
 		href: 'https://itealab.vercel.app',

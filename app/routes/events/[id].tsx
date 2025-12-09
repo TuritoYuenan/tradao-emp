@@ -71,6 +71,7 @@ export default define.page<typeof handler>(function EventDetailsPage(props) {
 						referrerpolicy='no-referrer-when-downgrade'
 						title='Event Location Map'
 						className='responsive'
+						style={{ aspectRatio: '1' }}
 					/>
 				</article>
 
