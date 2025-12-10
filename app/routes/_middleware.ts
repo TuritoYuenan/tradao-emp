@@ -14,12 +14,7 @@ const authMiddleware = define.middleware(async (ctx) => {
 
 	console.log('Auth>', 'User is NOT logged in => Redirecting');
 	const redirectTo = encodeURIComponent(url.pathname + url.search);
-	return new Response(null, {
-		status: 303,
-		headers: {
-			Location: new URL(`/login?redirectTo=${redirectTo}`, ctx.req.url).toString(),
-		},
-	});
+	return ctx.redirect(`/login?redirectTo=${redirectTo}`, 303);
 });
 
 export default [authMiddleware];
