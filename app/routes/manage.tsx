@@ -23,7 +23,7 @@ export default define.page<typeof handler>(function ManagementHomePage(props) {
 			<Banner title={`Welcome back, ${username}`} description='Manage ITea Lab events and Tradao tickets here' />
 
 			<section style={{ maxWidth: '90ch', margin: 'auto' }}>
-				<a className='block' href='/manage/view-events'>
+				<a className='block' href='/manage/events'>
 					<article>
 						<h2 style={{ fontSize: '2em' }}>
 							<i>event</i> Manage Events
@@ -36,7 +36,7 @@ export default define.page<typeof handler>(function ManagementHomePage(props) {
 
 				<div className='space'></div>
 
-				<a className='block' href=''>
+				<a className='block' href='/manage/tickets'>
 					<article>
 						<h2 style={{ fontSize: '2em' }}>
 							<i>local_activity</i> Manage Tickets
@@ -49,7 +49,7 @@ export default define.page<typeof handler>(function ManagementHomePage(props) {
 
 				<div className='space'></div>
 
-				<a className='block' href='/manage/check-ticket'>
+				<a className='block' href='/manage/check-in'>
 					<article>
 						<h2 style={{ fontSize: '2em' }}>
 							<i>check</i> Check-in via Ticket QR code
