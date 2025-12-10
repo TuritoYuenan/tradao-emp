@@ -7,9 +7,9 @@ import { PageMetadata } from '$components/PageMetadata.tsx';
 export const handler = define.handlers<User | null>({
 	async GET(_ctx) {
 		const { data: { user }, error } = await supabase.auth.getUser();
-		if (error) return new Response(error.message, { status: 500 });
-		console.log("Manage>", "User is logged in:", user?.id);
+		if (error) throw error;
 
+		console.log("Manage>", "User is logged in:", user?.id);
 		return { data: user };
 	},
 });
