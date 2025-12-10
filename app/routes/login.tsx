@@ -21,7 +21,7 @@ export default function LoginPage({ redirectTo }: { redirectTo?: string }) {
 	return (
 		<>
 			<PageMetadata title='Login' />
-			<Banner title='Login' />
+			<Banner title='Login as event organiser' />
 			<LoginForm redirectTo={redirectTo} />
 		</>
 	);

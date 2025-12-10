@@ -23,6 +23,21 @@ footer {
 	gap: 1rem;
 }
 
+.hr-text {
+	text-align: center;
+}
+
+.hr-text::before,
+.hr-text::after {
+	width: 40%;
+	height: 1px;
+	margin-inline: 0.5rem;
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	background-color: currentColor;
+}
+
 #event-details-page {
 	padding: 1rem;
 	grid-template-columns: repeat(3, 1fr);

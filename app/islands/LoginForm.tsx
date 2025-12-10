@@ -61,6 +61,8 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
 					<label htmlFor='password' className='font-bold'>Password</label>
 				</div>
 
+				<div className='medium-space'></div>
+
 				{errors.value.length > 0 && (
 					<div className='text-red-500'>
 						{errors.value.map((error) => <p key={error}>{error}</p>)}
@@ -71,7 +73,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
 					Login
 				</button>
 
-				<hr className='medium' />
+				<p className='hr-text small-text'>OR</p>
 
 				<button type='submit' className='responsive' disabled={isSubmitting}>
 					Sign in with Google
