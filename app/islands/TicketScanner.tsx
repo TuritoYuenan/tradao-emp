@@ -1,4 +1,4 @@
-import { useTicketScanner } from '$lib/useTicketScanner.ts';
+import { useTicketScanner } from '$lib/hooks/useTicketScanner.ts';
 
 export function TicketScanner() {
 	const { videoRef, canvasRef, qrResult, error, ticket, isLoading } = useTicketScanner();
