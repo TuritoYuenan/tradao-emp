@@ -3,21 +3,29 @@ import { TextClock } from '$islands/TextClock.tsx';
 
 export function Navigation({ menuItems }: NavigationProps) {
 	return (
-		<nav className='top m l'>
-			<p className='large-text'>
-				<a href='/'>
-					<img src='/logos/logo_dark.svg' alt='Tradao Logo' style={{ height: '3rem' }} />
-				</a>
-			</p>
+		<>
+			{/* Medium & Large Screen: Top navigation bar */}
+			<nav className='top m l'>
+				<p className='large-text'>
+					<a href='/'>
+						<img src='/logos/logo_dark.svg' alt='Tradao Logo' style={{ height: '3rem' }} />
+					</a>
+				</p>
 
-			<div className='max'></div>
+				<div className='max'></div>
 
-			<div className='row'>
-				<TextClock />
-				<span className='hidden md:inline'>|</span>
+				<div className='row'>
+					<TextClock />
+					<span className='hidden md:inline'>|</span>
+					<MenuItems menuItems={menuItems} />
+				</div>
+			</nav>
+
+			{/* Small Screen: Bottom navigation bar */}
+			<nav className='bottom s'>
 				<MenuItems menuItems={menuItems} />
-			</div>
-		</nav>
+			</nav>
+		</>
 	);
 }
 
