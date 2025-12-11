@@ -14,7 +14,7 @@ export function TextClock() {
 
 	return (
 		<span>
-			<i>schedule</i>{' '}
+			<i className='prefix-icon'>schedule</i>
 			<span>
 				{formatDate(time.value, {
 					hour: '2-digit',

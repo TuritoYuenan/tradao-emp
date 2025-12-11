@@ -4,4 +4,4 @@ import 'beercss';
 import 'material-dynamic-colors';
 
 ui('mode', 'auto');
-await ui('theme', getComputedStyle(document.body).getPropertyValue('--green').trim() || 'blue');
+await ui('theme', getComputedStyle(document.body).getPropertyValue('--green').trim() || 'green');

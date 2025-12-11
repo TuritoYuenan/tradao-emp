@@ -38,6 +38,10 @@ footer {
 	background-color: currentColor;
 }
 
+i.prefix-icon {
+	margin-right: 0.3rem;
+}
+
 #event-details-page {
 	padding: 1rem;
 	grid-template-columns: repeat(3, 1fr);

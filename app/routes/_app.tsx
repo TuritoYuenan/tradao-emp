@@ -58,7 +58,7 @@ export default define.layout(function App({ Component }) {
 				<link rel='icon' href='/icons/icon.svg' />
 				<link rel='manifest' href='/manifest.json' />
 			</head>
-			<body>
+			<body className='dark'>
 				<div className='contents'>
 					<Navigation menuItems={menuItems} />
 					<main className='responsive padding'>

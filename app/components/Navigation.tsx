@@ -16,7 +16,7 @@ export function Navigation({ menuItems }: NavigationProps) {
 
 				<div className='row'>
 					<TextClock />
-					<span className='hidden md:inline'>|</span>
+					<span>|</span>
 					<MenuItems menuItems={menuItems} />
 				</div>
 			</nav>
@@ -37,7 +37,7 @@ function MenuItems({ menuItems }: NavigationProps) {
 			target={item.external ? '_blank' : '_self'}
 			rel={item.external ? 'noopener noreferrer' : ''}
 		>
-			<i>{item.icon}</i> {item.name}
+			<i className='prefix-icon'>{item.icon}</i> {item.name}
 		</a>
 	));
 }
