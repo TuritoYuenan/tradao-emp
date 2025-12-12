@@ -1,0 +1,33 @@
+<script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
+	import { formatDate } from '$lib/utils';
+
+	let time = $state(new Date());
+	let interval: ReturnType<typeof setInterval>;
+
+	onMount(() => {
+		interval = setInterval(() => {
+			time = new Date();
+		}, 1000);
+	});
+
+	onDestroy(() => {
+		if (interval) clearInterval(interval);
+	});
+</script>
+
+<span>
+	<i class="prefix-icon">schedule</i>
+	<span>
+		{formatDate(time, {
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false
+		})} &bull;
+		{formatDate(time, {
+			weekday: 'short',
+			day: '2-digit',
+			month: 'short'
+		})}
+	</span>
+</span>
