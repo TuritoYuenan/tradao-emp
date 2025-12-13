@@ -41,18 +41,3 @@ footer {
 i.prefix-icon {
 	margin-right: 0.3rem;
 }
-
-#event-details-page {
-	padding: 1rem;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: 540px auto auto 1fr;
-	grid-template-areas:
-		'image image form'
-		'head head loct'
-		'time host loct'
-		'text text loct';
-
-	article {
-		margin: 0;
-	}
-}

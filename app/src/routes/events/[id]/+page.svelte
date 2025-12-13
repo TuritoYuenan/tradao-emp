@@ -1,8 +1,8 @@
 <script lang="ts">
-	import PageMetadata from '$components/PageMetadata.svelte';
-	import EventRegistrationForm from '$components/EventRegistrationForm.svelte';
-	import { formatDate, isEventUpcoming } from '$lib/utils';
-	import type { PageData } from './$types';
+	import PageMetadata from "$components/PageMetadata.svelte";
+	import EventRegistrationForm from "$components/EventRegistrationForm.svelte";
+	import { formatDate, isEventUpcoming } from "$lib/utils";
+	import type { PageData } from "./$types";
 
 	let { data }: { data: PageData } = $props();
 	let event = $derived(data.event);
@@ -15,18 +15,18 @@
 />
 
 <div class="grid-base" id="event-details-page">
-	<article class="border no-padding" data-g-area="image">
+	<article class="border no-padding" style="grid-area: image">
 		<img src={event.image} alt="" class="responsive" />
 	</article>
 
-	<article class="border" data-g-area="head">
+	<article class="border" style="grid-area: head">
 		<div class="row wrap">
 			<p class="chip">{event.category}</p>
 		</div>
 		<h1 class="small">{event.title}</h1>
 	</article>
 
-	<article class="border" data-g-area="form">
+	<article class="border" style="grid-area: form; overflow-y: scroll;">
 		<h2 class="small">Participate in this event</h2>
 		{#if isEventUpcoming(event.start_time)}
 			<EventRegistrationForm eventID={event.id} />
@@ -35,22 +35,24 @@
 		{/if}
 	</article>
 
-	<article class="border" data-g-area="time">
+	<article class="border" style="grid-area: time">
 		<h2 class="small">Event Time</h2>
 		<p>
-			<i>event</i> <strong>Start:</strong> {formatDate(event.start_time)}
+			<i>event</i> <strong>Start:</strong>
+			{formatDate(event.start_time)}
 		</p>
 		<p>
-			<i>event</i> <strong>End:</strong> {formatDate(event.end_time)}
+			<i>event</i> <strong>End:</strong>
+			{formatDate(event.end_time)}
 		</p>
 	</article>
 
-	<article class="border" data-g-area="host">
+	<article class="border" style="grid-area: host">
 		<h2 class="small">Event Host</h2>
 		<p>{event.host}</p>
 	</article>
 
-	<article class="border" data-g-area="loct">
+	<article class="border" style="grid-area: loct">
 		<h2 class="small">Event Location</h2>
 		<p>{event.location}</p>
 		<iframe
@@ -62,21 +64,28 @@
 		></iframe>
 	</article>
 
-	<article class="border" data-g-area="text">
+	<article class="border" style="grid-area: text">
 		<p>{event.description}</p>
 	</article>
 </div>
 
 <style>
+	#event-details-page {
+		padding: 1rem;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: 540px auto auto 1fr;
+		grid-template-areas:
+			"image image form"
+			"head head loct"
+			"time host loct"
+			"text text loct";
+
+		article {
+			margin: 0;
+		}
+	}
+
 	iframe {
 		aspect-ratio: 1;
-	}
-
-	[data-g-area] {
-		grid-area: attr(data-g-area);
-	}
-
-	[data-g-area='form'] {
-		overflow-y: scroll;
 	}
 </style>
