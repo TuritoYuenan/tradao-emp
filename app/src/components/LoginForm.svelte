@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { LoginFormProps } from '$lib/props';
-
-	let { redirectTo }: LoginFormProps = $props();
+	let { redirectTo }: { redirectTo?: string } = $props();
 
 	let isSubmitting = $state(false);
 	let errors = $state<string[]>([]);
@@ -12,10 +10,10 @@
 		const form = e.target as HTMLFormElement;
 		const data = Object.fromEntries(new FormData(form).entries());
 
-		const response = await fetch('/api/login', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ ...data, redirectTo })
+		const response = await fetch("/api/login", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ ...data, redirectTo }),
 		});
 
 		switch (response.status) {
@@ -29,7 +27,9 @@
 
 			case 500: {
 				// 5xx errors
-				errors = ['Something went wrong on our end. Please try again later.'];
+				errors = [
+					"Something went wrong on our end. Please try again later.",
+				];
 				isSubmitting = false;
 				break;
 			}
@@ -37,14 +37,14 @@
 			case 200: {
 				// Success - redirecting
 				const data = await response.json();
-				const redirectUrl = data.redirectTo || '/manage';
+				const redirectUrl = data.redirectTo || "/manage";
 				window.location.href = redirectUrl;
 				break;
 			}
 
 			default: {
 				// Unexpected status code
-				errors = ['Unexpected error. Please try again later.'];
+				errors = ["Unexpected error. Please try again later."];
 			}
 		}
 	}
@@ -72,10 +72,14 @@
 			</div>
 		{/if}
 
-		<button type="submit" class="responsive" disabled={isSubmitting}> Login </button>
+		<button type="submit" class="responsive" disabled={isSubmitting}>
+			Login
+		</button>
 
 		<p class="hr-text small-text">OR</p>
 
-		<button type="submit" class="responsive" disabled={isSubmitting}> Sign in with Google </button>
+		<button type="submit" class="responsive" disabled={isSubmitting}>
+			Sign in with Google
+		</button>
 	</form>
 </article>

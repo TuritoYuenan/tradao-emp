@@ -1,8 +1,16 @@
 <script lang="ts">
-	import type { NavigationProps } from '$lib/props';
-	import TextClock from './TextClock.svelte';
+	import TextClock from "./TextClock.svelte";
 
-	let { menuItems }: NavigationProps = $props();
+	let {
+		menuItems,
+	}: {
+		menuItems: {
+			name: string;
+			href: string;
+			icon: string;
+			external: boolean;
+		}[];
+	} = $props();
 </script>
 
 <!-- Medium & Large Screen: Top navigation bar -->
@@ -21,10 +29,11 @@
 		{#each menuItems as item}
 			<a
 				href={item.href}
-				target={item.external ? '_blank' : '_self'}
-				rel={item.external ? 'noopener noreferrer' : ''}
+				target={item.external ? "_blank" : "_self"}
+				rel={item.external ? "noopener noreferrer" : ""}
 			>
-				<i class="prefix-icon">{item.icon}</i> {item.name}
+				<i class="prefix-icon">{item.icon}</i>
+				{item.name}
 			</a>
 		{/each}
 	</div>
@@ -35,10 +44,11 @@
 	{#each menuItems as item}
 		<a
 			href={item.href}
-			target={item.external ? '_blank' : '_self'}
-			rel={item.external ? 'noopener noreferrer' : ''}
+			target={item.external ? "_blank" : "_self"}
+			rel={item.external ? "noopener noreferrer" : ""}
 		>
-			<i class="prefix-icon">{item.icon}</i> {item.name}
+			<i class="prefix-icon">{item.icon}</i>
+			{item.name}
 		</a>
 	{/each}
 </nav>

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { BannerProps } from '$lib/props';
-
-	let { title, description }: BannerProps = $props();
+	let { title, description }: { title: string; description?: string } =
+		$props();
 </script>
 
 <header class="large-padding transparent">

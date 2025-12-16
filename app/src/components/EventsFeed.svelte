@@ -1,28 +1,32 @@
 <script lang="ts">
-	import type { EventFeedProps } from '$lib/props';
-	import EventCard from './EventCard.svelte';
-	import { search } from '$lib/utils';
+	import type { Tables } from "$lib/models";
+	import EventCard from "./EventCard.svelte";
+	import { search } from "$lib/utils";
 
-	let { events }: EventFeedProps = $props();
+	let { events }: { events: Tables<"upcoming_events">[] } = $props();
 
-	let searchQuery = $state('');
-	let selectedCategory = $state('all');
+	let searchQuery = $state("");
+	let selectedCategory = $state("all");
 	let currentPage = $state(1);
 	const itemsPerPage = 5;
 
-	let categories = $derived(Array.from(new Set(events.map((event) => event.category!))).sort());
+	let categories = $derived(
+		Array.from(new Set(events.map((event) => event.category!))).sort(),
+	);
 
 	let filteredEvents = $derived.by(() => {
 		let filtered = events;
 
 		// Apply search filter
 		if (searchQuery.trim()) {
-			filtered = search(filtered, searchQuery, ['title', 'description']);
+			filtered = search(filtered, searchQuery, ["title", "description"]);
 		}
 
 		// Apply category filter
-		if (selectedCategory !== 'all') {
-			filtered = filtered.filter((event) => event.category === selectedCategory);
+		if (selectedCategory !== "all") {
+			filtered = filtered.filter(
+				(event) => event.category === selectedCategory,
+			);
 		}
 
 		return filtered;
@@ -30,7 +34,9 @@
 
 	let totalPages = $derived(Math.ceil(filteredEvents.length / itemsPerPage));
 	let startIndex = $derived((currentPage - 1) * itemsPerPage);
-	let eventsToDisplay = $derived(filteredEvents.slice(startIndex, startIndex + itemsPerPage));
+	let eventsToDisplay = $derived(
+		filteredEvents.slice(startIndex, startIndex + itemsPerPage),
+	);
 
 	function handleSearch(query: string) {
 		searchQuery = query;
@@ -59,12 +65,14 @@
 			id="category"
 			value={selectedCategory}
 			title="Filter by category"
-			onchange={(e) => handleCategoryChange((e.target as HTMLSelectElement).value)}
+			onchange={(e) =>
+				handleCategoryChange((e.target as HTMLSelectElement).value)}
 		>
 			<option value="all">All Categories ({events.length})</option>
 			{#each categories as category}
 				<option value={category}>
-					{category} ({events.filter((e) => e.category === category).length})
+					{category} ({events.filter((e) => e.category === category)
+						.length})
 				</option>
 			{/each}
 		</select>
@@ -83,13 +91,21 @@
 {/each}
 
 <nav class="center-align">
-	<button type="button" disabled={currentPage === 1} onclick={() => (currentPage -= 1)}>
+	<button
+		type="button"
+		disabled={currentPage === 1}
+		onclick={() => (currentPage -= 1)}
+	>
 		Previous
 	</button>
 
 	<span class="px-3 py-1"> Page {currentPage} of {totalPages} </span>
 
-	<button type="button" disabled={currentPage === totalPages} onclick={() => (currentPage += 1)}>
+	<button
+		type="button"
+		disabled={currentPage === totalPages}
+		onclick={() => (currentPage += 1)}
+	>
 		Next
 	</button>
 </nav>
