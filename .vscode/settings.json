@@ -16,8 +16,9 @@
 	"deno.codeLens.referencesAllFunctions": true,
 	"deno.codeLens.test": true,
 	"deno.enablePaths": [
-		"app",
 		"supabase/functions"
 	],
-	"deno.lint": true
+	"deno.lint": true,
+	"diffEditor.codeLens": true,
+	"editor.codeLens": true
 }

@@ -49,9 +49,9 @@
 </script>
 
 <form method="POST" noValidate onsubmit={handleSubmission}>
-	<Step1 />
-	<Step2 />
-	<Step3 />
+	{@render Step1()}
+	{@render Step2()}
+	{@render Step3()}
 
 	{#if errors.length > 0}
 		<section class="error">
