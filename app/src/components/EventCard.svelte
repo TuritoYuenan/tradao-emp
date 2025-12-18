@@ -2,7 +2,7 @@
 	import type { Tables } from "$lib/models";
 	import { formatDate, isEventUpcoming } from "$lib/utils";
 
-	let { event }: { event: Tables<"upcoming_events"> } = $props();
+	let { event }: { event: Tables<"community_events"> } = $props();
 </script>
 
 <article class="no-padding grid middle-align border">

@@ -6,7 +6,7 @@ export const load: PageServerLoad = async (
 ) => {
 	const { data, error: dbError } = await supabase
 		.from("community_events")
-		.select("*")
+		.select("*, event_organisers( * )")
 		.eq("id", params.id)
 		.limit(1)
 		.single();
