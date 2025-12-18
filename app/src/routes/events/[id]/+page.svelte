@@ -6,6 +6,8 @@
 
 	let { data }: { data: PageData } = $props();
 	let event = $derived(data.event);
+	let academicStatus = $derived(data.academicStatus);
+	let fieldsOfStudy = $derived(data.fieldsOfStudy);
 </script>
 
 <PageMetadata
@@ -29,7 +31,11 @@
 	<article class="border" style="grid-area: form; overflow-y: scroll;">
 		<h2 class="small">Participate in this event</h2>
 		{#if isEventUpcoming(event.start_time)}
-			<EventRegistrationForm eventID={event.id} />
+			<EventRegistrationForm
+				eventID={event.id}
+				{academicStatus}
+				{fieldsOfStudy}
+			/>
 		{:else}
 			<p class="mt-4">This event has ended. Registration is closed.</p>
 		{/if}

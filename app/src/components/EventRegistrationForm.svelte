@@ -1,7 +1,15 @@
 <script lang="ts">
-	import { Constants } from "$lib/models";
+	import { Constants, type Tables } from "$lib/models";
 
-	const { eventID }: { eventID: string } = $props();
+	const {
+		eventID,
+		academicStatus,
+		fieldsOfStudy,
+	}: {
+		eventID: string;
+		academicStatus: Tables<"academic_status">[];
+		fieldsOfStudy: Tables<"fields_of_study">[];
+	} = $props();
 
 	let isRegistering = $state(false);
 	let errors = $state<string[]>([]);
@@ -78,8 +86,8 @@
 		<i>school</i>
 		<select id="ff-year" name="year" required>
 			<option value="">Select Academic Year</option>
-			{#each Constants.public.Enums.academic_year as year}
-				<option value={year}>{year}</option>
+			{#each academicStatus as year}
+				<option value={year.id}>{year.label}</option>
 			{/each}
 		</select>
 		<label for="ff-year">Academic Year</label>
@@ -90,8 +98,8 @@
 		<i>book</i>
 		<select id="ff-field" name="field" required>
 			<option value="">Select Field of Study</option>
-			{#each Constants.public.Enums.field_of_study as field}
-				<option value={field}>{field}</option>
+			{#each fieldsOfStudy as field}
+				<option value={field.id}>{field.label}</option>
 			{/each}
 		</select>
 		<label for="ff-field">Field of Study</label>

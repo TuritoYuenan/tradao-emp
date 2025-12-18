@@ -31,19 +31,11 @@ export const eventRegistrationSchema = yup.object({
 
 	year: yup.string()
 		.trim()
-		.required('Academic year is required')
-		.test('year-check', 'Invalid academic year', (value) => {
-			if (!value) return true;
-			return yup.string().oneOf(Constants.public.Enums.academic_year).isValidSync(value);
-		}),
+		.required('Academic year is required'),
 
 	field: yup.string()
 		.trim()
-		.required('Field of study is required')
-		.test('field-check', 'Invalid field of study', (value) => {
-			if (!value) return true;
-			return yup.string().oneOf(Constants.public.Enums.field_of_study).isValidSync(value);
-		}),
+		.required('Field of study is required'),
 
 	major: yup.string()
 		.trim()
@@ -58,6 +50,11 @@ export const eventRegistrationSchema = yup.object({
  * Yup validation schema for event creation form.
  */
 export const eventCreationSchema = yup.object({
+	id: yup.string()
+		.trim()
+		.uuid('Event ID must be a valid UUID')
+		.required(),
+
 	title: yup.string()
 		.trim()
 		.required('Event title is required'),
