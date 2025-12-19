@@ -78,14 +78,10 @@ export const eventCreationSchema = yup.object({
 		.trim()
 		.required('Event location is required'),
 
-	host_name: yup.string()
+	organiser_id: yup.string()
 		.trim()
-		.required('Host name is required'),
-
-	host_email: yup.string()
-		.trim()
-		.required('Host email is required')
-		.email('Invalid email format'),
+		.uuid('Organiser ID must be a valid UUID')
+		.required('Organiser ID is required'),
 
 	category: yup.string()
 		.trim()

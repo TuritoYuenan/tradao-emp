@@ -15,7 +15,13 @@ declare global {
 			session: Session | null;
 			user: User | null;
 		}
-		// interface PageState {}
+		interface PageState {
+			/** ID of the currently open dialog */
+			dialog: string | null;
+
+			/** ID of the currently focused item (for edit/delete dialogs) */
+			itemID: string | null;
+		}
 		// interface Platform {}
 	}
 }

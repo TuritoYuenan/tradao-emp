@@ -1,12 +1,12 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-export const POST: RequestHandler = async ({ request, locals: { supabase }, cookies }) => {
+export const POST: RequestHandler = async ({ request, locals: { supabase } }) => {
 	const formData = await request.json();
 	const redirectTo = formData.redirectTo || '/manage';
 
 	const { email, password } = formData;
-	const { data, error: signInError } = await supabase.auth.signInWithPassword({
+	const { error: signInError } = await supabase.auth.signInWithPassword({
 		email,
 		password
 	});

@@ -1,4 +1,9 @@
 <script lang="ts">
+	import type { TablesUpdate } from "$lib/models";
+
+	// Prop for editing existing event
+	const { event } = $props<{ event?: TablesUpdate<"community_events"> }>();
+
 	let isSubmitting = $state(false);
 	let errors = $state<string[]>([]);
 
@@ -33,10 +38,6 @@
 			}
 
 			case 200: {
-				// eventID
-				const data = await response.json();
-				const eventID = data.event.id;
-				globalThis.location.href = `/events/${eventID}`;
 				break;
 			}
 
@@ -136,7 +137,7 @@
 	<fieldset>
 		<legend>Step 3: Description</legend>
 
-		<div class="field label border prefix">
+		<div class="field label border prefix suffix">
 			<i>category</i>
 			<select id="category" name="category" required>
 				<option value="">Select a category</option>
@@ -146,6 +147,7 @@
 				<option value="workshop">Workshop</option>
 			</select>
 			<label for="category">Category</label>
+			<i>arrow_drop_down</i>
 		</div>
 
 		<div class="field textarea label border">
@@ -153,16 +155,18 @@
 			<label for="description">Event Description</label>
 		</div>
 
-		<button type="button">
-			<i>image</i>
-			<span>Image Thumbnail</span>
-			<input
-				type="file"
-				id="image"
-				name="imageFile"
-				accept="image/png,image/jpeg,image/webp"
-				required
-			/>
-		</button>
+		<div class="row">
+			<button type="button">
+				<i>image</i>
+				<span>Image Thumbnail</span>
+				<input
+					type="file"
+					id="image"
+					name="imageFile"
+					accept="image/png,image/jpeg,image/webp"
+					required
+				/>
+			</button>
+		</div>
 	</fieldset>
 {/snippet}
