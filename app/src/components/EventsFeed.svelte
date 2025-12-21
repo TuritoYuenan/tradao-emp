@@ -3,7 +3,7 @@
 	import EventCard from "./EventCard.svelte";
 	import { search } from "$lib/utils";
 
-	let { events }: { events: Tables<"upcoming_events">[] } = $props();
+	let { events }: { events: Tables<"community_events">[] } = $props();
 
 	let searchQuery = $state("");
 	let selectedCategory = $state("all");

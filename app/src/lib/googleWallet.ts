@@ -14,7 +14,8 @@ type PassObject = GoogleWallet.walletobjects_v1.Schema$GenericObject;
 
 const issuerId = import.meta.env.VITE_GOOGLE_ISSUER_ID as string || "";
 const clientEmail = import.meta.env.VITE_GOOGLE_CLIENT_EMAIL as string || "";
-const privateKey = (import.meta.env.VITE_GOOGLE_PRIVATE_KEY as string || "").replace(/\\n/g, "\n");
+const privateKey = (import.meta.env.VITE_GOOGLE_PRIVATE_KEY as string || "")
+	.replace(/\\n/g, "\n");
 
 export const classId = `${issuerId}.tradao_event`;
 
@@ -141,28 +142,23 @@ export async function createPassClass() {
 		multipleDevicesAndHoldersAllowedStatus: "ONE_USER_ALL_DEVICES",
 	};
 
-	let response;
-	try {
-		// Check if the pass class already exists
-		response = await walletClient.genericclass.get({ resourceId: classId });
+	await walletClient.genericclass.get({ resourceId: classId })
+		.catch(async (error) => {
+			// If the request failed for another reason, throw an error
+			if (error.response?.status !== 404) {
+				throw new Error(`Failed to get pass class: ${error.message}`);
+			}
 
-		console.log(`Pass class ${classId} already exists.`);
-		console.log(response);
-		return classId;
-	} catch (error) {
-		if (error.response?.status === 404) {
-			response = await walletClient.genericclass.insert({
+			await walletClient.genericclass.insert({
 				requestBody: passClass,
 			});
 
 			console.log(`Pass class ${classId} created successfully.`);
-			console.log(response);
 			return classId;
-		} else {
-			// If the request failed for another reason, throw an error
-			throw new Error(`Failed to get pass class: ${error.message}`);
-		}
-	}
+		});
+
+	console.log(`Pass class ${classId} already exists.`);
+	return classId;
 }
 
 /**
@@ -291,32 +287,23 @@ export async function createPassObject(
 		// },
 	};
 
-	let response;
-	try {
-		// Check if the pass object already exists
-		response = await walletClient.genericobject.get({
-			resourceId: passObject.id!,
-		});
+	await walletClient.genericobject.get({ resourceId: passObject.id! })
+		.catch(async (error) => {
+			// If the request failed for another reason, throw an error
+			if (error.response?.status !== 404) {
+				throw new Error(`Failed to get pass object: ${error.message}`);
+			}
 
-		console.log(`Pass object ${passObject.id} already exists.`);
-		console.log(response);
-
-		return passObject.id!;
-	} catch (error) {
-		if (error.response?.status === 404) {
-			response = await walletClient.genericobject.insert({
+			const response = await walletClient.genericobject.insert({
 				requestBody: passObject,
 			});
 
 			console.log(`Pass object ${passObject.id} created successfully.`);
-			console.log(response);
-
 			return passObject.id!;
-		} else {
-			// If the request failed for another reason, throw an error
-			throw new Error(`Failed to get pass object: ${error.message}`);
-		}
-	}
+		});
+
+	console.log(`Pass object ${passObject.id} already exists.`);
+	return passObject.id!;
 }
 
 /**
@@ -326,8 +313,11 @@ export async function createPassObject(
  */
 export async function getPassSaveUrl(objectID: string) {
 	const payload: JWTPayload = {
-		origins: [],
+		iss: clientEmail,
+		aud: "google",
 		typ: "savetowallet",
+		iat: Math.floor(Date.now() / 1000),
+		origins: [],
 		payload: {
 			genericObjects: [{
 				id: objectID,
