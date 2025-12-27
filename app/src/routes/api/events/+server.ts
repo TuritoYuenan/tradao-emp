@@ -3,6 +3,7 @@ import { errorResponse } from "$lib/utils";
 import { eventCreationSchema } from "$lib/validation";
 import type { RequestHandler } from "./$types";
 import { type InferType, ValidationError } from "yup";
+import { ulid } from "ulid";
 
 type EventCreationProps = InferType<typeof eventCreationSchema>;
 
@@ -10,6 +11,9 @@ export const POST: RequestHandler = async (
 	{ request, locals: { supabase } },
 ) => {
 	const formData = await request.formData();
+
+	// Hardcoded organiser ID (primary key on event_organisers table)
+	formData.set("organiser_id", "fd6131ea-d7e0-474b-8ec0-f982d0a69dc8")
 
 	// Extract form fields into an object for validation
 	const body: Record<string, any> = {};
@@ -31,7 +35,7 @@ export const POST: RequestHandler = async (
 		if (eventForm.imageFile && eventForm.imageFile instanceof File) {
 			const file = eventForm.imageFile;
 			const fileExt = file.name.split(".").pop();
-			const filePath = `${eventForm.id}.${fileExt}`;
+			const filePath = `event_thumbnails/${ulid()}.${fileExt}`;
 
 			const { error: uploadError } = await supabase
 				.storage

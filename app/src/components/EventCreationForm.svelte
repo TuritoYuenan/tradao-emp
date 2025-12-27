@@ -11,12 +11,11 @@
 		isSubmitting = true;
 		event.preventDefault();
 		const form = event.target as HTMLFormElement;
-		const data = Object.fromEntries(new FormData(form).entries());
+		const formData = new FormData(form);
 
 		const response = await fetch("/api/events", {
 			method: "POST",
-			body: JSON.stringify(data),
-			headers: { "Content-Type": "application/json" },
+			body: formData,
 		});
 
 		switch (response.status) {
@@ -52,11 +51,10 @@
 <form method="POST" noValidate onsubmit={handleSubmission}>
 	{@render Step1()}
 	{@render Step2()}
-	{@render Step3()}
 
 	{#if errors.length > 0}
 		<section class="error">
-			<h2>Oops! There were some problems with registering!</h2>
+			<h5>Oops! There were some problems with registering!</h5>
 			<ul>
 				{#each errors as error}
 					<li>{error}</li>
@@ -117,25 +115,7 @@
 
 {#snippet Step2()}
 	<fieldset>
-		<legend>Step 2: Host</legend>
-
-		<div class="field label border prefix">
-			<i>badge</i>
-			<input type="text" id="host_name" name="host_name" required />
-			<label for="host_name">Host Name</label>
-		</div>
-
-		<div class="field label border prefix">
-			<i>mail</i>
-			<input type="email" id="host_email" name="host_email" required />
-			<label for="host_email">Contact Email</label>
-		</div>
-	</fieldset>
-{/snippet}
-
-{#snippet Step3()}
-	<fieldset>
-		<legend>Step 3: Description</legend>
+		<legend>Step 2: Description</legend>
 
 		<div class="field label border prefix suffix">
 			<i>category</i>

@@ -50,11 +50,6 @@ export const eventRegistrationSchema = yup.object({
  * Yup validation schema for event creation form.
  */
 export const eventCreationSchema = yup.object({
-	id: yup.string()
-		.trim()
-		.uuid('Event ID must be a valid UUID')
-		.required(),
-
 	title: yup.string()
 		.trim()
 		.required('Event title is required'),
