@@ -6,7 +6,7 @@ import { importPKCS8, type JWTPayload, SignJWT } from "jose";
 
 // Import database models
 import { type Tables } from "./models.ts";
-import { serialiseDate } from "./utils.ts";
+import { formatDate, serialiseDate } from "./utils.ts";
 
 // Abstract types. Configurable later.
 type PassClass = GoogleWallet.walletobjects_v1.Schema$GenericClass;
@@ -70,29 +70,29 @@ export async function createPassClass() {
 	};
 
 	const secondRow: GoogleWallet.walletobjects_v1.Schema$CardRowTemplateInfo =
-		{
-			twoItems: {
-				startItem: {
-					firstValue: {
-						fields: [
-							{
-								fieldPath:
-									"object.textModulesData['full_name']",
-							},
-						],
-					},
-				},
-				endItem: {
-					firstValue: {
-						fields: [
-							{
-								fieldPath: "object.textModulesData['email']",
-							},
-						],
-					},
+	{
+		twoItems: {
+			startItem: {
+				firstValue: {
+					fields: [
+						{
+							fieldPath:
+								"object.textModulesData['full_name']",
+						},
+					],
 				},
 			},
-		};
+			endItem: {
+				firstValue: {
+					fields: [
+						{
+							fieldPath: "object.textModulesData['email']",
+						},
+					],
+				},
+			},
+		},
+	};
 
 	const thirdRow: GoogleWallet.walletobjects_v1.Schema$CardRowTemplateInfo = {
 		twoItems: {
@@ -129,12 +129,20 @@ export async function createPassClass() {
 		linksModuleData: {
 			uris: [
 				{
-					uri: "https://itea-lab.github.io/portfolio-website",
+					uri: "https://itealab.vercel.app",
 					description: "ITea Lab Website",
 				},
 				{
-					uri: "https://tradao-emp.pages.dev/events",
+					uri: "https://tradao.turitoyuenan.workers.dev/events",
 					description: "Browse more events at Tradao",
+				},
+				{
+					uri: "https://maps.google.com/?q=Swinburne+Vietnam+HCMC",
+					description: "Swinburne Vietnam HCMC Location",
+				},
+				{
+					uri: "mailto:contact.itealab@gmail.com",
+					description: "Contact ITea Lab via Email",
 				},
 			],
 		},
@@ -149,9 +157,7 @@ export async function createPassClass() {
 				throw new Error(`Failed to get pass class: ${error.message}`);
 			}
 
-			await walletClient.genericclass.insert({
-				requestBody: passClass,
-			});
+			await walletClient.genericclass.insert({ requestBody: passClass, });
 
 			console.log(`Pass class ${classId} created successfully.`);
 			return classId;
@@ -175,16 +181,16 @@ export async function createPassObject(
 		id: `${issuerId}.${properties.ticket_id}`,
 		classId: classID,
 		genericType: "GENERIC_ENTRY_TICKET",
-		hexBackgroundColor: "#FFFFFF",
+		hexBackgroundColor: "#153448",
 		notifications: {
 			upcomingNotification: { enableNotification: true },
 		},
-		// logo: {
-		// 	sourceUri: {
-		// 		uri: "https://tradao-emp.pages.dev/icon-lab.svg",
-		// 		description: "ITea Lab Logo",
-		// 	}
-		// },
+		logo: {
+			sourceUri: {
+				uri: "https://tradao.turitoyuenan.workers.dev/icons/icon-lab.png",
+				description: "ITea Lab Logo",
+			}
+		},
 		cardTitle: {
 			defaultValue: {
 				value: "ITea Lab",
@@ -207,12 +213,12 @@ export async function createPassObject(
 			{
 				id: "event_date",
 				header: "Event Date",
-				body: serialiseDate(properties.event_start_time!),
+				body: formatDate(properties.event_start_time!),
 			},
 			{
 				id: "ticket_created_at",
 				header: "Ticket Created At",
-				body: serialiseDate(properties.created_at!),
+				body: formatDate(properties.created_at!),
 			},
 			{
 				id: "full_name",
@@ -226,12 +232,12 @@ export async function createPassObject(
 			},
 			{
 				id: "academic_year",
-				header: "My Current Year",
+				header: "Academic Status",
 				body: properties.academic_year,
 			},
 			{
 				id: "field_of_study",
-				header: "My Field",
+				header: "Field of Study",
 				body: properties.field_of_study,
 			},
 			{
@@ -266,22 +272,21 @@ export async function createPassObject(
 				appTarget: {
 					targetUri: {
 						description: "Lookup this ticket",
-						uri: `https://tradao-emp.pages.dev/tickets/${properties.ticket_id}`,
+						uri: `https://tradao.turitoyuenan.workers.dev/tickets/${properties.ticket_id}`,
 					},
 				},
 			},
 		},
-		// merchantLocations: [
-		// 	{ longitude: 106.669, latitude: 10.8162, },
-		// 	{ longitude: 106.6711, latitude: 10.8143, }
-		// ],
+		merchantLocations: [
+			{ longitude: 106.669, latitude: 10.8162, }
+		],
 		validTimeInterval: {
 			start: { date: serialiseDate(properties.event_start_time!) },
 			end: { date: serialiseDate(properties.event_end_time!) },
 		},
 		// heroImage: {
 		// 	sourceUri: {
-		// 		uri: properties.event_image || "https://placehold.co/160x90",
+		// 		uri: properties.event_image,
 		// 		description: "Event Hero Image",
 		// 	}
 		// },
