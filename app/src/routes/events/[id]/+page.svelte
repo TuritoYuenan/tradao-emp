@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SvelteMarkdown from "@humanspeak/svelte-markdown";
 	import PageMetadata from "$components/PageMetadata.svelte";
 	import EventRegistrationForm from "$components/EventRegistrationForm.svelte";
 	import { formatDate, isEventUpcoming } from "$lib/utils";
@@ -72,7 +73,11 @@
 	</article>
 
 	<article class="border" style="grid-area: text">
-		<p>{event.description}</p>
+		{#if event.description}
+			<SvelteMarkdown source={event.description} />
+		{:else}
+			<p><em>No description available for this event.</em></p>
+		{/if}
 	</article>
 </div>
 
