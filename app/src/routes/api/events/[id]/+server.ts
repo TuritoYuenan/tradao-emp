@@ -39,19 +39,5 @@ export const DELETE: RequestHandler = async (
 		);
 	}
 
-	// Optionally, delete associated image from storage
-	const filePath = `${id}`;
-	const { error: storageError } = await supabase
-		.storage
-		.from("assets")
-		.remove([filePath]);
-
-	if (storageError) {
-		// Log the error but don't fail the entire request
-		console.error(
-			`Failed to delete image from storage: ${storageError.message}`,
-		);
-	}
-
 	return json({ message: "Event deleted successfully" });
 };
