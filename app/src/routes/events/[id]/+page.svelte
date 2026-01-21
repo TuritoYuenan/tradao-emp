@@ -100,4 +100,28 @@
 	iframe {
 		aspect-ratio: 1;
 	}
+
+	@media (max-width: 768px) {
+		#event-details-page {
+			padding: 0.5rem;
+			grid-template-columns: 1fr;
+			grid-template-rows: auto;
+			grid-template-areas:
+				"image"
+				"head"
+				"time"
+				"host"
+				"loct"
+				"form"
+				"text";
+		}
+
+		#event-details-page h1 {
+			font-size: 2.5rem;
+		}
+
+		#event-details-page h2 {
+			font-size: 1.5rem;
+		}
+	}
 </style>
