@@ -7,6 +7,7 @@
 	import EventCreationForm from "$components/EventCreationForm.svelte";
 	import PageMetadata from "$components/PageMetadata.svelte";
 	import type { PageProps } from "./$types";
+	import SvelteMarkdown from "@humanspeak/svelte-markdown";
 
 	let { data }: PageProps = $props();
 	let searchQuery = $state("");
@@ -136,8 +137,17 @@
 
 {#snippet EventCard(event: PageProps["data"]["events"][0])}
 	<article class="s12 m6">
+		<nav class="left-align">
+			<button type="button" onclick={() => openEditDialog(event.id)}>
+				<i>edit</i> Edit
+			</button>
+			<button type="button" onclick={() => openDeleteDialog(event.id)}>
+				<i>delete</i> Delete
+			</button>
+		</nav>
+
 		<h2 class="small">{event.title}</h2>
-		<p>{event.description}</p>
+
 		<p>
 			<i>category</i>
 			<strong>Category:</strong>
@@ -159,13 +169,14 @@
 			{event.location}
 		</p>
 
-		<nav class="right-align">
-			<button type="button" onclick={() => openEditDialog(event.id)}>
-				<i>edit</i> Edit
-			</button>
-			<button type="button" onclick={() => openDeleteDialog(event.id)}>
-				<i>delete</i> Delete
-			</button>
-		</nav>
+		{#if event.description}
+			<SvelteMarkdown source={event.description} />
+		{/if}
 	</article>
 {/snippet}
+
+<style>
+	.scroll {
+		border-radius: 0;
+	}
+</style>
