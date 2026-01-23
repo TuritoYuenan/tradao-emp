@@ -6,6 +6,7 @@
 
 	let isSubmitting = $state(false);
 	let errors = $state<string[]>([]);
+	let fileInfo = $state("");
 
 	async function handleSubmission(event: Event) {
 		isSubmitting = true;
@@ -46,11 +47,22 @@
 				break;
 		}
 	}
+
+	function handleFileChange(event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input.files?.[0];
+
+		if (file) {
+			const sizeInKB = (file.size / 1024).toFixed(2);
+			fileInfo = `${file.name} (${sizeInKB} KB)`;
+		} else {
+			fileInfo = "";
+		}
+	}
 </script>
 
 <form method="POST" noValidate onsubmit={handleSubmission}>
 	{@render Step1()}
-	{@render Step2()}
 
 	{#if errors.length > 0}
 		<section class="error">
@@ -70,83 +82,69 @@
 </form>
 
 {#snippet Step1()}
-	<fieldset>
-		<legend>Step 1: The Basics</legend>
-
-		<div class="field label border prefix">
-			<i>title</i>
-			<input type="text" id="title" name="title" required />
-			<label for="title">Title</label>
-		</div>
-
-		<div class="field label border prefix">
-			<i>event</i>
+	<div class="row">
+		<button type="button">
+			<i>image</i>
+			<span>Image Thumbnail</span>
 			<input
-				type="datetime-local"
-				id="start_time"
-				name="start_time"
+				type="file"
+				id="image"
+				name="imageFile"
+				accept="image/png,image/jpeg,image/webp"
 				required
+				onchange={handleFileChange}
 			/>
-			<label for="start_time">Start Time</label>
-		</div>
+		</button>
+		<p>{fileInfo}</p>
+	</div>
 
-		<div class="field label border prefix">
-			<i>event</i>
-			<input
-				type="datetime-local"
-				id="end_time"
-				name="end_time"
-				required
-			/>
-			<label for="end_time">End Time</label>
-		</div>
+	<div class="field label border prefix">
+		<i>title</i>
+		<input type="text" id="title" name="title" required />
+		<label for="title">Title</label>
+	</div>
 
-		<div class="field label border prefix">
-			<i>location_on</i>
-			<input type="text" id="location" name="location" required />
-			<label for="location">Location</label>
-			<span class="helper">
-				Can simply be room name, which defaults to Swinburne A35
-				building
-			</span>
-		</div>
-	</fieldset>
-{/snippet}
+	<div class="field label border prefix">
+		<i>event</i>
+		<input
+			type="datetime-local"
+			id="start_time"
+			name="start_time"
+			required
+		/>
+		<label for="start_time">Start Time</label>
+	</div>
 
-{#snippet Step2()}
-	<fieldset>
-		<legend>Step 2: Description</legend>
+	<div class="field label border prefix">
+		<i>event</i>
+		<input type="datetime-local" id="end_time" name="end_time" required />
+		<label for="end_time">End Time</label>
+	</div>
 
-		<div class="field label border prefix suffix">
-			<i>category</i>
-			<select id="category" name="category" required>
-				<option value="">Select a category</option>
-				<option value="conference">Conference</option>
-				<option value="meetup">Meetup</option>
-				<option value="pitching">Pitching</option>
-				<option value="workshop">Workshop</option>
-			</select>
-			<label for="category">Category</label>
-			<i>arrow_drop_down</i>
-		</div>
+	<div class="field label border prefix">
+		<i>location_on</i>
+		<input type="text" id="location" name="location" required />
+		<label for="location">Location</label>
+		<span class="helper">
+			Can simply be room name, which defaults to Swinburne A35 building
+		</span>
+	</div>
 
-		<div class="field textarea label border">
-			<textarea id="description" name="description"></textarea>
-			<label for="description">Event Description</label>
-		</div>
+	<div class="field label border prefix suffix">
+		<i>category</i>
+		<select id="category" name="category" required>
+			<option value="">Select a category</option>
+			<option value="conference">Conference</option>
+			<option value="meetup">Meetup</option>
+			<option value="pitching">Pitching</option>
+			<option value="workshop">Workshop</option>
+		</select>
+		<label for="category">Category</label>
+		<i>arrow_drop_down</i>
+	</div>
 
-		<div class="row">
-			<button type="button">
-				<i>image</i>
-				<span>Image Thumbnail</span>
-				<input
-					type="file"
-					id="image"
-					name="imageFile"
-					accept="image/png,image/jpeg,image/webp"
-					required
-				/>
-			</button>
-		</div>
-	</fieldset>
+	<div class="field textarea label border">
+		<textarea id="description" name="description" rows="10"></textarea>
+		<label for="description">Event Description</label>
+	</div>
 {/snippet}
