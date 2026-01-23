@@ -1,5 +1,12 @@
 import * as yup from 'yup';
-import { Constants } from './models';
+
+export const participantName = yup.string()
+	.trim()
+	.required('Name is required')
+	.test('name-check', 'Name must contain only letters, spaces, and hyphens', (value) => {
+		if (!value) return true;
+		return /^[\p{L}\s-]+$/u.test(value);
+	});
 
 /**
  * Yup validation schema for event registration form.
@@ -13,13 +20,7 @@ export const eventRegistrationSchema = yup.object({
 			return yup.string().uuid().isValidSync(value);
 		}),
 
-	name: yup.string()
-		.trim()
-		.required('Name is required')
-		.test('name-check', 'Name must contain only letters and spaces', (value) => {
-			if (!value) return true;
-			return /^[a-zA-Z\s]+$/.test(value);
-		}),
+	name: participantName,
 
 	email: yup.string()
 		.trim()
