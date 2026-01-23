@@ -1,4 +1,5 @@
 <script lang="ts">
+	import "add-to-calendar-button";
 	import PageMetadata from "$components/PageMetadata.svelte";
 	import Banner from "$components/Banner.svelte";
 	import { formatDate } from "$lib/utils";
@@ -7,6 +8,12 @@
 	let { data }: PageProps = $props();
 	const ticket = $derived(data.ticket);
 	const saveURL = $derived(data.saveURL);
+	const eventDates = $derived({
+		start_date: ticket.event_start_time?.split("T")[0],
+		end_date: ticket.event_end_time?.split("T")[0],
+		start_time: ticket.event_start_time?.split("T")[1]?.substring(0, 5),
+		end_time: ticket.event_end_time?.split("T")[1]?.substring(0, 5),
+	});
 </script>
 
 <PageMetadata
@@ -64,12 +71,43 @@
 
 {#snippet TicketFooter()}
 	<section id="footer">
-		<a href={saveURL} target="_blank" rel="noopener noreferrer">
-			<img
-				src="/buttons/enAU_add_to_google_wallet_add-wallet-badge.svg"
-				alt="Add to Google Wallet"
-			/>
-		</a>
+		<div id="buttons">
+			<a href={saveURL} target="_blank" rel="noopener noreferrer">
+				<img
+					src="/buttons/enAU_add_to_google_wallet_add-wallet-badge.svg"
+					alt="Add to Google Wallet"
+				/>
+			</a>
+			<add-to-calendar-button
+				name={ticket.event_title}
+				options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+				location={ticket.event_location}
+				startDate={eventDates.start_date}
+				endDate={eventDates.end_date}
+				startTime={eventDates.start_time}
+				endTime={eventDates.end_time}
+				timeZone="currentBrowser"
+				organizer={`${ticket.organiser_name}|contact.itealab@gmail.com`}
+				attendee={`${ticket.name}|${ticket.email}`}
+				buttonStyle="round"
+				listStyle="overlay"
+				lightMode="system"
+			></add-to-calendar-button>
+		</div>
 		<p>{ticket.ticket_id}</p>
+		<p class="small">
+			Note: Add to Google Wallet button is only available for testers.
+		</p>
 	</section>
 {/snippet}
+
+<style>
+	#footer #buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+</style>
