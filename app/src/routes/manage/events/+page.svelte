@@ -148,6 +148,7 @@
 
 		<h2 class="small">{event.title}</h2>
 
+		<p><i>person</i> {event.attendee_count} attendees registered</p>
 		<p>
 			<i>category</i>
 			<strong>Category:</strong>
