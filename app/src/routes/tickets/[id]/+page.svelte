@@ -72,12 +72,13 @@
 {#snippet TicketFooter()}
 	<section id="footer">
 		<div id="buttons">
-			<a href={saveURL} target="_blank" rel="noopener noreferrer">
+			<!-- Deactivated until replaced by Apple Wallet -->
+			<!-- <a href={saveURL} target="_blank" rel="noopener noreferrer">
 				<img
 					src="/buttons/enAU_add_to_google_wallet_add-wallet-badge.svg"
 					alt="Add to Google Wallet"
 				/>
-			</a>
+			</a> -->
 			<add-to-calendar-button
 				name={ticket.event_title}
 				options="'Apple','Google','iCal','Outlook.com','Yahoo'"
