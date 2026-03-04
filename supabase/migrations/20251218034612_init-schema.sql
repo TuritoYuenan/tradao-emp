@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS community_events (
 	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-	CONSTRAINT community_events_pkey PRIMARY KEY (id)
+	CONSTRAINT community_events_pkey PRIMARY KEY (id),
 );
 
 -- Add table and column descriptions for community_events
@@ -119,7 +119,7 @@ COMMENT ON COLUMN community_events.category IS 'Category or type of the event (e
 COMMENT ON COLUMN community_events.start_time IS 'Start time of the event.';
 COMMENT ON COLUMN community_events.end_time IS 'End time of the event.';
 COMMENT ON COLUMN community_events.location IS 'Location where the event takes place (e.g., Online, Room 101).';
-COMMENT ON COLUMN community_events.organiser_id IS 'ID of the organiser responsible for the event.';
+COMMENT ON COLUMN community_events.host IS 'Host of the event (person or organization).';
 COMMENT ON COLUMN community_events.image IS 'URL to the event thumbnail or image.';
 COMMENT ON COLUMN community_events.created_at IS 'Timestamp when the event record was created.';
 COMMENT ON COLUMN community_events.updated_at IS 'Timestamp when the event record was last updated.';
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS event_tickets (
 	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-	CONSTRAINT event_tickets_pkey PRIMARY KEY (id)
+	CONSTRAINT event_tickets_pkey PRIMARY KEY (id),
 );
 
 -- Add table and column descriptions for event_tickets
@@ -229,8 +229,8 @@ SELECT
 	t.name,
 	t.email,
 	t.student_id,
-	acy.label AS academic_year,
-	fos.label AS field_of_study,
+	t.academic_year,
+	t.field_of_study,
 	t.major,
 	t.participate,
 	t.event_id,
@@ -244,9 +244,7 @@ SELECT
 	e.image AS event_image
 FROM event_tickets t
 JOIN community_events e ON t.event_id = e.id
-JOIN event_organisers o ON e.organiser_id = o.id
-JOIN academic_status acy ON t.academic_year = acy.id
-JOIN fields_of_study fos ON t.field_of_study = fos.id;
+JOIN event_organisers o ON e.organiser_id = o.id;
 
 COMMENT ON VIEW tickets_with_event_details IS 'View that combines event ticket details with corresponding event information.';
 
