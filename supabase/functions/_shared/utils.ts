@@ -20,3 +20,14 @@ export function errorResponse(status: number = 500, message: string) {
 export function serialiseDate(date: Date | string): string {
 	return new Date(date).toISOString();
 }
+
+export function formatDate(date: Date | string): string {
+	const options: Intl.DateTimeFormatOptions = {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+	};
+	return new Date(date).toLocaleDateString(undefined, options);
+}
