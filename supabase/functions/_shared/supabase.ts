@@ -7,7 +7,10 @@ import { Database } from './models.ts';
  * @param auth Optional authorization header
  * @returns Supabase client instance
  */
-export function connectSupabase(type: 'service' | 'anon' = 'anon', auth: string | null = null) {
+export function connectSupabase(
+	type: 'service' | 'anon' = 'anon',
+	auth: string | null = null
+) {
 	const key = {
 		'service': "SUPABASE_SERVICE_ROLE_KEY",
 		'anon': "SUPABASE_ANON_KEY"
@@ -16,6 +19,6 @@ export function connectSupabase(type: 'service' | 'anon' = 'anon', auth: string 
 	return createClient<Database>(
 		Deno.env.get("SUPABASE_URL") || "",
 		Deno.env.get(key[type]) || "",
-		{ global: { headers: { Authorization: auth! } } }
+		{ global: { headers: { Authorization: auth } } }
 	);
 }

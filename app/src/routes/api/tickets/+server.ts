@@ -2,7 +2,6 @@ import { json } from "@sveltejs/kit";
 import { errorResponse } from "$lib/utils";
 import { eventRegistrationSchema } from "$lib/validation";
 import type { RequestHandler } from "./$types";
-import type { Database } from "$lib/models";
 import * as yup from "yup";
 
 interface RegistrationFormProps {

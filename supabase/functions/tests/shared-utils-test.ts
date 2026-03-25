@@ -19,5 +19,5 @@ Deno.test("output of serialiseDate() follows ISO string format", () => {
 	expect(dateSerialised[16]).toBe(":");
 
 	// 4. "Z" at the end
-	expect(dateSerialised[dateSerialised.length - 1]).toBe("Z");
+	expect(dateSerialised.at(-1)).toBe("Z");
 });

@@ -15,7 +15,7 @@ type PassObject = GoogleWallet.walletobjects_v1.Schema$GenericObject;
 const issuerId = import.meta.env.VITE_GOOGLE_ISSUER_ID as string || "";
 const clientEmail = import.meta.env.VITE_GOOGLE_CLIENT_EMAIL as string || "";
 const privateKey = (import.meta.env.VITE_GOOGLE_PRIVATE_KEY as string || "")
-	.replace(/\\n/g, "\n");
+	.replaceAll(/\\n/g, "\n");
 
 export const classId = `${issuerId}.tradao_event`;
 
@@ -213,12 +213,12 @@ export async function createPassObject(
 			{
 				id: "event_date",
 				header: "Event Date",
-				body: formatDate(properties.event_start_time!),
+				body: formatDate(properties.event_start_time ?? ""),
 			},
 			{
 				id: "ticket_created_at",
 				header: "Ticket Created At",
-				body: formatDate(properties.created_at!),
+				body: formatDate(properties.created_at ?? ""),
 			},
 			{
 				id: "full_name",
@@ -281,8 +281,8 @@ export async function createPassObject(
 			{ longitude: 106.669, latitude: 10.8162, }
 		],
 		validTimeInterval: {
-			start: { date: serialiseDate(properties.event_start_time!) },
-			end: { date: serialiseDate(properties.event_end_time!) },
+			start: { date: serialiseDate(properties.event_start_time ?? "") },
+			end: { date: serialiseDate(properties.event_end_time ?? "") },
 		},
 		// heroImage: {
 		// 	sourceUri: {
@@ -299,7 +299,7 @@ export async function createPassObject(
 				throw new Error(`Failed to get pass object: ${error.message}`);
 			}
 
-			const response = await walletClient.genericobject.insert({
+			await walletClient.genericobject.insert({
 				requestBody: passObject,
 			});
 
