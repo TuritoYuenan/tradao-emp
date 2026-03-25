@@ -15,7 +15,7 @@ type PassObject = GoogleWallet.walletobjects_v1.Schema$GenericObject;
 const issuerId = import.meta.env.VITE_GOOGLE_ISSUER_ID as string || "";
 const clientEmail = import.meta.env.VITE_GOOGLE_CLIENT_EMAIL as string || "";
 const privateKey = (import.meta.env.VITE_GOOGLE_PRIVATE_KEY as string || "")
-	.replaceAll(/\\n/g, "\n");
+	.replaceAll("\\n", "\n");
 
 export const classId = `${issuerId}.tradao_event`;
 
