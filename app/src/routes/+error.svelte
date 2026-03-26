@@ -4,8 +4,8 @@
 
 <article class="medium middle-align center-align">
 	<div>
-		<i class="extra">error</i>
-		<h1 class="small">{page.status}</h1>
-		<p class="large-text">{page.error?.message}</p>
+		<i data-testid="error-icon" class="extra">error</i>
+		<h1 data-testid="error-status" class="small">{page.status}</h1>
+		<p data-testid="error-message" class="large-text">{page.error?.message}</p>
 	</div>
 </article>

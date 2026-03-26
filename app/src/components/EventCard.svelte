@@ -5,6 +5,9 @@
 	let { event }: { event: Tables<"community_events"> } = $props();
 </script>
 
+<!-- Event Card Component -->
+<!-- Ternary operators counter for empty strings -->
+
 <article class="no-padding grid middle-align border">
 	<div class="s12 m4">
 		<img
@@ -15,16 +18,21 @@
 	</div>
 	<div class="padding s12 m8">
 		<h2 class="small">{event.title}</h2>
-		<p>
-			<i>event</i> <strong>Date:</strong>
-			{event.start_time ? formatDate(event.start_time) : "N/A"}
-			&ndash; {event.end_time ? formatDate(event.end_time) : "N/A"}
+
+		<p data-testid="event-date-range">
+			<i data-testid="event-date-icon">event</i> <strong>Date:</strong>
+			<span data-testid="event-start-date">{event.start_time ? formatDate(event.start_time) : "TBA"}</span>
+			&ndash;
+			<span data-testid="event-end-date">{event.end_time ? formatDate(event.end_time) : "TBA"}</span>
 		</p>
+
 		<p>
-			<i>location_on</i> <strong>Location:</strong>
-			{event.location}
+			<i data-testid="event-location-icon">location_on</i> <strong>Location:</strong>
+			<span data-testid="event-location">{event.location || "TBA"}</span>
 		</p>
+
 		<div class="space"></div>
+
 		<a class="button" href={`/events/${event.id}`}>
 			{isEventUpcoming(event.start_time!) ? "Register" : "View"}
 		</a>

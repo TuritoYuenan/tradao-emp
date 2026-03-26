@@ -1,34 +1,43 @@
 import * as yup from 'yup';
 
+export const eventID = yup.string()
+	.trim()
+	.required('Event ID is required')
+	.test('uuid-check', 'Event ID must be a valid UUID version 4', (value) => {
+		return yup.string().uuid().isValidSync(value);
+	});
+
 export const participantName = yup.string()
 	.trim()
 	.required('Name is required')
 	.test('name-check', 'Name must contain only letters, spaces, and hyphens', (value) => {
-		if (!value) return true;
 		return /^[\p{L}\s-]+$/u.test(value);
+	});
+
+export const participantEmail = yup.string()
+	.trim()
+	.required('Email is required')
+	.test('email-check', 'Invalid email format', (value) => {
+		return yup.string().email().isValidSync(value);
+	});
+
+export const eventImageFile = yup.mixed()
+	.notRequired()
+	.test('is-image', 'Image file must be JPEG/PNG/GIF and under 5MB.', (value) => {
+		if (!value) return true; // Image is optional
+		if (!(value instanceof File)) return false;
+		const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+		const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+		return validTypes.includes(value.type) && value.size <= maxSizeInBytes;
 	});
 
 /**
  * Yup validation schema for event registration form.
  */
 export const eventRegistrationSchema = yup.object({
-	eventID: yup.string()
-		.trim()
-		.required('Event ID is required')
-		.test('uuid-check', 'Event ID must be a valid UUID version 4', (value) => {
-			if (!value) return true;
-			return yup.string().uuid().isValidSync(value);
-		}),
-
+	eventID: eventID,
 	name: participantName,
-
-	email: yup.string()
-		.trim()
-		.required('Email is required')
-		.test('email-check', 'Invalid email format', (value) => {
-			if (!value) return true;
-			return yup.string().email().isValidSync(value);
-		}),
+	email: participantEmail,
 
 	year: yup.string()
 		.trim()
@@ -83,15 +92,7 @@ export const eventCreationSchema = yup.object({
 		.trim()
 		.required('Event category is required'),
 
-	imageFile: yup.mixed()
-		.notRequired()
-		.test('is-image', 'Image file must be JPEG/PNG/GIF and under 5MB.', (value) => {
-			if (!value) return true; // Image is optional
-			if (!(value instanceof File)) return false;
-			const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-			const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-			return validTypes.includes(value.type) && value.size <= maxSizeInBytes;
-		}),
+	imageFile: eventImageFile,
 
 	description: yup.string()
 		.trim()

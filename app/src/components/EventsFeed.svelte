@@ -49,7 +49,7 @@
 	}
 </script>
 
-<search class="grid">
+<search class="grid" data-testid="events-search">
 	<div class="s12 m8 field border round prefix">
 		<i class="front">search</i>
 		<input
@@ -58,6 +58,7 @@
 			placeholder="Search by title or description"
 			value={searchQuery}
 			oninput={(e) => handleSearch((e.target as HTMLInputElement).value)}
+			data-testid="search-input"
 		/>
 	</div>
 	<div class="s12 m4 field border round suffix">
@@ -65,6 +66,7 @@
 			id="category"
 			value={selectedCategory}
 			title="Filter by category"
+			data-testid="category-select"
 			onchange={(e) =>
 				handleCategoryChange((e.target as HTMLSelectElement).value)}
 		>
@@ -99,7 +101,9 @@
 		Previous
 	</button>
 
-	<span class="px-3 py-1"> Page {currentPage} of {totalPages} </span>
+	<span class="px-3 py-1" data-testid="pagination-info">
+		Page {currentPage} of {totalPages}
+	</span>
 
 	<button
 		type="button"

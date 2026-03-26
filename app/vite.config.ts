@@ -1,12 +1,25 @@
 import { defineConfig } from "vitest/config";
 import { sveltekit } from "@sveltejs/kit/vite";
+import { webdriverio } from "@vitest/browser-webdriverio"
 
 export default defineConfig({
 	plugins: [sveltekit()],
 	test: {
+		browser: {
+			enabled: true,
+			instances: [{ browser: "edge", headless: true }],
+			provider: webdriverio(),
+		},
+		coverage: {
+			enabled: true,
+			include: ["src/**/*.ts", "src/**/*.svelte"],
+			provider: "v8",
+		},
+		css: {
+			modules: { classNameStrategy: "non-scoped" }
+		},
 		expect: { requireAssertions: true },
 		environment: "node",
-		include: ["src/**/*.{test,spec}.{js,ts}"],
-		exclude: ["src/**/*.svelte.{test,spec}.{js,ts}"],
+		include: ["tests/**/*.spec.ts"],
 	},
 });
