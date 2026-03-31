@@ -1,0 +1,25 @@
+# `app/` directory holds a SvelteKit application with Vitest (Webdriver + v8 coverage).
+# `package.json` scripts:
+# + "test:unit": "vitest",
+# + "test": "npm run test:unit -- --run"
+
+# Run tests on push to init and on pull request to init.
+name: Test
+
+on:
+  push:
+    branches: [init]
+  pull_request:
+    branches: [init]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js 25.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25.x
+      - run: npm install
+      - run: npm test
