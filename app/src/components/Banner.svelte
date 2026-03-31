@@ -3,7 +3,7 @@
 		$props();
 </script>
 
-<header class="large-padding transparent">
+<header class="transparent">
 	<div class="space"></div>
 
 	<h1 class="small center-align">{title}</h1>

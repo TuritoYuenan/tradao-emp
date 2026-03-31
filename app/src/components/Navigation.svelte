@@ -40,23 +40,34 @@
 	</div>
 </nav>
 
-<!-- Small Screen: Bottom navigation bar -->
-<nav class="bottom s" data-testid="navigation-bottom">
-	{#each menuItems as item, index}
-		<a
-			href={item.href}
-			target={item.external ? "_blank" : "_self"}
-			rel={item.external ? "noopener noreferrer" : ""}
-			data-testid="{`${item.icon}-b${index}`}"
-		>
-			<i class="prefix-icon">{item.icon}</i>
-			{item.name}
+<!-- Small Screen: Top wordmark -->
+<nav class="top s" data-testid="navigation-top-s">
+	<div>
+		<a href="https://itealab.vercel.app">
+			<img class="light" src="/logos/logo-lab.svg" alt="ITea Lab Logo" id="wordmark" />
+			<img class="dark" src="/logos/logo-lab_dark.svg" alt="ITea Lab Logo" id="wordmark" />
 		</a>
-	{/each}
+		<a href="/">
+			<img class="light" src="/logos/logo.svg" alt="Tradao Logo" id="wordmark" />
+			<img class="dark" src="/logos/logo_dark.svg" alt="Tradao Logo" id="wordmark" />
+		</a>
+	</div>
 </nav>
 
 <style>
 	#wordmark {
 		height: 3rem;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.light {
+			display: none;
+		}
+	}
+
+	@media (prefers-color-scheme: light) {
+		.dark {
+			display: none;
+		}
 	}
 </style>

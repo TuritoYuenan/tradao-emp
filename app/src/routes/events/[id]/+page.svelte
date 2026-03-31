@@ -103,7 +103,7 @@
 
 	@media (max-width: 768px) {
 		#event-details-page {
-			padding: 0.5rem;
+			padding: 0;
 			grid-template-columns: 1fr;
 			grid-template-rows: auto;
 			grid-template-areas:

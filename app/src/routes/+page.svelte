@@ -14,7 +14,8 @@
 />
 
 <Banner
-	title="The latest ITea Lab events"
+	title={`Browse ITea\u00A0Lab's latest events!`}
 	description="Check out the latest workshops, conferences, public talks and discussions in ITea Lab!"
 />
+
 <EventsFeed events={data.events} />
