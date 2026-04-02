@@ -12,7 +12,7 @@
 
 ![Screenshot of webapp homepage](./F.Homepage.png)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=TuritoYuenan_tradao-emp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=TuritoYuenan_tradao-emp)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ITeaLab-Tradao&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ITeaLab-Tradao)
 ![GitHub top language](https://img.shields.io/github/languages/top/TuritoYuenan/tradao-emp)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/TuritoYuenan/tradao-emp/init)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/TuritoYuenan/tradao-emp)

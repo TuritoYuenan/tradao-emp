@@ -38,7 +38,7 @@ export const brokenEvent = {
 
 // make a long array containing 12 copies of mockEvents[0] to test pagination
 // id property must be incremented to avoid duplicate keys in the rendered list
-export const longMockEvents = Array(12)
+export const longMockEvents = new Array(12)
 	.fill(mockEvents[0])
 	.map((ev, i) => ({ ...ev, id: `${ev.id}-${i + 1}` }));
 

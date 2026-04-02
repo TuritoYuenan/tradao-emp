@@ -1,6 +1,19 @@
 <script lang="ts">
 	import TextClock from "./TextClock.svelte";
 
+	const modes = [
+		{ id: 'auto', icon: 'routine' },
+		{ id: 'light', icon: 'light_mode' },
+		{ id: 'dark', icon: 'dark_mode' },
+	];
+
+	let iMode = $state(0);
+
+	function updateTheme() {
+		iMode = (iMode + 1) % modes.length;
+		ui("mode", modes[iMode].id);
+	}
+
 	let {
 		menuItems,
 	}: {
@@ -25,6 +38,13 @@
 
 	<div class="row">
 		<TextClock />
+		<button
+			class="transparent circle"
+			onclick={updateTheme}
+			data-testid="theme-toggle-button"
+		>
+			<i>{modes[iMode].icon}</i>
+		</button>
 		<span>|</span>
 		{#each menuItems as item, index}
 			<a

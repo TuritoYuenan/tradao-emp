@@ -56,8 +56,8 @@
 
 	<article class="border" style="grid-area: host">
 		<h2 class="small">Event Host</h2>
-		<p><i>person</i> {event.event_organisers.name}</p>
-		<p><i>email</i> {event.event_organisers.contact_email}</p>
+		<p><i>person</i> {event.organiser.name}</p>
+		<p><i>email</i> {event.organiser.contact_email}</p>
 	</article>
 
 	<article class="border" style="grid-area: loct">
