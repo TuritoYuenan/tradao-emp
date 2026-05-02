@@ -61,7 +61,7 @@ app.post("/send-test-email", async (_, res) => {
 	/** Hardcoded attendees, will fetch from Supabase later */
 	const attendees: Address[] = [
 		{ address: "trietntm@hotmail.com" },
-	]
+	];
 
 	// Generate email content
 	const emailContent = await EventReminder.compile(event);
