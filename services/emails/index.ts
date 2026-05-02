@@ -33,6 +33,7 @@ const transporter = environment === "dev"
 	});
 
 const app = express();
+app.disable("x-powered-by");
 
 app.get("/", (_, res) => {
 	res.send("Hello from the Emails service!");
