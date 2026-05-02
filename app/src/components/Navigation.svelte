@@ -38,14 +38,9 @@
 
 	<div class="row">
 		<TextClock />
-		<button
-			class="transparent circle"
-			onclick={updateTheme}
-			data-testid="theme-toggle-button"
-		>
-			<i>{modes[iMode].icon}</i>
-		</button>
+
 		<span>|</span>
+
 		{#each menuItems as item, index}
 			<a
 				href={item.href}
@@ -57,6 +52,16 @@
 				{item.name}
 			</a>
 		{/each}
+
+		<span>|</span>
+
+		<button
+			class="transparent circle"
+			onclick={updateTheme}
+			data-testid="theme-toggle-button"
+		>
+			<i>{modes[iMode].icon}</i>
+		</button>
 	</div>
 </nav>
 
@@ -67,6 +72,7 @@
 			<img class="light" src="/logos/logo-lab.svg" alt="ITea Lab Logo" id="wordmark" />
 			<img class="dark" src="/logos/logo-lab_dark.svg" alt="ITea Lab Logo" id="wordmark" />
 		</a>
+
 		<a href="/">
 			<img class="light" src="/logos/logo.svg" alt="Tradao Logo" id="wordmark" />
 			<img class="dark" src="/logos/logo_dark.svg" alt="Tradao Logo" id="wordmark" />

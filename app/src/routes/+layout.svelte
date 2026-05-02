@@ -7,13 +7,7 @@
 
 	const menuItems = [
 		{
-			name: 'Events',
-			href: '/',
-			icon: 'event',
-			external: false
-		},
-		{
-			name: 'Manage',
+			name: 'Organisers',
 			href: '/manage',
 			icon: 'manage_accounts',
 			external: false

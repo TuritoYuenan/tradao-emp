@@ -22,6 +22,7 @@
 		<h2 class="small">Explore</h2>
 		{#each explore as item}
 			<p>
+				<i>explore</i>
 				<a href={item.href}>{item.name}</a>
 			</p>
 		{/each}
@@ -31,6 +32,7 @@
 		<h2 class="small">Community</h2>
 		{#each community as item}
 			<p>
+				<i>public</i>
 				<a href={item.href} target="_blank" rel="noopener noreferrer">
 					{item.name}
 				</a>
@@ -41,9 +43,13 @@
 	<div class="s12 m3">
 		<h2 class="small">Contact</h2>
 		<p>
+			<i>email</i>
 			<a href={`mailto:${contact.email}`}>{contact.email}</a>
 		</p>
-		<p id="address">{contact.address}</p>
+		<p id="address">
+			<i>location_on</i>
+			{contact.address}
+		</p>
 	</div>
 
 	<div id="leaf">

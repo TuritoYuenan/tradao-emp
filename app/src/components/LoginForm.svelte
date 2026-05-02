@@ -1,8 +1,20 @@
 <script lang="ts">
 	let { redirectTo }: { redirectTo?: string } = $props();
 
+	let showPassword = $state(false);
 	let isSubmitting = $state(false);
 	let errors = $state<string[]>([]);
+
+	function togglePasswordVisibility() {
+		showPassword = !showPassword;
+	}
+
+	function handlePasswordToggleKeydown(event: KeyboardEvent) {
+		if (event.key === "Enter" || event.key === " ") {
+			event.preventDefault();
+			togglePasswordVisibility();
+		}
+	}
 
 	async function handleLogin(e: Event) {
 		isSubmitting = true;
@@ -50,16 +62,32 @@
 	}
 </script>
 
-<article style="max-width: 90ch; margin: auto">
+<article style="max-width: 80ch; margin: auto">
 	<form method="POST" onsubmit={handleLogin} novalidate>
-		<div class="field border label">
+		<div class="field border label prefix">
+			<i>email</i>
 			<input type="email" name="email" id="email" required />
-			<label for="email" class="font-bold">Email</label>
+			<label for="email" class="font-bold">Email address</label>
 		</div>
 
-		<div class="field border label">
-			<input type="password" name="password" id="password" required />
+		<div class="field border label prefix suffix">
+			<i>lock</i>
+			<input
+				type={showPassword ? "text" : "password"}
+				name="password"
+				id="password"
+				autocomplete="current-password"
+				required
+			/>
 			<label for="password" class="font-bold">Password</label>
+			<i
+				class="front"
+				role="button"
+				tabindex="0"
+				aria-label={showPassword ? "Hide password" : "Show password"}
+				onclick={togglePasswordVisibility}
+				onkeydown={handlePasswordToggleKeydown}
+			>{showPassword ? "visibility_off" : "visibility"}</i>
 		</div>
 
 		<div class="medium-space"></div>
@@ -74,12 +102,6 @@
 
 		<button type="submit" class="responsive" disabled={isSubmitting}>
 			Login
-		</button>
-
-		<p class="hr-text small-text">OR</p>
-
-		<button type="submit" class="responsive" disabled={isSubmitting}>
-			Sign in with Google
 		</button>
 	</form>
 </article>

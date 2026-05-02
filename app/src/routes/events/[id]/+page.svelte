@@ -26,38 +26,34 @@
 		<div class="row wrap">
 			<p class="chip">{event.category}</p>
 		</div>
+
 		<h1 class="small">{event.title}</h1>
+
+		<p>
+			<i class="prefix-icon">person</i>
+			<strong>Organiser:</strong>
+			{event.organiser.name}
+			&lt;<a href={`mailto:${event.organiser.contact_email}`}
+				>{event.organiser.contact_email}</a
+			>&gt;
+		</p>
+
+		<p>
+			<i class="prefix-icon">event</i>
+			<strong>Date:</strong>
+			<time datetime={event.start_time}>{formatDate(event.start_time)}</time>
+			&ndash;
+			<time datetime={event.end_time}>{formatDate(event.end_time)}</time>
+		</p>
 	</article>
 
 	<article class="border" style="grid-area: form; overflow-y: scroll;">
 		<h2 class="small">Participate in this event</h2>
 		{#if isEventUpcoming(event.start_time)}
-			<EventRegistrationForm
-				eventID={event.id}
-				{academicStatus}
-				{fieldsOfStudy}
-			/>
+			<EventRegistrationForm eventID={event.id} {academicStatus} {fieldsOfStudy} />
 		{:else}
 			<p class="mt-4">This event has ended. Registration is closed.</p>
 		{/if}
-	</article>
-
-	<article class="border" style="grid-area: time">
-		<h2 class="small">Event Time</h2>
-		<p>
-			<i>event</i> <strong>Start:</strong>
-			{formatDate(event.start_time)}
-		</p>
-		<p>
-			<i>event</i> <strong>End:</strong>
-			{formatDate(event.end_time)}
-		</p>
-	</article>
-
-	<article class="border" style="grid-area: host">
-		<h2 class="small">Event Host</h2>
-		<p><i>person</i> {event.organiser.name}</p>
-		<p><i>email</i> {event.organiser.contact_email}</p>
 	</article>
 
 	<article class="border" style="grid-area: loct">
@@ -85,12 +81,11 @@
 	#event-details-page {
 		padding: 1rem;
 		grid-template-columns: repeat(3, 1fr);
-		grid-template-rows: 540px auto auto 1fr;
+		grid-template-rows: auto 540px 1fr;
 		grid-template-areas:
-			"image image form"
-			"head head loct"
-			"time host loct"
-			"text text loct";
+			"head head head"
+			"image image loct"
+			"text text form";
 
 		article {
 			margin: 0;
@@ -107,10 +102,8 @@
 			grid-template-columns: 1fr;
 			grid-template-rows: auto;
 			grid-template-areas:
-				"image"
 				"head"
-				"time"
-				"host"
+				"image"
 				"loct"
 				"form"
 				"text";
