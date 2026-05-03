@@ -10,7 +10,7 @@ dotenv.config();
 const environment = process.env.ENVIRONMENT || "dev";
 
 const smtpConfig = {
-	port: parseInt(process.env.SMTP_PORT || "587"),
+	port: Number.parseInt(process.env.SMTP_PORT || "587"),
 	host: process.env.SMTP_HOST || "smtp.gmail.com",
 	user: process.env.SMTP_USER || "",
 	pass: process.env.SMTP_PASS || "",
@@ -19,7 +19,7 @@ const smtpConfig = {
 if (environment === "prod") {
 	if (!smtpConfig.user) throw new Error("Cannot get SMTP_USER");
 	if (!smtpConfig.pass) throw new Error("Cannot get SMTP_PASS");
-	if (isNaN(smtpConfig.port)) smtpConfig.port = 587;
+	if (Number.isNaN(smtpConfig.port)) smtpConfig.port = 587;
 }
 
 // Mock transporter

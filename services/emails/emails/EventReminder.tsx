@@ -46,9 +46,9 @@ EventReminder.LetterCard = (props: EventData) => (
 			src={props.image}
 			alt={props.title} />
 
-		<Markdown
-			markdownContainerStyles={{ padding: "1rem" }}
-			children={EventReminder.MarkdownBody(props)} />
+		<Markdown markdownContainerStyles={{ padding: "1rem" }}>
+			{EventReminder.MarkdownBody(props)}
+		</Markdown>
 	</Container>
 );
 
