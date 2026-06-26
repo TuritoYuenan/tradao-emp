@@ -1,4 +1,4 @@
-import { Row, Column, Img, Font, Head } from "@react-email/components";
+import { Row, Column, Img, Font, Head } from "react-email";
 
 export interface EventData {
 	category: string;

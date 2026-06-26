@@ -1,4 +1,4 @@
-import { Body, Html, pixelBasedPreset, Tailwind } from "@react-email/components";
+import { Body, Html, pixelBasedPreset, Tailwind } from "react-email";
 import { colours, EmailHead, EventData } from "./common";
 
 /**

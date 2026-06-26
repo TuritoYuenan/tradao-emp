@@ -1,7 +1,7 @@
 import {
 	Body, Container, Html, Img, Markdown, pixelBasedPreset,
 	pretty, Preview, render, Tailwind, Text, toPlainText
-} from "@react-email/components"
+} from "react-email"
 import { colours, EmailHead, EventData, LogoHeader } from "./common";
 
 /**
